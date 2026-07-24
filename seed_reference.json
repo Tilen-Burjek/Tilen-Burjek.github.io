@@ -1,0 +1,184 @@
+{
+  "_meta": {
+    "file": "seed_reference.json",
+    "authority": "CANONICAL for the story-side rules reference shown in the tracker. Read-only in the tracker UI - editable only through the editor.",
+    "excluded": "The Explore d20 table is deliberately NOT here. It is GM-narrated; putting outcomes on the player screen pre-reads the gamble."
+  },
+
+  "storyConstants": {
+    "roll": "2d12 + skill",
+    "bands": [
+      { "range": "17+", "key": "clean", "label": "Clean success", "detail": "You get it, fully and quietly." },
+      { "range": "10-16", "key": "cost", "label": "Success, with a cost", "detail": "A complication, a price, a hard choice - the most common outcome." },
+      { "range": "9 or less", "key": "miss", "label": "Miss - and something changes", "detail": "Gold lost, a Condition, the Mark. 'Nothing happens' is banned." }
+    ],
+    "trained": 3,
+    "trainedSkillCount": 3,
+    "untrained": 0,
+    "odds": {
+      "trained": { "miss": "10%", "cost": "44%", "clean": "46%" },
+      "untrained": { "miss": "25%", "cost": "50%", "clean": "25%" }
+    },
+    "circumstances": "One die, in or out - never stacks. Favorable: 3d12 keep the highest two. Unfavorable: 3d12 keep the lowest two.",
+    "natural13": "The result stands, usually still a success - but the old forces take their toll: a Condition or +1 Mark rides in as the cost.",
+    "press": "On a miss, once, you may reroll both dice. The price: a Condition - or +1 Mark if the scene touched the uncanny.",
+    "conditions": "A Condition is a named affliction that dims one skill to -3 until tended. They accumulate; a second Condition dims a second skill. A relevant Condition can also make a roll unfavorable. Removed by Rest (2 per camp), Hearty Stew, or certain items.",
+    "mark": { "scale": "0-5", "scope": "party", "gains": ["witnessing the impossible +1", "breaking folk-law +1", "pressing the uncanny +1", "bargaining with what should not be bargained with +2"], "thresholds": { "3": "it leaks - minor fallout", "5": "eruption, then settles to 2" }, "lowering": "Cleanse only - churches, shrines, festivals, places of power. Never by rest." },
+    "standing": { "scale": "0-3 typical", "scope": "party", "gain": "deeds only - never bought, never sold", "spend": "Spend 1 to make a roll favorable, only where another person is the audience or the obstacle. Does not stack with other favorable circumstances." },
+    "provisions": "1 per person per dawn. All rations are equal - no conversions. Invited to eat for free: none consumed. Can be bought, sold, and given away.",
+    "laws": [
+      { "n": 1, "name": "The Clue Law", "text": "Core information is never behind a roll. Look in the right place, or know the right trade, and you find it. Rolls buy extras - never access." },
+      { "n": 2, "name": "Say Yes or Roll", "text": "Dice come out only when failure is interesting. Otherwise competence simply works." },
+      { "n": 3, "name": "Let It Ride", "text": "One roll stands. No retries on the same obstacle, by anyone, until the situation truly changes." },
+      { "n": 4, "name": "Intent & Task", "text": "Say what you want and how, before the dice. The roll resolves the intent." },
+      { "n": 5, "name": "Track the NPC, never the PC", "text": "Persuasion moves their meters. No roll ever reads your character's mind." },
+      { "n": 6, "name": "Dread accumulates", "text": "No depleting sanity meter. The Mark only rises between eruptions. Horror is something you gain." },
+      { "n": 7, "name": "The Firewall", "text": "Story harm is Conditions and the Mark; combat harm is HP. No system on this side is priced in combat math." }
+    ],
+    "bridges": ["The shop and the pouch", "Scars", "The day itself"]
+  },
+
+  "skills": [
+    { "id": "athletics", "name": "Athletics", "passive": false, "group": false,
+      "scope": "Labor, climbing, swimming, endurance, the chase.",
+      "examples": ["Hauling the cart out of the ford", "Climbing the bell tower by its gutter", "Swimming the millpond in your coat", "A full night of digging before dawn"],
+      "earns": ["Work (flagship)", "Hunt"], "craft": null },
+    { "id": "composure", "name": "Composure", "passive": false, "group": false,
+      "scope": "Keeping your head: facing fear, steady hands, holding a lie under scrutiny. Trained, you know what frightens people.",
+      "examples": ["Not running when the dogs howl at nothing", "Threading the needle while it watches from the corner", "Holding your face when the Reeve names you"],
+      "earns": [], "craft": null },
+    { "id": "perception", "name": "Perception", "passive": true, "group": false,
+      "scope": "Noticing, overhearing, reading a room. NEVER ROLLED - the GM simply tells trained characters more, earlier. In negotiation, reads the live signals: what landed, what missed, when you are near something.",
+      "examples": ["The fresh-turned earth by the well", "The talk that stops when you enter", "Footsteps behind you that stop when yours do"],
+      "earns": [], "craft": null },
+    { "id": "stealth", "name": "Stealth", "passive": false, "group": false,
+      "scope": "Moving unseen, hiding, shadowing, the unseen hand.",
+      "examples": ["Crossing the yard between lantern sweeps", "Tailing the sexton through market crowds", "Palming the letter mid-conversation"],
+      "earns": ["Steal"], "craft": null },
+    { "id": "survival", "name": "Survival", "passive": false, "group": false,
+      "scope": "Paths, weather, tracking, foraging, shelter, fire.",
+      "examples": ["Reading tomorrow's storm in tonight's sky", "Following a three-day trail across the heath", "A fire in the rain"],
+      "earns": ["Forage"], "craft": "cooking" },
+    { "id": "medicine", "name": "Medicine", "passive": false, "group": false,
+      "scope": "The human body: wounds, sickness, surgery, midwifery, death. Treats the patient - Herbalism makes the treatment.",
+      "examples": ["Setting the shepherd's arm", "Telling fever from poisoning", "Reading how a man truly died"],
+      "earns": ["Rest (tend one other)", "Work - favorable in a settlement"], "craft": "bandages" },
+    { "id": "crafting", "name": "Crafting", "passive": false, "group": false,
+      "scope": "Making, mending, locks, mechanisms.",
+      "examples": ["The wagon axle mended by torchlight", "Fitting a lock, and picking one", "Knowing what tool left those marks"],
+      "earns": ["Work"], "craft": "tinkering" },
+    { "id": "scholarship", "name": "Scholarship", "passive": false, "group": false,
+      "scope": "The written world: reading, letters, ledgers, law, histories, maps, seals.",
+      "examples": ["The debt hidden in the tithe ledger", "The precedent that frees a man at the assizes", "Whose seal is pressed into that wax"],
+      "earns": ["Scribe"], "craft": null },
+    { "id": "arcana", "name": "Arcana", "passive": false, "group": false,
+      "scope": "The magic trade - scrolls, runes, bindings; what is licensed and what is not. Magic that is written, traded, and taxed (Folklore is the magic that never was).",
+      "examples": ["Reading the binding on a contract, not just its law", "Knowing which seller's formulae are stolen", "What the rune on that boundary stone actually holds"],
+      "earns": ["Cleanse (at places of power)"], "craft": "arcana" },
+    { "id": "animal-handling", "name": "Animal Handling", "passive": false, "group": false,
+      "scope": "Beasts before you: calming, riding, driving, herding, tending.",
+      "examples": ["Quieting the horses that refuse the bridge", "A wagon team through market-day", "Knowing the dog is not growling at you", "A difficult calving"],
+      "earns": ["Hunt", "Work"], "craft": null },
+    { "id": "herbalism-alchemy", "name": "Herbalism & Alchemy", "passive": false, "group": false,
+      "scope": "Plants and preparations: remedies, brews, poisons, doses.",
+      "examples": ["A fever-bark tea strong enough to work but not to kill", "Wolfsbane recognized in the widow's garden", "Knowing what was in the cup by its smell alone"],
+      "earns": ["Forage"], "craft": "herbcraft" },
+    { "id": "commerce", "name": "Commerce", "passive": false, "group": false,
+      "scope": "Haggling, appraisal, markets - finding buyers, sellers, and work. Trained, you know true worth and spot fakes.",
+      "examples": ["Knowing the ledger price before he names it", "Finding the man who sells scroll formulae in this town", "Spotting the reforged seal on a 'antique'"],
+      "earns": ["Trade"], "craft": null },
+    { "id": "folklore", "name": "Folklore", "passive": false, "group": false,
+      "scope": "The old ways: rites, spirits, superstitions, omens, the songs and tales that remember.",
+      "examples": ["Why the millers salt their thresholds", "The right words when a stranger offers bread", "The day no one weds on, and why", "The ballad that remembers the drowned village"],
+      "earns": ["Cleanse"], "craft": "charmcraft" },
+    { "id": "judge-of-character", "name": "Judge of Character", "passive": false, "group": true,
+      "scope": "Sizing people up: want, fear, taboo. GROUP CHECK - once per person, one roll, +3 per trained party member. 17+ learn two topics that matter to them; 10-16 learn one; 9- they caught you weighing them and the negotiation opens at -1 Patience. Topics are valence-stripped: you learn WHAT matters, never whether it is a motivation or the pitfall.",
+      "examples": ["What actually matters to the horse-trader before haggling starts", "Which of the three brothers truly decides", "That the prior fears something more than he wants anything"],
+      "earns": ["Negotiation opener"], "craft": null }
+  ],
+
+  "seamRulings": [
+    "Perception vs Survival: Perception notices the birds have gone quiet; Survival knows what the silence means.",
+    "Medicine vs Herbalism: the body vs the preparation. A poisoning shows both doors - Medicine reads the victim, Herbalism names the cup.",
+    "Medicine vs Animal Handling: people vs beasts. The calving belongs to the stable.",
+    "Survival vs Animal Handling: wild sign at a distance vs the animal in front of you.",
+    "Crafting vs Stealth on a lock: if the obstacle is the mechanism, roll Crafting; if it is being seen, roll Stealth; if both, roll the centre of the intent and let the other side set favorable/unfavorable.",
+    "Arcana vs Folklore: written and traded vs unwritten and inherited.",
+    "Arcana vs Scholarship: on a magical contract, Scholarship reads the law, Arcana reads the binding."
+  ],
+
+  "campActions": {
+    "rules": ["One action per player per camp.", "Rest is the only roll-less action.", "Standing may sweeten any person-facing roll.", "Cleanse works only at churches, shrines, festivals, and places of power - once per site, per person."],
+    "settlement": [
+      { "id": "rest", "name": "Rest", "skills": [], "noRoll": true, "outcome": "Remove 2 Conditions. A Medicine-trained character also removes 1 from another player." },
+      { "id": "work", "name": "Work", "skills": ["any honest fit"], "high": "5g", "mid": "3g", "low": "2g and gain a Condition" },
+      { "id": "trade", "name": "Trade", "skills": ["commerce"], "high": "10g", "mid": "5g", "low": "2g" },
+      { "id": "scribe", "name": "Scribe", "skills": ["scholarship"], "high": "8g", "mid": "4g", "low": "2g" },
+      { "id": "steal", "name": "Steal", "skills": ["stealth"], "high": "12g or an item of similar worth", "mid": "6g", "low": "Caught - flee with nothing and gain a Condition" },
+      { "id": "ask-around", "name": "Ask Around", "skills": ["whatever fits the circle"], "outcome": "Rumors, leads, hearsay - contents and quality at GM discretion, informed by the roll." },
+      { "id": "craft-settlement", "name": "Craft", "skills": ["discipline skill"], "outcome": "2d12 + discipline skill. 10+ the item is made. 9- the batch fails. Rares need a found recipe and roll unfavorable." },
+      { "id": "cleanse-settlement", "name": "Cleanse", "skills": ["folklore", "arcana"], "high": "Party Mark -2", "mid": "Party Mark -1", "low": "The place is silent to you" }
+    ],
+    "wilderness": [
+      { "id": "rest-wild", "name": "Rest", "skills": [], "noRoll": true, "outcome": "Remove 2 Conditions. A Medicine-trained character also removes 1 from another player." },
+      { "id": "forage", "name": "Forage", "skills": ["survival", "herbalism-alchemy"], "high": "3 Provisions, or herbs worth 6g", "mid": "2 Provisions, or herbs worth 3g", "low": "1 Provision" },
+      { "id": "hunt", "name": "Hunt", "skills": ["animal-handling", "athletics"], "high": "4 Provisions and hides worth 3g", "mid": "2 Provisions", "low": "1 Provision" },
+      { "id": "explore", "name": "Explore", "skills": [], "outcome": "Roll 1d20 - no skill, no modifiers. The wildcard: anything can happen. The GM holds the table." },
+      { "id": "craft-wild", "name": "Craft", "skills": ["discipline skill"], "outcome": "As settlement." },
+      { "id": "cleanse-wild", "name": "Cleanse", "skills": ["folklore", "arcana"], "outcome": "Only at a found site - shrine, place of power. As settlement." }
+    ]
+  },
+
+  "negotiation": {
+    "scope": "Named NPCs with real stakes only. Everyday convincing never needs this - Say Yes or Roll.",
+    "tracks": {
+      "interest": "Fill it to win them. Each threshold is a better concession - negotiations can partially succeed.",
+      "patience": "Every exchange spends 1. Empty means the scene ends; you keep what you earned. Typical 2-4 by temperament."
+    },
+    "arguments": "Appeals, and any skill can carry one: 'the horses are spent' is Animal Handling, the legal angle is Scholarship, the old custom is Folklore. Whoever knows the ground makes the case - there is no talking skill and no single face. Dice enter only when an appeal needs a demonstration.",
+    "motivationRule": "Hitting a motivation raises Interest - no roll needed. Naming the pitfall tanks the scene.",
+    "lies": "Appeals with false content - they work on motivations, and if caught, the claimed ground becomes a pitfall for the rest of the scene.",
+    "discovery": "Judge of Character before the scene, legwork and Ask Around before that, listening during, trained Perception throughout."
+  },
+
+  "theTwelve": [
+    { "trait": "Benevolence", "appeal": "Help freely given, the common good", "drivenBy": "Samwise Gamgee - carries his friend when he cannot carry the burden", "pitfall": "Scrooge - asks if there are no workhouses; kindness is weakness" },
+    { "trait": "Discovery", "appeal": "Secrets, knowledge, the new", "drivenBy": "Indiana Jones - it belongs in a museum", "pitfall": "Vernon Dursley - no questions, nothing unusual, ever" },
+    { "trait": "Freedom", "appeal": "No chains, no masters", "drivenBy": "William Wallace - dies with the word on his lips", "pitfall": "Javert - liberty is lawlessness wearing a ribbon" },
+    { "trait": "Greed", "appeal": "Profit, gain, the price of things", "drivenBy": "Smaug - sleeps on it and knows every coin", "pitfall": "Ned Stark - offer him gold and watch the door close" },
+    { "trait": "Higher Authority", "appeal": "The crown, the church, the order above", "drivenBy": "Brienne of Tarth - the oath outranks the woman", "pitfall": "Robin Hood - grant the Sheriff legitimacy and lose him" },
+    { "trait": "Justice", "appeal": "Wrongs righted, fair dealing", "drivenBy": "Atticus Finch - defends the case no one else will touch", "pitfall": "Jaime Lannister - asks by what right the wolf judges the lion" },
+    { "trait": "Legacy", "appeal": "The name that outlives the man", "drivenBy": "Achilles - a short life, remembered forever", "pitfall": "Kylo Ren - let the past die" },
+    { "trait": "Peace", "appeal": "Quiet, order, the kettle on", "drivenBy": "Bilbo Baggins - adventures make one late for dinner", "pitfall": "Khal Drogo - walls and treaties are for the weak" },
+    { "trait": "Power", "appeal": "Command, dominion, the upper hand", "drivenBy": "Palpatine - everything is proceeding as he has foreseen", "pitfall": "Faramir - would not take the Ring if it lay by the highway" },
+    { "trait": "Protection", "appeal": "Someone kept safe, whatever it costs", "drivenBy": "Ellen Ripley - goes back for the girl", "pitfall": "Eowyn - offer her a cage of safety and the scene dies" },
+    { "trait": "Revelry", "appeal": "The feast, the song, tonight", "drivenBy": "Falstaff - honor cannot set a leg, but sack fills a belly", "pitfall": "Stannis Baratheon - grinds his teeth through every toast" },
+    { "trait": "Vengeance", "appeal": "The debt repaid in kind", "drivenBy": "Inigo Montoya - has waited his whole life to say the words", "pitfall": "Luke Skywalker - throws the blade away" }
+  ],
+
+  "economy": {
+    "anchor": "1 gold = 1 Provision = one person fed for one day",
+    "prices": [
+      { "item": "Provision (a day's food)", "price": "1g - buys and sells at face, the only good with no spread" },
+      { "item": "Inn night, bed and board (the meal counts - no Provision consumed)", "price": "1g per person" },
+      { "item": "Rope, lantern, common tools", "price": "1-3g" },
+      { "item": "Common consumable", "price": "6-15g" },
+      { "item": "Rare consumable (when stocked at all)", "price": "40-80g" },
+      { "item": "Common recipe", "price": "~15g" },
+      { "item": "Rare recipe or scroll formula", "price": "60-150g, or a quest" },
+      { "item": "Mule / cart / riding horse", "price": "25g / 15g / 60g" }
+    ],
+    "marketLaws": ["Everything sells at half price - Provisions excepted.", "Standing is never for sale."],
+    "incomeReference": [
+      { "source": "Unskilled Work (+0)", "value": "~2-3g" },
+      { "source": "Trained Work", "value": "~4g" },
+      { "source": "Scribe (Scholarship)", "value": "~5-6g" },
+      { "source": "Trade (Commerce)", "value": "~6-7g" },
+      { "source": "Steal (Stealth)", "value": "~8g - the only empty-handed risk" },
+      { "source": "Craft-and-sell", "value": "~4.5g - a living, not the best living" },
+      { "source": "A trained hunter", "value": "feeds a party of four, alone" },
+      { "source": "A real job - an adventure", "value": "15-40g and loot - five to ten times labor" }
+    ],
+    "upkeep": "A party of four runs 4-8g a day. One specialist earner breaks even for everyone. Adventure is the profit engine."
+  }
+}

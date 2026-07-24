@@ -1,0 +1,941 @@
+{
+  "_meta": {
+    "file": "seed_consumables.json",
+    "authority": "CANONICAL for consumable card text, tier, discipline, and price. Design .md docs hold rulings and rationale only - they must not duplicate this text.",
+    "counts": {
+      "consumables": 56,
+      "specced": 52,
+      "unspeccedStubs": 4,
+      "recipes": 32
+    },
+    "priceRules": {
+      "anchor": "1 gold = 1 Provision = one person fed for one day",
+      "commonBand": "6-15g",
+      "rareBand": "40-80g",
+      "sellPrice": "floor(price / 2) - Provisions are the sole exception and sell at face"
+    },
+    "craftRule": "Camp action, 2d12 + discipline skill. 10+ the item is made. 9- the batch fails, action spent. No material cost. Rares require a found recipe AND roll unfavorable (3d12 keep lowest two). One attempt per recipe per camp. Anyone may attempt a recipe they own at +0.",
+    "standingFooters": {
+      "active": "CONSUMED ON USE",
+      "passive": "STOCKED ON A PLAYER - AUTO-FIRES",
+      "riderReact": "CONSUMED - 1 COATING PER ATTACK"
+    },
+    "globalRulings": [
+      "Pouch cards are never in hand, deck, or discard - no Encore, no Reprise, no sockets, no Temporal Surge, no gem costs.",
+      "Burn refreshes duration, never stacks.",
+      "Rider-React coatings do not stack - one coating per attack.",
+      "Passives are assigned to a carrier at the stocking ritual and fire automatically.",
+      "Item heals are real heals - Lifespring Gauntlets' Drink Deep procs on them."
+    ]
+  },
+  "consumables": [
+    {
+      "id": "healing-draught",
+      "name": "Healing Draught",
+      "timing": "fast",
+      "tier": "common",
+      "discipline": "herbcraft",
+      "target": "Self or Ally",
+      "effect": "Heal **6**.",
+      "price": 10,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "healing-potion",
+      "name": "Healing Potion",
+      "timing": "slow",
+      "tier": "common",
+      "discipline": "herbcraft",
+      "target": "Self or Ally",
+      "effect": "Heal **2d8**.",
+      "price": 14,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "bandage-roll",
+      "name": "Bandage Roll",
+      "timing": "normal",
+      "tier": "common",
+      "discipline": "bandages",
+      "target": "Self or Ally",
+      "effect": "Heal **3**; remove **Bleed** and **Poison**.",
+      "price": 6,
+      "craftable": true,
+      "notes": "Moved from Potionmaking to Medicine/Bandages in the crafting pass."
+    },
+    {
+      "id": "antitoxin",
+      "name": "Antitoxin",
+      "timing": "fast",
+      "tier": "common",
+      "discipline": "herbcraft",
+      "target": "Self or Ally",
+      "effect": "Remove **all debuffs** from you or one ally.",
+      "price": 8,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "second-wind-tonic",
+      "name": "Second Wind Tonic",
+      "timing": "passive",
+      "tier": "common",
+      "discipline": "herbcraft",
+      "target": "Passive - Automatic",
+      "effect": "The first time you drop **below half HP** this combat: heal **4**.",
+      "price": 10,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "ironbark-tonic",
+      "name": "Ironbark Tonic",
+      "timing": "passive",
+      "tier": "common",
+      "discipline": "herbcraft",
+      "target": "Passive - Automatic",
+      "effect": "Gain **+1 Armor** this combat - Physical or Magical, chosen when stocked.",
+      "price": 10,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "leech-oil",
+      "name": "Leech Oil",
+      "timing": "react",
+      "reactTrigger": "When you deal Physical damage",
+      "tier": "common",
+      "discipline": "herbcraft",
+      "target": "Self",
+      "effect": "Heal yourself **3**.",
+      "price": 7,
+      "craftable": true,
+      "notes": "Rider-React - one coating per attack."
+    },
+    {
+      "id": "improvised-bomb",
+      "name": "Improvised Bomb",
+      "timing": "normal",
+      "tier": "common",
+      "discipline": "tinkering",
+      "target": "Enemy",
+      "effect": "Deal **1d12** Magical.",
+      "price": 12,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "firebomb",
+      "name": "Firebomb",
+      "timing": "normal",
+      "tier": "common",
+      "discipline": "tinkering",
+      "target": "Enemy",
+      "effect": "Deal **2** Magical and apply **Burn**.",
+      "price": 12,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "acid-flask",
+      "name": "Acid Flask",
+      "timing": "normal",
+      "tier": "common",
+      "discipline": "tinkering",
+      "target": "Enemy",
+      "effect": "Deal **5** Magical, **Piercing**.",
+      "price": 10,
+      "craftable": true,
+      "notes": "Overlaps Herbcraft thematically; discipline assigned to Tinkering as primary."
+    },
+    {
+      "id": "smoke-bomb",
+      "name": "Smoke Bomb",
+      "timing": "fast",
+      "tier": "common",
+      "discipline": "tinkering",
+      "target": "All Enemies",
+      "effect": "Apply **Weaken 1** to all enemies this round.",
+      "price": 8,
+      "craftable": true,
+      "notes": "Watch item: half-answers E3 Pack Frenzy."
+    },
+    {
+      "id": "snare",
+      "name": "Snare",
+      "timing": "react",
+      "reactTrigger": "When you are hit",
+      "tier": "common",
+      "discipline": "tinkering",
+      "target": "Self",
+      "effect": "**Bulwark 3** against that hit.",
+      "price": 6,
+      "craftable": true,
+      "notes": "Trapmaking folded into Tinkering (Crafting skill)."
+    },
+    {
+      "id": "caltrops",
+      "name": "Caltrops",
+      "timing": "react",
+      "reactTrigger": "An enemy attacks you",
+      "tier": "common",
+      "discipline": "tinkering",
+      "target": "Enemy",
+      "effect": "Deal **3** Physical to that enemy.",
+      "price": 6,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "bear-trap",
+      "name": "Bear Trap",
+      "timing": "passive",
+      "tier": "common",
+      "discipline": "tinkering",
+      "target": "Passive - Automatic",
+      "effect": "The **first** enemy attack against you this combat: the attacker takes **1d6** Physical and **1 Stagger**.",
+      "price": 9,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "spike-wall",
+      "name": "Spike Wall",
+      "timing": "passive",
+      "tier": "common",
+      "discipline": "tinkering",
+      "target": "Passive - Automatic",
+      "effect": "**Round 1:** every enemy that attacks you takes **2** Physical.",
+      "price": 8,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "anchoring-oil",
+      "name": "Anchoring Oil",
+      "timing": "react",
+      "reactTrigger": "When you deal Physical damage",
+      "tier": "common",
+      "discipline": "tinkering",
+      "target": "Enemy",
+      "effect": "The target takes **2** more Physical and **1 Stagger**.",
+      "price": 7,
+      "craftable": true,
+      "notes": "Rider-React - one coating per attack."
+    },
+    {
+      "id": "paralysis-poison",
+      "name": "Paralysis Poison",
+      "timing": "react",
+      "reactTrigger": "When you attack",
+      "tier": "common",
+      "discipline": "herbcraft",
+      "target": "Enemy",
+      "effect": "**+1d6** Magical and **Weaken 1**.",
+      "price": 9,
+      "craftable": true,
+      "notes": "Rider-React - one coating per attack."
+    },
+    {
+      "id": "venomed-edge",
+      "name": "Venomed Edge",
+      "timing": "passive",
+      "tier": "common",
+      "discipline": "herbcraft",
+      "target": "Passive - Automatic",
+      "effect": "The first time you deal damage this combat: also apply **Poison 2**.",
+      "price": 10,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "scroll-of-frost",
+      "name": "Scroll of Frost",
+      "timing": "normal",
+      "tier": "common",
+      "discipline": "arcana",
+      "target": "Enemy",
+      "effect": "Deal **1d6** Magical and apply **1 Stagger**.",
+      "price": 12,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "scroll-of-flame",
+      "name": "Scroll of Flame",
+      "timing": "slow",
+      "tier": "common",
+      "discipline": "arcana",
+      "target": "All Enemies",
+      "effect": "Deal **1d4** Magical to **all** enemies.",
+      "price": 14,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "scroll-of-shielding",
+      "name": "Scroll of Shielding",
+      "timing": "fast",
+      "tier": "common",
+      "discipline": "arcana",
+      "target": "Self or Ally",
+      "effect": "You or one ally gains **5** Block.",
+      "price": 12,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "scroll-of-mending",
+      "name": "Scroll of Mending",
+      "timing": "fast",
+      "tier": "common",
+      "discipline": "arcana",
+      "target": "Two Allies",
+      "effect": "Heal **3** to each of **two** different allies (you may be one).",
+      "price": 12,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "scroll-of-enfeeblement",
+      "name": "Scroll of Enfeeblement",
+      "timing": "normal",
+      "tier": "common",
+      "discipline": "arcana",
+      "target": "Enemy",
+      "effect": "Apply **Weaken 2** to one enemy.",
+      "price": 12,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "grimoire-engulfing-blade",
+      "name": "Grimoire: Engulfing Blade",
+      "timing": "react",
+      "reactTrigger": "When you deal Physical damage",
+      "tier": "common",
+      "discipline": "arcana",
+      "target": "Enemy",
+      "effect": "Apply **Burn** to that target.",
+      "price": 14,
+      "craftable": true,
+      "notes": "Rider-React - one coating per attack. Anti-synergic with other Burn carriers by design (Burn refreshes, never stacks)."
+    },
+    {
+      "id": "sharpening-oil",
+      "name": "Sharpening Oil",
+      "timing": "passive",
+      "tier": "common",
+      "discipline": "none",
+      "target": "Passive - Automatic",
+      "effect": "Your **weapon cards** deal **+1** this combat.",
+      "price": 10,
+      "craftable": false,
+      "notes": "Shop good. Replaced the cut camp action Whet and Mend."
+    },
+    {
+      "id": "stoneskin-salve",
+      "name": "Stoneskin Salve",
+      "timing": "passive",
+      "tier": "common",
+      "discipline": "none",
+      "target": "Passive - Automatic",
+      "effect": "Start combat with **5** Block.",
+      "price": 10,
+      "craftable": false,
+      "notes": "Shop good."
+    },
+    {
+      "id": "clarity-incense",
+      "name": "Clarity Incense",
+      "timing": "passive",
+      "tier": "common",
+      "discipline": "none",
+      "target": "Passive - Automatic",
+      "effect": "**Round 1:** draw **8** cards instead of 6.",
+      "price": 12,
+      "craftable": false,
+      "notes": "Shop good. Early Rise reborn as inventory rather than a free camp pick."
+    },
+    {
+      "id": "warding-talisman",
+      "name": "Warding Talisman",
+      "timing": "passive",
+      "tier": "common",
+      "discipline": "charmcraft",
+      "target": "Passive - Automatic",
+      "effect": "Negate the **first** negative condition an enemy effect would apply to you this combat.",
+      "price": 10,
+      "craftable": true,
+      "notes": "Replaced the cut camp action Steel Yourself."
+    },
+    {
+      "id": "rowan-sprig",
+      "name": "Rowan Sprig",
+      "timing": "story",
+      "tier": "common",
+      "discipline": "charmcraft",
+      "target": "Story - Carried",
+      "effect": "When the party would gain **Mark** from your act: negate it. Consumed. Only **one charm** may be carried per person - two charms quarrel.",
+      "price": 12,
+      "craftable": true,
+      "notes": "FLAGGED: a craftable Mark-negation touches the horror economy. Blessed with the one-charm cap; revisit if the Mark stops mattering."
+    },
+    {
+      "id": "rune-of-iron",
+      "name": "Rune of Iron",
+      "timing": "passive",
+      "tier": "common",
+      "discipline": "arcana",
+      "target": "Passive - Automatic",
+      "effect": "Gain **+1 Physical Armor** this combat.",
+      "price": 12,
+      "craftable": true,
+      "notes": "Runes on gear are NPC-master work only - never craftable by players."
+    },
+    {
+      "id": "rune-of-sealing",
+      "name": "Rune of Sealing",
+      "timing": "story",
+      "tier": "common",
+      "discipline": "arcana",
+      "target": "Story - A Door or Window",
+      "effect": "The door or window holds until dawn.",
+      "price": 10,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "rune-of-embers",
+      "name": "Rune of Embers",
+      "timing": "normal",
+      "tier": "common",
+      "discipline": "arcana",
+      "target": "Enemy",
+      "effect": "Deal **1d8** Magical.",
+      "price": 12,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "styptic-powder",
+      "name": "Styptic Powder",
+      "timing": "react",
+      "reactTrigger": "Bleed is applied to you",
+      "tier": "common",
+      "discipline": "bandages",
+      "target": "Self",
+      "effect": "**Negate** it.",
+      "price": 7,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "hearty-stew",
+      "name": "Hearty Stew",
+      "timing": "story",
+      "tier": "common",
+      "discipline": "cooking",
+      "target": "Camp Meal",
+      "effect": "All who eat remove **1 Condition**. Counts as the day's provision for those who eat.",
+      "price": 6,
+      "craftable": true,
+      "notes": "Story-side item - the only consumable that touches Conditions."
+    },
+    {
+      "id": "field-surgery-kit",
+      "name": "Field Surgery Kit",
+      "timing": "story",
+      "tier": "rare",
+      "discipline": "bandages",
+      "target": "Story - Anyone",
+      "effect": "Remove **one Condition** from anyone, anywhere. Once.",
+      "price": 45,
+      "craftable": true,
+      "notes": ""
+    },
+    {
+      "id": "invigorating-hashish",
+      "name": "Invigorating Hashish",
+      "timing": "fast",
+      "tier": "rare",
+      "discipline": "herbcraft",
+      "target": "Self",
+      "effect": "Gain **+1 Normal** play or **+1 Slow** play this turn.",
+      "price": 60,
+      "craftable": false,
+      "notes": "The system's only action-granting consumable - deliberately a scarce singleton. Elixir of Alacrity was cut as dominated."
+    },
+    {
+      "id": "grimoire-stun",
+      "name": "Grimoire: Stun",
+      "timing": "normal",
+      "tier": "rare",
+      "discipline": "arcana",
+      "target": "Enemy",
+      "effect": "Apply **3 Stagger**.",
+      "price": 50,
+      "craftable": false,
+      "notes": "Flagged against E5 (Stagger delays the ritual clock)."
+    },
+    {
+      "id": "grimoire-lightning",
+      "name": "Grimoire: Lightning",
+      "timing": "normal",
+      "tier": "rare",
+      "discipline": "arcana",
+      "target": "Two Enemies",
+      "effect": "Deal **1d8** Magical to each of **two** different enemies.",
+      "price": 55,
+      "craftable": false,
+      "notes": ""
+    },
+    {
+      "id": "sunfire-flask",
+      "name": "Sunfire Flask",
+      "timing": "slow",
+      "tier": "rare",
+      "discipline": "herbcraft",
+      "target": "Enemy",
+      "effect": "Deal **2d8** Magical and apply **Burn**.",
+      "price": 55,
+      "craftable": false,
+      "notes": ""
+    },
+    {
+      "id": "ghostveil-powder",
+      "name": "Ghostveil Powder",
+      "timing": "fast",
+      "tier": "rare",
+      "discipline": "herbcraft",
+      "target": "Self",
+      "effect": "Prevent the next **8** damage dealt to you this round.",
+      "price": 50,
+      "craftable": false,
+      "notes": "The anti-telegraph panic button."
+    },
+    {
+      "id": "lucky-charm",
+      "name": "Lucky Charm",
+      "timing": "react",
+      "reactTrigger": "Any roll",
+      "tier": "rare",
+      "discipline": "charmcraft",
+      "target": "Any",
+      "effect": "**Reroll** any one die, yours or an ally's.",
+      "price": 60,
+      "craftable": false,
+      "notes": "Absorbs the old Fate-token idea - one mechanism, not two."
+    },
+    {
+      "id": "ward-stone",
+      "name": "Ward Stone",
+      "timing": "react",
+      "reactTrigger": "Ally is hit",
+      "tier": "rare",
+      "discipline": "charmcraft",
+      "target": "Ally",
+      "effect": "Give that ally **4** Block.",
+      "price": 45,
+      "craftable": false,
+      "notes": "Deliberately below Curtain Call (prevent 5, class stash)."
+    },
+    {
+      "id": "weighted-net",
+      "name": "Weighted Net",
+      "timing": "fast",
+      "tier": "rare",
+      "discipline": "tinkering",
+      "target": "Enemy",
+      "effect": "Apply **1 Stagger**; **2 Stagger** instead if the target has a committed **Slow** action this round.",
+      "price": 45,
+      "craftable": false,
+      "notes": "Retiarius' opener at rental prices, once."
+    },
+    {
+      "id": "titans-draught",
+      "name": "Titan's Draught",
+      "timing": "passive",
+      "tier": "rare",
+      "discipline": "herbcraft",
+      "target": "Passive - Automatic",
+      "effect": "**+1 Strength** and **+1 Focus** this combat.",
+      "price": 60,
+      "craftable": false,
+      "notes": ""
+    },
+    {
+      "id": "berserkers-brew",
+      "name": "Berserker's Brew",
+      "timing": "passive",
+      "tier": "rare",
+      "discipline": "herbcraft",
+      "target": "Passive - Automatic",
+      "effect": "**+2 Strength** this combat. You take **+1** damage from every hit.",
+      "price": 50,
+      "craftable": false,
+      "notes": "Watch item: on BloodKnight the drawback is a payoff."
+    },
+    {
+      "id": "kingsfoil-salve",
+      "name": "Kingsfoil Salve",
+      "timing": "passive",
+      "tier": "rare",
+      "discipline": "herbcraft",
+      "target": "Passive - Automatic",
+      "effect": "Gain **Regen 4** at combat start.",
+      "price": 55,
+      "craftable": false,
+      "notes": "The one rare exception to 'sustain engines belong to supports'."
+    },
+    {
+      "id": "war-horn",
+      "name": "War Horn",
+      "timing": "passive",
+      "tier": "rare",
+      "discipline": "none",
+      "target": "Passive - Automatic",
+      "effect": "Every ally gains **Empower 1** in round 1.",
+      "price": 60,
+      "craftable": false,
+      "notes": "Deliberately below War Banner's Hold the Line."
+    },
+    {
+      "id": "barbed-oil",
+      "name": "Barbed Oil",
+      "timing": "react",
+      "reactTrigger": "When you deal Physical damage",
+      "tier": "rare",
+      "discipline": "herbcraft",
+      "target": "Enemy",
+      "effect": "Apply **Bleed** to that target.",
+      "price": 55,
+      "craftable": false,
+      "notes": "Rider-React. Rare because Bleed scales with every physical ally."
+    },
+    {
+      "id": "gravesalt",
+      "name": "Gravesalt",
+      "timing": "normal",
+      "tier": "rare",
+      "discipline": "charmcraft",
+      "target": "Enemy",
+      "effect": "Deal **2** Magical. The target **cannot heal** until the end of next round.",
+      "price": 45,
+      "craftable": false,
+      "notes": "Watch item: two casts blank the Gravewarden's Deathless Bulk."
+    },
+    {
+      "id": "clusterbomb",
+      "name": "Clusterbomb",
+      "timing": "slow",
+      "tier": "rare",
+      "discipline": "tinkering",
+      "target": "All Enemies",
+      "effect": "Deal **2d4** Magical to **every** enemy.",
+      "price": 60,
+      "craftable": false,
+      "notes": ""
+    },
+    {
+      "id": "warding-chalk",
+      "name": "Warding Chalk",
+      "timing": "passive",
+      "tier": "rare",
+      "discipline": "charmcraft",
+      "target": "Passive - Automatic",
+      "effect": "The first time an effect damages **every ally at once**: each ally prevents **4**.",
+      "price": 50,
+      "craftable": false,
+      "notes": "Watch item: ~12 party HP saved against E5's ritual."
+    },
+    {
+      "id": "memory-knot",
+      "name": "Memory Knot",
+      "timing": "passive",
+      "tier": "rare",
+      "discipline": "charmcraft",
+      "target": "Passive - Automatic",
+      "effect": "**Once** this combat, at cleanup: keep one card in your hand instead of discarding it.",
+      "price": 55,
+      "craftable": false,
+      "notes": ""
+    },
+    {
+      "id": "witch-bottle",
+      "name": "Witch Bottle",
+      "timing": "story",
+      "tier": "rare",
+      "discipline": "charmcraft",
+      "target": "",
+      "effect": "",
+      "price": 0,
+      "craftable": false,
+      "notes": "UNSPECCED - name only, effect text pending. Do not invent text."
+    },
+    {
+      "id": "grave-candle",
+      "name": "Grave Candle",
+      "timing": "story",
+      "tier": "rare",
+      "discipline": "charmcraft",
+      "target": "",
+      "effect": "",
+      "price": 0,
+      "craftable": false,
+      "notes": "UNSPECCED - name only, effect text pending. Do not invent text."
+    },
+    {
+      "id": "hunters-feast",
+      "name": "Hunter's Feast",
+      "timing": "story",
+      "tier": "rare",
+      "discipline": "cooking",
+      "target": "Camp Meal",
+      "effect": "",
+      "price": 0,
+      "craftable": false,
+      "notes": "UNSPECCED - name only, effect text pending. Do not invent text."
+    },
+    {
+      "id": "suture-thread",
+      "name": "Suture Thread",
+      "timing": "react",
+      "tier": "rare",
+      "discipline": "bandages",
+      "target": "",
+      "effect": "",
+      "price": 0,
+      "craftable": false,
+      "notes": "UNSPECCED - name only, effect text pending. Do not invent text."
+    }
+  ],
+  "recipes": [
+    {
+      "id": "r-healing-draught",
+      "discipline": "herbcraft",
+      "producesItemId": "healing-draught",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-antitoxin",
+      "discipline": "herbcraft",
+      "producesItemId": "antitoxin",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-venomed-edge",
+      "discipline": "herbcraft",
+      "producesItemId": "venomed-edge",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-healing-potion",
+      "discipline": "herbcraft",
+      "producesItemId": "healing-potion",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-second-wind-tonic",
+      "discipline": "herbcraft",
+      "producesItemId": "second-wind-tonic",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-ironbark-tonic",
+      "discipline": "herbcraft",
+      "producesItemId": "ironbark-tonic",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-leech-oil",
+      "discipline": "herbcraft",
+      "producesItemId": "leech-oil",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-paralysis-poison",
+      "discipline": "herbcraft",
+      "producesItemId": "paralysis-poison",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-improvised-bomb",
+      "discipline": "tinkering",
+      "producesItemId": "improvised-bomb",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-smoke-bomb",
+      "discipline": "tinkering",
+      "producesItemId": "smoke-bomb",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-snare",
+      "discipline": "tinkering",
+      "producesItemId": "snare",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-caltrops",
+      "discipline": "tinkering",
+      "producesItemId": "caltrops",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-firebomb",
+      "discipline": "tinkering",
+      "producesItemId": "firebomb",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-acid-flask",
+      "discipline": "tinkering",
+      "producesItemId": "acid-flask",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-anchoring-oil",
+      "discipline": "tinkering",
+      "producesItemId": "anchoring-oil",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-bear-trap",
+      "discipline": "tinkering",
+      "producesItemId": "bear-trap",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-spike-wall",
+      "discipline": "tinkering",
+      "producesItemId": "spike-wall",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-warding-talisman",
+      "discipline": "charmcraft",
+      "producesItemId": "warding-talisman",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-rowan-sprig",
+      "discipline": "charmcraft",
+      "producesItemId": "rowan-sprig",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-scroll-of-frost",
+      "discipline": "arcana",
+      "producesItemId": "scroll-of-frost",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-scroll-of-shielding",
+      "discipline": "arcana",
+      "producesItemId": "scroll-of-shielding",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-rune-of-iron",
+      "discipline": "arcana",
+      "producesItemId": "rune-of-iron",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-scroll-of-flame",
+      "discipline": "arcana",
+      "producesItemId": "scroll-of-flame",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-scroll-of-mending",
+      "discipline": "arcana",
+      "producesItemId": "scroll-of-mending",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-scroll-of-enfeeblement",
+      "discipline": "arcana",
+      "producesItemId": "scroll-of-enfeeblement",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-rune-of-sealing",
+      "discipline": "arcana",
+      "producesItemId": "rune-of-sealing",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-rune-of-embers",
+      "discipline": "arcana",
+      "producesItemId": "rune-of-embers",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-grimoire-engulfing-blade",
+      "discipline": "arcana",
+      "producesItemId": "grimoire-engulfing-blade",
+      "tier": "common",
+      "starter": false
+    },
+    {
+      "id": "r-hearty-stew",
+      "discipline": "cooking",
+      "producesItemId": "hearty-stew",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-bandage-roll",
+      "discipline": "bandages",
+      "producesItemId": "bandage-roll",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-styptic-powder",
+      "discipline": "bandages",
+      "producesItemId": "styptic-powder",
+      "tier": "common",
+      "starter": true
+    },
+    {
+      "id": "r-field-surgery-kit",
+      "discipline": "bandages",
+      "producesItemId": "field-surgery-kit",
+      "tier": "rare",
+      "starter": false
+    }
+  ]
+}

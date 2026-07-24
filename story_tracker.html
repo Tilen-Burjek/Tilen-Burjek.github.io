@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnRPG - Story Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa+Ink:wght@400;700&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2e8d5; --bg2:#e6d8bc; --card:#ede0c4; --card-hdr:#ddd0a8;
+  --border:#b8906a; --border2:#d4b48a; --text:#1c0e08; --muted:#7a5a38; --rule:#c4a46a;
+  --num:#7a1010; --good:#0f5020;
+  /* card chrome (matches the print sheet) */
+  --steel:#3a4a5e; --gold:#6a4a08;
+  --t-fast:#8a5a2b; --t-normal:#2f4d7a; --t-slow:#9a2420; --t-react:#1f8f5f; --t-passive:#4a4458; --t-story:#5a4a6a;
+  --poised:#3a6a8a; --exhaust:#8a1014; --badge:#5a4a3a;
+  --mark-amber:#b3801f; --mark-red:#9a2420;
+}
+[data-theme="candlelit"]{
+  --bg:#1a0d00; --bg2:#251200; --card:#2a1600; --card-hdr:#3a2000;
+  --border:#7a4c10; --border2:#5a3808; --text:#f5e6c0; --muted:#c09050; --rule:#6a4010;
+  --num:#e07040; --good:#4a8a20;
+  --steel:#5a6a7e; --gold:#c8a048;
+  --t-fast:#e06820; --t-normal:#5a80c0; --t-slow:#d05a4a; --t-react:#3fbf7f; --t-passive:#8a80a8; --t-story:#a890c0;
+  --poised:#5a9ac8; --exhaust:#e05040; --badge:#a89060;
+  --mark-amber:#d8a030; --mark-red:#d05040;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'EB Garamond',Georgia,serif;font-size:16px;line-height:1.4}
+h1,h2,h3,.head{font-family:'Aref Ruqaa Ink',serif}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:2px 5px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--rule)}
+.mut{color:var(--muted)} .num{color:var(--num);font-weight:700}
+a{color:var(--num);cursor:pointer;text-decoration:underline}
+
+/* ── layout ── */
+#loaderr{display:none;margin:2rem auto;max-width:640px;padding:1rem 1.2rem;border:2px solid var(--exhaust);border-radius:8px;background:var(--card)}
+#app{display:none}
+.partybar{position:sticky;top:0;z-index:20;background:var(--bg2);border-bottom:2px solid var(--border);
+  display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center;padding:.5rem .8rem}
+.pb-item{display:flex;align-items:center;gap:.35rem;white-space:nowrap}
+.pb-item label{font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.step{width:22px;height:22px;border:1px solid var(--border);background:var(--card);border-radius:4px;font-weight:700;line-height:1}
+.numin{width:3.4em;text-align:center;font-weight:700}
+.pips{display:flex;gap:3px} .pip{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);background:transparent;padding:0}
+.pip.on{background:var(--good);border-color:var(--good)} .pip.over{border-style:dashed}
+.markbar{display:flex;gap:2px}
+.mseg{width:20px;height:16px;border:1px solid var(--border);background:var(--card);padding:0;border-radius:2px}
+.mseg.on0{background:var(--muted)} .mseg.on1{background:var(--muted)} .mseg.on2{background:var(--muted)}
+.mseg.on3{background:var(--mark-amber)} .mseg.on4{background:var(--mark-amber)} .mseg.on5{background:var(--mark-red)}
+.provtag{font-size:.6rem;background:var(--mark-amber);color:#1c0e08;padding:0 4px;border-radius:3px;letter-spacing:.04em}
+.chip-btn{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1px 9px;font-size:.85rem}
+.newday{margin-left:auto;background:var(--card-hdr);border:1px solid var(--border);border-radius:5px;padding:4px 12px;font-weight:700}
+.tools{display:flex;gap:.4rem;align-items:center}
+.tools button{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:.8rem}
+
+.players{display:flex;flex-wrap:wrap;gap:.7rem;padding:.7rem .8rem;border-bottom:1px solid var(--rule)}
+.pcard{flex:1 1 320px;min-width:300px;max-width:440px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.6rem .7rem}
+.pcard h3{margin:.1rem 0 .3rem;display:flex;gap:.4rem;align-items:center}
+.pcard h3 input{flex:1;font-family:'Aref Ruqaa Ink',serif;font-size:1.1rem;background:transparent;border:none;border-bottom:1px dotted var(--border)}
+.mini{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:.5rem 0 .15rem}
+.skchip{display:inline-block;background:var(--card-hdr);border:1px solid var(--border);border-radius:10px;padding:0 7px;margin:1px;font-size:.8rem}
+.bioline{display:block;width:100%;font-style:italic;font-size:.82rem;margin:2px 0 5px;background:transparent;border:none;border-bottom:1px dotted var(--border2)}
+.cond{display:inline-flex;align-items:center;gap:4px;background:#f5d5d5;color:#6a0a0a;border:1px solid #c04040;border-radius:10px;padding:0 4px 0 8px;margin:2px;font-size:.8rem}
+[data-theme="candlelit"] .cond{background:#380808;color:#e08080;border-color:#903030}
+.cond.off{opacity:.5;text-decoration:line-through}
+.cond .x{border:none;background:none;color:inherit;font-weight:700;padding:0 2px}
+.skgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 .8rem;font-size:.8rem;margin-top:.2rem}
+.skgrid .row{display:flex;justify-content:space-between;border-bottom:1px dotted var(--border2);padding:1px 0}
+.skgrid .tr{font-weight:700} .skgrid .plus{color:var(--good);font-weight:700} .skgrid .minus{color:var(--num);font-weight:700}
+.tag{font-size:.6rem;background:var(--card-hdr);border:1px solid var(--border);border-radius:3px;padding:0 3px;color:var(--muted)}
+.addbtn{background:var(--card-hdr);border:1px solid var(--border);border-radius:5px;padding:1px 8px;font-size:.8rem}
+.notesin{width:100%;background:transparent;border:none;border-bottom:1px dotted var(--border);font-size:.85rem}
+
+.tabstrip{display:flex;flex-wrap:wrap;gap:.2rem;padding:.5rem .8rem 0;position:sticky;top:0;background:var(--bg)}
+.tabstrip button{background:var(--bg2);border:1px solid var(--border);border-bottom:none;border-radius:6px 6px 0 0;padding:5px 12px;font-family:'Aref Ruqaa Ink',serif}
+.tabstrip button.active{background:var(--card);font-weight:700}
+.panel{padding:1rem 1.1rem;max-width:1200px}
+.panel h2{margin:.2rem 0 .6rem;border-bottom:2px solid var(--rule);padding-bottom:.2rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem} @media(max-width:760px){.two{grid-template-columns:1fr}}
+.rules-list li{margin:.2rem 0}
+table{border-collapse:collapse;width:100%;font-size:.9rem} th,td{border:1px solid var(--border2);padding:4px 7px;text-align:left;vertical-align:top}
+th{background:var(--card-hdr)}
+
+/* ── cards (consumables/weapons) ── */
+.cardgrid{display:flex;flex-wrap:wrap;gap:.6rem}
+.gcard{width:210px;background:#efe9da;color:#1c0e08;border:1px solid #b8a06a;border-radius:7px;overflow:hidden;display:flex;flex-direction:column}
+[data-theme="candlelit"] .gcard{background:#efe9da}
+.gcard .bar{color:#efe9da;font-family:'Aref Ruqaa Ink',serif;font-weight:700;padding:3px 8px;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
+.gcard .bar.steel{background:var(--steel)} .gcard .bar.gold{background:var(--gold)}
+.gcard .body{padding:6px 8px;flex:1}
+.gcard .tgt{font-size:.72rem;color:#6a4a08;text-transform:uppercase;letter-spacing:.03em}
+.gcard .eff{margin:3px 0;font-size:.9rem}
+.gcard .eff strong{color:#8a1014}
+.gcard .foot{font-size:.62rem;color:#5a4a2a;border-top:1px solid #cbbfa0;letter-spacing:.03em;padding:3px 8px;text-transform:uppercase}
+.tcirc{display:inline-flex;width:18px;height:18px;border-radius:50%;color:#fff;font-size:.6rem;align-items:center;justify-content:center;font-weight:700}
+.badge{font-size:.58rem;color:#fff;border-radius:3px;padding:0 4px;margin-left:3px;letter-spacing:.03em}
+.gcard.incomplete{opacity:.55}
+.inc-badge{background:var(--exhaust);color:#fff;font-size:.6rem;padding:0 4px;border-radius:3px}
+.warnflag{background:var(--mark-amber);color:#1c0e08;font-size:.6rem;padding:0 4px;border-radius:3px}
+.owned-wrap{background:var(--bg2);border:1px dashed var(--border);border-radius:8px;padding:.5rem;margin-bottom:.8rem}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-bottom:.7rem}
+.ownctl{display:flex;align-items:center;gap:5px;justify-content:center;padding:4px;border-top:1px solid var(--border2)}
+.stockbtn{font-size:.7rem;border:1px solid var(--border);border-radius:4px;padding:1px 6px;background:var(--card)}
+.stockbtn.on{background:var(--good);color:#fff;border-color:var(--good)}
+.wcard{border:1px solid var(--border);border-radius:8px;padding:.6rem .7rem;margin-bottom:.7rem;background:var(--card)}
+.wcard .idl{font-style:italic;color:var(--muted);margin:.1rem 0 .5rem}
+.small{font-size:.8rem} details summary{cursor:pointer;font-weight:700}
+</style>
+</head>
+<body>
+
+<div id="loaderr"></div>
+
+<div id="app">
+  <div class="partybar" id="partybar"></div>
+  <div class="players" id="players"></div>
+  <div class="tabstrip" id="tabstrip"></div>
+  <div id="panel" class="panel"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+
+/* ── Firebase (separate path from the combat tool - the firewall) ── */
+const firebaseConfig = {
+  apiKey: "AIzaSyAjxec-sAYiNGBXBZraApfeQCkTWlyvLMg",
+  authDomain: "counting-ravens.firebaseapp.com",
+  databaseURL: "https://counting-ravens-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "counting-ravens",
+  storageBucket: "counting-ravens.firebasestorage.app",
+  messagingSenderId: "91930638993",
+  appId: "1:91930638993:web:7fd1e4c68547929a441d30"
+};
+const db = getDatabase(initializeApp(firebaseConfig));
+const STATE_REF = ref(db, "anrpg/story");     // party STATE only - card DATA is the seed files
+let saveTimer=null, applyingRemote=false;
+function saveState(){ clearTimeout(saveTimer); saveTimer=setTimeout(()=>set(STATE_REF, S), 400); }
+function subscribe(){ onValue(STATE_REF, snap=>{
+  const st=snap.val(); if(!st) return;
+  if(document.activeElement && /INPUT|TEXTAREA/.test(document.activeElement.tagName)) { pendingRemote=st; return; }
+  applyingRemote=true; S=migrate(st); render(); applyingRemote=false;
+}); }
+let pendingRemote=null;
+document.addEventListener('focusout',()=>{ if(pendingRemote){ S=migrate(pendingRemote); pendingRemote=null; render(); }});
+
+/* ── Card DATA: read-only seeds, loaded separately (needs http - Pages or a local server) ── */
+let CONS, WEAP, REF;
+async function loadSeeds(){
+  const [c,w,r]=await Promise.all([
+    fetch('seed_consumables.json').then(x=>x.json()),
+    fetch('seed_weapons.json').then(x=>x.json()),
+    fetch('seed_reference.json').then(x=>x.json())
+  ]);
+  CONS=c; WEAP=w; REF=r;
+}
+
+/* ── Party STATE model ── */
+const uid=()=>Math.random().toString(36).slice(2,9);
+function blankPlayer(n){ return {id:uid(),name:n||'New Player',trained:['','',''],bios:{},conditions:[],recipes:[],notes:''}; }
+let S = defaultState();
+function defaultState(){ return {
+  day:1, dayLabel:'', gold:12, provisions:4, standing:1, mark:0,
+  settings:{ standingCap:3 },
+  players:[ blankPlayer('Player 1'), blankPlayer('Player 2') ],
+  pouch:{ owned:{}, stocked:[] },
+  weaponStars:{}
+}; }
+function migrate(st){ st=Object.assign(defaultState(),st);
+  st.settings=Object.assign({standingCap:3},st.settings||{});
+  st.pouch=Object.assign({owned:{},stocked:[]},st.pouch||{});
+  st.players=(st.players||[]).map(p=>Object.assign(blankPlayer(),p));
+  return st; }
+
+let TAB='camp';
+
+/* ── helpers ── */
+const el=(h)=>{const d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild;};
+const esc=(s)=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const bold=(s)=>esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+const skillsList=()=>REF.skills;
+const skillName=(id)=>{const s=REF.skills.find(k=>k.id===id);return s?s.name:'';};
+const TCOLOR={fast:'--t-fast',normal:'--t-normal',slow:'--t-slow',any:'--t-normal',react:'--t-react',passive:'--t-passive',ondraw:'--t-story',story:'--t-story'};
+const tcirc=(t)=>`<span class="tcirc" style="background:var(${TCOLOR[t]||'--t-story'})" title="${t}">${(t||'?')[0].toUpperCase()}</span>`;
+const badgeSpan=(b)=>{const col=b==='POISED'?'--poised':b==='EXHAUST'?'--exhaust':'--badge';return `<span class="badge" style="background:var(${col})">${esc(b)}</span>`;};
+
+/* ══ RENDER ══════════════════════════════════════════════════════════════ */
+function render(){ renderPartyBar(); renderPlayers(); renderTabs(); renderPanel(); }
+
+function renderPartyBar(){
+  const cap=S.settings.standingCap;
+  let pips=''; for(let i=1;i<=Math.max(cap,S.standing);i++) pips+=`<button class="pip ${i<=S.standing?'on':''} ${i>cap?'over':''}" data-standing="${i}"></button>`;
+  let mark=''; for(let i=0;i<=5;i++) mark+=`<button class="mseg ${i<=S.mark?'on'+i:''}" data-mark="${i}"></button>`;
+  const ownedN=Object.values(S.pouch.owned).filter(n=>n>0).length;
+  const bar=`
+    <div class="pb-item"><label>Day</label><button class="step" data-day="-1">-</button>
+      <input class="numin" style="width:2.6em" value="${S.day}" data-field="day"><button class="step" data-day="1">+</button>
+      <input value="${esc(S.dayLabel)}" placeholder="label" data-field="dayLabel" style="width:9em">
+    </div>
+    <div class="pb-item"><label>Gold</label><button class="step" data-gold="-1">-</button>
+      <input class="numin" value="${S.gold}" data-field="gold"><button class="step" data-gold="1">+</button></div>
+    <div class="pb-item"><label>Provisions</label><button class="step" data-prov="-1">-</button>
+      <input class="numin" value="${S.provisions}" data-field="provisions"><button class="step" data-prov="1">+</button></div>
+    <div class="pb-item"><label>Standing</label><div class="pips">${pips}</div></div>
+    <div class="pb-item"><label>The Mark</label><div class="markbar">${mark}</div>
+      <span class="provtag">PROVISIONAL</span></div>
+    <button class="chip-btn" data-goto="pouch">Pouch: ${ownedN} owned - ${S.pouch.stocked.length}/3 stocked</button>
+    <button class="newday" id="newday">New day</button>
+    <div class="tools">
+      <button id="addplayer">+ Player</button>
+      <button id="themebtn">Theme</button>
+      <button id="exportbtn">Export</button>
+      <button id="resetbtn">Reset</button>
+    </div>`;
+  const host=document.getElementById('partybar'); host.innerHTML=bar;
+  host.querySelectorAll('.step').forEach(b=>b.onclick=()=>{
+    if(b.dataset.day) S.day=Math.max(0,S.day+ +b.dataset.day);
+    if(b.dataset.gold) S.gold=Math.max(0,S.gold+ +b.dataset.gold);
+    if(b.dataset.prov) S.provisions=Math.max(0,S.provisions+ +b.dataset.prov);
+    commit(); });
+  host.querySelectorAll('[data-field]').forEach(inp=>inp.oninput=()=>{
+    const f=inp.dataset.field; S[f]=(f==='dayLabel')?inp.value:(parseInt(inp.value)||0); saveState();
+    if(f!=='dayLabel'&&f!=='day') renderPartyBar(); });
+  host.querySelectorAll('[data-standing]').forEach(p=>p.onclick=()=>{const v=+p.dataset.standing; S.standing=(S.standing===v?v-1:v); commit();});
+  host.querySelectorAll('[data-mark]').forEach(m=>m.onclick=()=>{const v=+m.dataset.mark; S.mark=(S.mark===v?Math.max(0,v-1):v); commit();});
+  host.querySelector('[data-goto]').onclick=()=>{TAB='pouch';render();};
+  document.getElementById('newday').onclick=newDay;
+  document.getElementById('addplayer').onclick=()=>{ if(S.players.length>=4){alert('Max 4 players.');return;} S.players.push(blankPlayer('Player '+(S.players.length+1))); commit(); };
+  document.getElementById('themebtn').onclick=()=>{const h=document.documentElement;h.dataset.theme=h.dataset.theme==='parchment'?'candlelit':'parchment';};
+  document.getElementById('exportbtn').onclick=exportImport;
+  document.getElementById('resetbtn').onclick=resetAll;
+}
+
+function newDay(){
+  const n=S.players.length;
+  if(!confirm(`New day:\n  Day ${S.day} -> ${S.day+1}\n  Provisions ${S.provisions} -> ${S.provisions-n} (-${n}, one per player)\n\nProceed?`)) return;
+  S.day+=1; S.provisions-=n; commit();
+}
+
+function renderPlayers(){
+  const host=document.getElementById('players'); host.innerHTML='';
+  S.players.forEach((p,pi)=>host.appendChild(playerCard(p,pi)));
+}
+function playerCard(p,pi){
+  const opts=(sel)=>`<option value=""${sel?'':' selected'}>- skill -</option>`+skillsList().map(k=>`<option value="${k.id}"${sel===k.id?' selected':''}>${esc(k.name)}</option>`).join('');
+  // trained skills + bios
+  let trained=''; p.trained.forEach((sid,ti)=>{
+    trained+=`<div><select data-tr="${ti}">${opts(sid)}</select>`;
+    if(sid) trained+=`<input class="bioline" placeholder="how ${esc(p.name)} learned ${esc(skillName(sid))}…" value="${esc(p.bios[sid]||'')}" data-bio="${sid}">`;
+    trained+=`</div>`;
+  });
+  // conditions
+  let conds=p.conditions.map(c=>`<span class="cond ${c.active?'':'off'}" data-cid="${c.id}">${esc(c.name)} - ${esc(skillName(c.skill))} -3 <button class="x" data-del="${c.id}">×</button></span>`).join('');
+  // effective skill readout
+  const condFor=(id)=>p.conditions.some(c=>c.active&&c.skill===id);
+  let grid=skillsList().map(k=>{
+    const tr=p.trained.includes(k.id), cd=condFor(k.id);
+    let mods=''; if(tr) mods+='<span class="plus">+3</span> '; if(cd) mods+='<span class="minus">-3</span> ';
+    if(k.passive) mods+='<span class="tag">PASSIVE</span> '; if(k.group) mods+='<span class="tag">GROUP</span>';
+    return `<div class="row"><span class="${tr?'tr':''}">${esc(k.name)}</span><span>${mods||'<span class="mut">+0</span>'}</span></div>`;
+  }).join('');
+  // known recipes
+  const recs=(p.recipes||[]).map(rid=>{const r=CONS.recipes.find(x=>x.id===rid);const it=r&&CONS.consumables.find(i=>i.id===r.producesItemId);return it?`<span class="skchip">${esc(it.name)}</span>`:'';}).join('')||'<span class="mut small">none</span>';
+
+  const c=el(`<div class="pcard">
+    <h3><input value="${esc(p.name)}" data-name="1">${S.players.length>2?'<button class="x" data-rmplayer="1" title="remove">×</button>':''}</h3>
+    <div class="mini">Trained skills (+3 each) &amp; how they were learned</div>
+    <div data-trained>${trained}</div>
+    <div class="mini">Conditions</div>
+    <div data-conds>${conds||'<span class="mut small">none</span>'} <button class="addbtn" data-addcond="1">+ condition</button></div>
+    <details><summary class="mini" style="margin-top:.5rem">Every modifier (all 14 skills)</summary><div class="skgrid">${grid}</div></details>
+    <div class="mini">Known recipes</div><div>${recs}</div>
+    <div class="mini">Notes</div><input class="notesin" value="${esc(p.notes)}" placeholder="owes the miller 4g; carrying the widow's letter…" data-notes="1">
+  </div>`);
+  c.querySelector('[data-name]').oninput=e=>{p.name=e.target.value;saveState();};
+  const rm=c.querySelector('[data-rmplayer]'); if(rm) rm.onclick=()=>{if(confirm('Remove '+p.name+'?')){S.players.splice(pi,1);commit();}};
+  c.querySelectorAll('[data-tr]').forEach(s=>s.onchange=()=>{p.trained[+s.dataset.tr]=s.value;commit();});
+  c.querySelectorAll('[data-bio]').forEach(b=>b.oninput=()=>{p.bios[b.dataset.bio]=b.value;saveState();});
+  c.querySelector('[data-notes]').oninput=e=>{p.notes=e.target.value;saveState();};
+  c.querySelectorAll('[data-del]').forEach(x=>x.onclick=()=>{p.conditions=p.conditions.filter(cc=>cc.id!==x.dataset.del);commit();});
+  c.querySelectorAll('[data-cid]').forEach(chip=>chip.onclick=(ev)=>{if(ev.target.dataset.del)return;const cc=p.conditions.find(x=>x.id===chip.dataset.cid);cc.active=!cc.active;commit();});
+  c.querySelector('[data-addcond]').onclick=()=>{
+    const name=prompt('Condition name (e.g. Fevered):'); if(!name)return;
+    const list=skillsList().map((k,i)=>`${i+1}. ${k.name}`).join('\n');
+    const pick=prompt('Dims which skill to -3? Enter number:\n'+list); const idx=parseInt(pick)-1;
+    if(isNaN(idx)||!skillsList()[idx])return;
+    p.conditions.push({id:uid(),name,skill:skillsList()[idx].id,active:true}); commit();
+  };
+  return c;
+}
+
+function renderTabs(){
+  const tabs=[['camp','Camp Actions'],['pouch','Consumables & Pouch'],['weapons','Weapons'],['recipes','Recipes'],['skills','Skills'],['rules','Rules'],['negotiation','Negotiation & the Twelve']];
+  const host=document.getElementById('tabstrip'); host.innerHTML='';
+  tabs.forEach(([id,lbl])=>{const b=el(`<button class="${TAB===id?'active':''}">${lbl}</button>`);b.onclick=()=>{TAB=id;renderTabs();renderPanel();};host.appendChild(b);});
+}
+function renderPanel(){ const p=document.getElementById('panel'); p.innerHTML=''; ({camp:tabCamp,pouch:tabPouch,weapons:tabWeapons,recipes:tabRecipes,skills:tabSkills,rules:tabRules,negotiation:tabNeg}[TAB])(p); }
+
+/* ── Tab 1: Camp Actions ── */
+function tabCamp(p){
+  const band=(a)=>a.noRoll?`<em>${esc(a.outcome)}</em>`:(a.outcome?`<em>${esc(a.outcome)}</em>`:`17+ ${esc(a.high||'')} · 10-16 ${esc(a.mid||'')} · 9- ${esc(a.low||'')}`);
+  const col=(list)=>`<table><tr><th>Action</th><th>Skill</th><th>Outcome</th></tr>`+list.map(a=>{
+    if(a.id.startsWith('explore'))return `<tr><td>Explore</td><td>-</td><td><em>1d20 - no skill, no modifiers. The GM holds the table.</em></td></tr>`;
+    return `<tr><td>${esc(a.name)}</td><td>${esc((a.skills||[]).map(s=>skillName(s)||s).join(', ')||'-')}</td><td>${band(a)}</td></tr>`;}).join('')+`</table>`;
+  p.appendChild(el(`<div><h2>Camp Actions</h2>
+    <ul class="rules-list small">${REF.campActions.rules.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+    <div class="two"><div><h3>Settlement</h3>${col(REF.campActions.settlement)}</div>
+      <div><h3>Wilderness</h3>${col(REF.campActions.wilderness)}</div></div></div>`));
+}
+
+/* ── Tab 2: Consumables & Pouch (stateful) ── */
+let POUCHFILTER={tier:'',disc:'',timing:'',q:''};
+function consCard(it,opts={}){
+  const stub=!it.effect;
+  const bar=it.tier==='rare'?'gold':'steel';
+  let badges=''; // consumables use standing footers not badges
+  const foot={ 'react':'CONSUMED - 1 COATING PER ATTACK', 'passive':'STOCKED ON A PLAYER - AUTO-FIRES' }[it.timing]||'CONSUMED ON USE';
+  const owned=S.pouch.owned[it.id]||0, stocked=S.pouch.stocked.includes(it.id);
+  const ctl=opts.stateful?`<div class="ownctl">
+      <button class="step" data-dec="${it.id}">-</button><b>${owned}</b><button class="step" data-inc="${it.id}">+</button>
+      ${owned>0&&!stub?`<button class="stockbtn ${stocked?'on':''}" data-stock="${it.id}">${stocked?'stocked':'stock'}</button>`:''}
+    </div>`:'';
+  return `<div class="gcard ${stub?'incomplete':''}">
+    <div class="bar ${bar}"><span>${esc(it.name)}</span><span>${tcirc(it.timing)}</span></div>
+    <div class="body">
+      <div class="tgt">${esc(it.target||'')} ${it.discipline&&it.discipline!=='none'?'· '+esc(it.discipline):''} · ${it.price?it.price+'g':''}</div>
+      ${stub?`<div class="eff"><span class="inc-badge">INCOMPLETE - TEXT PENDING</span></div>`:`<div class="eff">${bold(it.effect)}</div>`}
+      ${it.reactTrigger?`<div class="small mut">React: ${esc(it.reactTrigger)}</div>`:''}
+    </div>
+    <div class="foot">${foot}${!it.craftable&&it.discipline==='none'?' · shop only':''}</div>
+    ${ctl}</div>`;
+}
+let POUCH_REDRAW=null;
+function tabPouch(p){
+  const disc=[...new Set(CONS.consumables.map(c=>c.discipline))];
+  const wrap=el(`<div><h2>Consumables &amp; Pouch</h2>
+    <div class="filters">
+      <input id="pq" placeholder="search…" value="${esc(POUCHFILTER.q)}">
+      <select id="ptier"><option value="">all tiers</option><option value="common">common</option><option value="rare">rare</option></select>
+      <select id="pdisc"><option value="">all disciplines</option>${disc.map(d=>`<option value="${d}">${d}</option>`).join('')}</select>
+      <select id="ptim"><option value="">all timings</option>${['fast','normal','slow','react','passive','story'].map(t=>`<option value="${t}">${t}</option>`).join('')}</select>
+    </div>
+    <div class="owned-wrap" id="ownedwrap" style="display:none"><b>Owned</b> <span class="mut small" id="stockcount"></span><div class="cardgrid" id="ownedgrid"></div></div>
+    <div class="cardgrid" id="catgrid"></div>
+    <p class="small mut">Goods sell at half price - Provisions at face. Rider-React coatings do not stack. Max 3 stocked across the party.</p></div>`);
+  p.appendChild(wrap);
+  wrap.querySelector('#ptier').value=POUCHFILTER.tier; wrap.querySelector('#pdisc').value=POUCHFILTER.disc; wrap.querySelector('#ptim').value=POUCHFILTER.timing;
+  const match=(it)=>(!POUCHFILTER.tier||it.tier===POUCHFILTER.tier)&&(!POUCHFILTER.disc||it.discipline===POUCHFILTER.disc)&&(!POUCHFILTER.timing||it.timing===POUCHFILTER.timing)&&(!POUCHFILTER.q||it.name.toLowerCase().includes(POUCHFILTER.q.toLowerCase()));
+  function attach(){
+    wrap.querySelectorAll('[data-inc]').forEach(b=>b.onclick=()=>{const id=b.dataset.inc;S.pouch.owned[id]=(S.pouch.owned[id]||0)+1;commit();});
+    wrap.querySelectorAll('[data-dec]').forEach(b=>b.onclick=()=>{const id=b.dataset.dec;S.pouch.owned[id]=Math.max(0,(S.pouch.owned[id]||0)-1);if(S.pouch.owned[id]===0)S.pouch.stocked=S.pouch.stocked.filter(x=>x!==id);commit();});
+    wrap.querySelectorAll('[data-stock]').forEach(b=>b.onclick=()=>{const id=b.dataset.stock;
+      if(S.pouch.stocked.includes(id))S.pouch.stocked=S.pouch.stocked.filter(x=>x!==id);
+      else{ if(S.pouch.stocked.length>=3){alert('Only 3 items can be stocked across the party at once. Unstock one first.');return;} S.pouch.stocked.push(id);} commit();});
+  }
+  function drawGrids(){
+    const ownedItems=CONS.consumables.filter(it=>(S.pouch.owned[it.id]||0)>0);
+    const ow=wrap.querySelector('#ownedwrap');
+    if(ownedItems.length){ ow.style.display=''; wrap.querySelector('#ownedgrid').innerHTML=ownedItems.map(it=>consCard(it,{stateful:true})).join(''); wrap.querySelector('#stockcount').textContent='(stocked '+S.pouch.stocked.length+'/3)'; }
+    else ow.style.display='none';
+    wrap.querySelector('#catgrid').innerHTML=CONS.consumables.filter(match).map(it=>consCard(it,{stateful:true})).join('');
+    attach();
+  }
+  POUCH_REDRAW=drawGrids;
+  ['q:pq','tier:ptier','disc:pdisc','timing:ptim'].forEach(m=>{const[k,id]=m.split(':');const e=wrap.querySelector('#'+id);e.oninput=e.onchange=()=>{POUCHFILTER[k]=e.value;drawGrids();};});
+  drawGrids();
+}
+
+/* ── Tab 3: Weapons ── */
+function tabWeapons(p){
+  const pend=(WEAP._meta.pendingDecisions||[]);
+  const hasPend=(id)=>pend.some(t=>t.toLowerCase().includes((WEAP.weapons.find(w=>w.id===id)?.name||'').toLowerCase().split(':')[0].toLowerCase()));
+  const wrap=el(`<div><h2>Weapons</h2><div class="filters"><input id="wq" placeholder="search…"></div><div id="wlist"></div></div>`);
+  p.appendChild(wrap);
+  const draw=(q='')=>{
+    wrap.querySelector('#wlist').innerHTML=WEAP.weapons.filter(w=>!q||w.name.toLowerCase().includes(q.toLowerCase())||(w.tags||[]).join(' ').includes(q.toLowerCase())).map(w=>{
+      const star=S.weaponStars[w.id];
+      return `<div class="wcard"><h3><button class="stockbtn ${star?'on':''}" data-star="${w.id}">${star?'★ owned':'☆'}</button> ${esc(w.name)} <span class="mut small">${esc(w.set)} · ${esc(w.damageType)}</span> ${hasPend(w.id)?'<span class="warnflag">pending decision</span>':''}</h3>
+        <div class="idl">${esc(w.identity)}</div>
+        <div class="cardgrid">${w.cards.map(cd=>`<div class="gcard"><div class="bar steel"><span>${esc(cd.name)}</span><span>${(cd.timings||[]).map(tcirc).join('')}</span></div>
+          <div class="body"><div class="tgt">${esc(cd.target||'')}</div><div class="eff">${bold(cd.effect)} ${(cd.badges||[]).map(badgeSpan).join('')}</div></div></div>`).join('')}</div>
+        <div class="small mut">${(w.tags||[]).length?'Tags: '+w.tags.join(', '):''} ${(w.trackers||[]).length?' · Trackers: '+w.trackers.join(', '):''}</div></div>`;
+    }).join('');
+    wrap.querySelectorAll('[data-star]').forEach(b=>b.onclick=()=>{const id=b.dataset.star;if(S.weaponStars[id])delete S.weaponStars[id];else S.weaponStars[id]=true;commit();});
+  };
+  wrap.querySelector('#wq').oninput=e=>draw(e.target.value); draw();
+}
+
+/* ── Tab 4: Recipes ── */
+function tabRecipes(p){
+  const discs=[...new Set(CONS.recipes.map(r=>r.discipline))];
+  const wrap=el(`<div><h2>Recipes</h2>
+    <p class="small"><b>Craft:</b> ${esc(CONS._meta.craftRule)}</p><div id="rlist"></div></div>`);
+  p.appendChild(wrap);
+  wrap.querySelector('#rlist').innerHTML=discs.map(d=>{
+    const rs=CONS.recipes.filter(r=>r.discipline===d);
+    return `<h3>${esc(d)}</h3><table><tr><th>Item</th><th>Tier</th><th>Source</th><th>Known by</th></tr>`+rs.map(r=>{
+      const it=CONS.consumables.find(i=>i.id===r.producesItemId);
+      const checks=S.players.map((pl,i)=>`<label class="small" style="margin-right:6px"><input type="checkbox" data-rec="${r.id}" data-pl="${i}" ${(pl.recipes||[]).includes(r.id)?'checked':''}> ${esc(pl.name)}</label>`).join('');
+      return `<tr><td>${esc(it?it.name:r.producesItemId)}</td><td>${esc(r.tier)}</td><td>${r.starter?'starter':'found'}</td><td>${checks}</td></tr>`;
+    }).join('')+`</table>`;
+  }).join('');
+  wrap.querySelectorAll('[data-rec]').forEach(cb=>cb.onchange=()=>{
+    const pl=S.players[+cb.dataset.pl], id=cb.dataset.rec; pl.recipes=pl.recipes||[];
+    if(cb.checked){if(!pl.recipes.includes(id))pl.recipes.push(id);} else pl.recipes=pl.recipes.filter(x=>x!==id);
+    commit();
+  });
+}
+
+/* ── Tab 5: Skills ── */
+function tabSkills(p){
+  const wrap=el(`<div><h2>Skills</h2><div id="sk"></div>
+    <h3>Seam rulings</h3><ul class="rules-list small">${REF.seamRulings.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>`);
+  p.appendChild(wrap);
+  wrap.querySelector('#sk').innerHTML=`<table><tr><th>Skill</th><th>Scope</th><th>Examples</th><th>Earns</th></tr>`+REF.skills.map(k=>
+    `<tr><td><b>${esc(k.name)}</b>${k.passive?' <span class="tag">PASSIVE</span>':''}${k.group?' <span class="tag">GROUP</span>':''}</td>
+      <td class="small">${esc(k.scope)}</td><td class="small">${(k.examples||[]).map(esc).join('; ')}</td>
+      <td class="small">${(k.earns||[]).map(esc).join(', ')||'-'}${k.craft?'<br><span class="mut">craft: '+esc(k.craft)+'</span>':''}</td></tr>`).join('')+`</table>`;
+}
+
+/* ── Tab 6: Rules ── */
+function tabRules(p){
+  const sc=REF.storyConstants;
+  const bands=sc.bands.map(b=>`<tr><td><b>${esc(b.range)}</b></td><td>${esc(b.label)}</td><td class="small">${esc(b.detail)}</td>
+    <td class="small">+3: miss ${sc.odds.trained.miss} / cost ${sc.odds.trained.cost} / clean ${sc.odds.trained.clean}<br>+0: miss ${sc.odds.untrained.miss} / cost ${sc.odds.untrained.cost} / clean ${sc.odds.untrained.clean}</td></tr>`).join('');
+  p.appendChild(el(`<div><h2>Rules</h2>
+    <p class="small mut">Roll: <b>${esc(sc.roll)}</b> · Trained +${sc.trained} (${sc.trainedSkillCount} skills) · Untrained +${sc.untrained}</p>
+    <table><tr><th>Band</th><th>Result</th><th></th><th>Odds</th></tr>${bands}</table>
+    <div class="two" style="margin-top:.8rem">
+      <div><h3>State</h3><ul class="rules-list small">
+        <li><b>Circumstances:</b> ${esc(sc.circumstances)}</li>
+        <li><b>Natural 13:</b> ${esc(sc.natural13)}</li>
+        <li><b>The Press:</b> ${esc(sc.press)}</li>
+        <li><b>Conditions:</b> ${esc(sc.conditions)}</li>
+        <li><b>Provisions:</b> ${esc(sc.provisions)}</li>
+        <li><b>Standing:</b> ${esc(sc.standing.gain)}. ${esc(sc.standing.spend)}</li>
+      </ul></div>
+      <div><h3>The Mark (${esc(sc.mark.scale)})</h3><ul class="rules-list small">
+        <li>Gains: ${sc.mark.gains.map(esc).join('; ')}</li>
+        <li>At 3: ${esc(sc.mark.thresholds['3'])}. At 5: ${esc(sc.mark.thresholds['5'])}</li>
+        <li>Lowering: ${esc(sc.mark.lowering)}</li></ul></div>
+    </div>
+    <h3>The Seven Laws</h3><ol class="rules-list small">${sc.laws.map(l=>`<li><b>${esc(l.name)}:</b> ${esc(l.text)}</li>`).join('')}</ol>
+    <p class="small mut">Bridges: ${sc.bridges.map(esc).join(' · ')}</p></div>`));
+}
+
+/* ── Tab 7: Negotiation & the Twelve ── */
+function tabNeg(p){
+  const n=REF.negotiation;
+  p.appendChild(el(`<div><h2>Negotiation &amp; the Twelve</h2>
+    <p class="small">${esc(n.scope)}</p>
+    <ul class="rules-list small">
+      <li><b>Interest:</b> ${esc(n.tracks.interest)}</li>
+      <li><b>Patience:</b> ${esc(n.tracks.patience)}</li>
+      <li><b>Arguments:</b> ${esc(n.arguments)}</li>
+      <li><b>Motivations:</b> ${esc(n.motivationRule)}</li>
+      <li><b>Lies:</b> ${esc(n.lies)}</li>
+      <li><b>Discovery:</b> ${esc(n.discovery)}</li>
+    </ul>
+    <h3>The Twelve</h3>
+    <table><tr><th>Trait</th><th>The appeal</th><th>Driven by</th><th>Cannot hear it</th></tr>
+    ${REF.theTwelve.map(t=>`<tr><td><b>${esc(t.trait)}</b></td><td class="small">${esc(t.appeal)}</td><td class="small">${esc(t.drivenBy)}</td><td class="small">${esc(t.pitfall)}</td></tr>`).join('')}</table>
+    <p class="small mut">Topics are valence-stripped: you learn WHAT matters, never whether it is a motivation or the pitfall.</p></div>`));
+}
+
+/* ── tools ── */
+function commit(){ if(!applyingRemote){ render(); saveState(); } }
+function exportImport(){
+  const cur=JSON.stringify(S,null,2);
+  const box=el(`<div style="position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99;display:flex;align-items:center;justify-content:center">
+    <div style="background:var(--card);border:2px solid var(--border);border-radius:10px;padding:1rem;max-width:640px;width:90%">
+      <h3>Export / Import party state</h3>
+      <textarea style="width:100%;height:40vh">${esc(cur)}</textarea>
+      <div style="display:flex;gap:.5rem;margin-top:.5rem"><button id="imp">Import (overwrite)</button><button id="cls">Close</button></div>
+    </div></div>`);
+  document.body.appendChild(box);
+  box.querySelector('#cls').onclick=()=>box.remove();
+  box.querySelector('#imp').onclick=()=>{try{S=migrate(JSON.parse(box.querySelector('textarea').value));commit();box.remove();}catch(e){alert('Invalid JSON: '+e.message);}};
+}
+function resetAll(){ const t=prompt('This wipes all party state (not the seed data). Type RESET to confirm:'); if(t==='RESET'){S=defaultState();commit();} }
+
+/* ── boot ── */
+(async function(){
+  try{ await loadSeeds(); }
+  catch(e){
+    document.getElementById('loaderr').style.display='block';
+    document.getElementById('loaderr').innerHTML=`<h3>Could not load the seed data</h3>
+      <p>This tool reads <code>seed_consumables.json</code>, <code>seed_weapons.json</code> and <code>seed_reference.json</code> from the same folder, and browsers block that when a page is opened directly from disk (<code>file://</code>).</p>
+      <p><b>Fix:</b> open it over http - push to GitHub Pages, or run a local server in this folder (e.g. <code>python -m http.server</code>) and visit <code>localhost:8000/story_tracker.html</code>.</p>
+      <p class="mut">(${esc(e.message)})</p>`;
+    return;
+  }
+  document.getElementById('app').style.display='block';
+  subscribe();          // pulls existing cloud state (and live updates)
+  render();             // render defaults immediately; subscribe overwrites if cloud has data
+})();
+</script>
+</body>
+</html>
