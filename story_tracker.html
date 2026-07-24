@@ -87,7 +87,8 @@ th{background:var(--card-hdr)}
 
 /* ── cards (consumables/weapons) - matches the print-sheet look ── */
 .cardgrid{display:flex;flex-wrap:wrap;gap:.6rem}
-.gcard{width:224px;background:#efe9da;color:#1c0e08;border:1px solid #b0a074;border-radius:6px;overflow:hidden;display:flex;flex-direction:column;font-family:'Aref Ruqaa Ink',serif}
+.gcard{width:224px;aspect-ratio:63/88;background:#efe9da;color:#1c0e08;border:1px solid #b0a074;border-radius:6px;overflow:hidden;display:flex;flex-direction:column;font-family:'Aref Ruqaa Ink',serif}
+.gitem{width:224px;display:flex;flex-direction:column;gap:3px}
 [data-theme="candlelit"] .gcard{background:#efe9da;color:#1c0e08}
 .gcard .chead{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#c7bda6;min-height:34px;flex-wrap:wrap}
 .gcard .cname{font-size:15px;font-weight:700;color:#2a2622;flex:1;line-height:1.05;min-width:70px}
@@ -150,6 +151,7 @@ table{font-size:1.02rem} th,td{padding:6px 9px}
 .pcard .tgt.ally{background:#2f5a3a;color:#bff0cf}.pcard .tgt.react{background:#1f6b4a;color:#bff0d8}.pcard .tgt.passive{background:#3a3448;color:#d0c8ec}.pcard .tgt.story{background:#4a3a48;color:#e0cce0}
 .pcard .single{flex:1;padding:2.8mm;background:#efe9da;display:flex;align-items:flex-start}
 .pcard .seff{font-size:10.5pt;font-weight:600;line-height:1.3;color:#2c2718}
+.pcard .seff.sm{font-size:9pt;line-height:1.24}.pcard .seff.xs{font-size:7.8pt;line-height:1.16}
 .pcard .seff strong{color:#8a1014;font-size:1.16em;font-weight:800}
 .pcard .foot{background:#e0b94a;text-align:center;font-size:7pt;font-weight:800;color:#5a4a12;padding:1.5mm;font-family:Helvetica,Arial,sans-serif}
 .pbadge{font-size:6.5pt;color:#fff;border-radius:1mm;padding:.3mm 1.5mm;font-family:Helvetica,Arial,sans-serif}
@@ -235,8 +237,6 @@ const esc=(s)=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;
 const bold=(s)=>esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
 const skillsList=()=>REF.skills;
 const skillName=(id)=>{const s=REF.skills.find(k=>k.id===id);return s?s.name:'';};
-const TCOLOR={fast:'--t-fast',normal:'--t-normal',slow:'--t-slow',any:'--t-normal',react:'--t-react',passive:'--t-passive',ondraw:'--t-story',story:'--t-story'};
-const tcirc=(t)=>`<span class="tcirc" style="background:var(${TCOLOR[t]||'--t-story'})" title="${t}">${(t||'?')[0].toUpperCase()}</span>`;
 const badgeSpan=(b)=>{const col=b==='POISED'?'--poised':b==='EXHAUST'?'--exhaust':'--badge';return `<span class="badge" style="background:var(${col})">${esc(b)}</span>`;};
 const itemTimings=(it)=>(it.timings&&it.timings.length)?it.timings:(it.timing?[it.timing]:[]);
 const TGLYPH={fast:'⚡',normal:'⬡',slow:'⏳',any:'✶',react:'↩',ondraw:'❈',passive:'✦',story:'✧'};
@@ -289,8 +289,7 @@ function renderPartyBar(){
     if(b.dataset.prov) S.provisions=Math.max(0,S.provisions+ +b.dataset.prov);
     commit(); });
   host.querySelectorAll('[data-field]').forEach(inp=>inp.oninput=()=>{
-    const f=inp.dataset.field; S[f]=(f==='dayLabel')?inp.value:(parseInt(inp.value)||0); saveState();
-    if(f!=='dayLabel'&&f!=='day') renderPartyBar(); });
+    const f=inp.dataset.field; S[f]=(f==='dayLabel')?inp.value:Math.max(0,parseInt(inp.value)||0); saveState(); });
   host.querySelectorAll('[data-standing]').forEach(p=>p.onclick=()=>{const v=+p.dataset.standing; S.standing=(S.standing===v?v-1:v); commit();});
   host.querySelectorAll('[data-mark]').forEach(m=>m.onclick=()=>{const v=+m.dataset.mark; S.mark=(S.mark===v?Math.max(0,v-1):v); commit();});
   host.querySelector('[data-goto]').onclick=()=>{TAB='pouch';render();};
@@ -384,34 +383,31 @@ function tabCamp(p){
 let POUCHFILTER={tier:'',disc:'',timing:'',q:'',owned:false};
 function consCard(it,opts={}){
   const stub=!it.effect;
-  const bar=it.tier==='rare'?'gold':'steel';
-  let badges=''; // consumables use standing footers not badges
   const tms=itemTimings(it);
-  const foot=tms.includes('passive')?'STOCKED ON A PLAYER - AUTO-FIRES':(tms.includes('react')?'CONSUMED - 1 COATING PER ATTACK':'CONSUMED ON USE');
   const owned=S.pouch.owned[it.id]||0, stocked=S.pouch.stocked.includes(it.id);
   const ctl=opts.stateful?`<div class="ownctl">
       <button class="step" data-dec="${it.id}">-</button><b>${owned}</b><button class="step" data-inc="${it.id}">+</button>
       ${owned>0&&!stub?`<button class="stockbtn ${stocked?'on':''}" data-stock="${it.id}">${stocked?'stocked':'stock'}</button>`:''}
     </div>`:'';
   const ti=tgtInfo(it);
-  return `<div class="gcard ${stub?'incomplete':''}">
+  const face=`<div class="gcard ${stub?'incomplete':''}">
     <div class="chead">${tms.map(tb).join('')}<span class="cname">${esc(it.name)}</span></div>
     <div class="wbar ${it.tier==='rare'?'rare':''}">${esc(wbarText(it))}</div>
     <div class="tgt ${ti.cls}">${esc(ti.txt)}</div>
     <div class="single">${stub?`<span class="inc-badge">INCOMPLETE - TEXT PENDING</span>`:`<div class="seff">${bold(it.effect)}</div>`}</div>
-    <div class="foot">${footText(it)}</div>
-    ${ctl}</div>`;
+    <div class="foot">${footText(it)}</div></div>`;
+  return opts.stateful?`<div class="gitem">${face}${ctl}</div>`:face;
 }
-let POUCH_REDRAW=null;
 function tabPouch(p){
   if(EDIT_MODE) p.appendChild(consEditorPanel());
   const disc=[...new Set(CONS.consumables.map(c=>c.discipline))];
+  const tims=[...new Set(CONS.consumables.flatMap(itemTimings))];
   const wrap=el(`<div><h2>Consumables &amp; Pouch</h2>
     <div class="filters">
       <input id="pq" placeholder="search…" value="${esc(POUCHFILTER.q)}">
       <select id="ptier"><option value="">all tiers</option><option value="common">common</option><option value="rare">rare</option></select>
       <select id="pdisc"><option value="">all disciplines</option>${disc.map(d=>`<option value="${d}">${d}</option>`).join('')}</select>
-      <select id="ptim"><option value="">all timings</option>${['fast','normal','slow','react','passive','story'].map(t=>`<option value="${t}">${t}</option>`).join('')}</select>
+      <select id="ptim"><option value="">all timings</option>${tims.map(t=>`<option value="${t}">${t}</option>`).join('')}</select>
       <label class="small" style="display:flex;align-items:center;gap:4px"><input type="checkbox" id="powned"> owned only</label>
     </div>
     <div class="owned-wrap" id="ownedwrap" style="display:none"><b>Owned</b> <span class="mut small" id="stockcount"></span><div class="cardgrid" id="ownedgrid"></div></div>
@@ -435,7 +431,6 @@ function tabPouch(p){
     wrap.querySelector('#catgrid').innerHTML=CONS.consumables.filter(match).map(it=>consCard(it,{stateful:true})).join('');
     attach();
   }
-  POUCH_REDRAW=drawGrids;
   ['q:pq','tier:ptier','disc:pdisc','timing:ptim'].forEach(m=>{const[k,id]=m.split(':');const e=wrap.querySelector('#'+id);e.oninput=e.onchange=()=>{POUCHFILTER[k]=e.value;drawGrids();};});
   wrap.querySelector('#powned').onchange=e=>{POUCHFILTER.owned=e.target.checked;drawGrids();};
   drawGrids();
@@ -444,14 +439,12 @@ function tabPouch(p){
 /* ── Tab 3: Weapons ── */
 function tabWeapons(p){
   if(EDIT_MODE) p.appendChild(weaponEditorPanel());
-  const pend=(WEAP._meta.pendingDecisions||[]);
-  const hasPend=(id)=>pend.some(t=>t.toLowerCase().includes((WEAP.weapons.find(w=>w.id===id)?.name||'').toLowerCase().split(':')[0].toLowerCase()));
   const wrap=el(`<div><h2>Weapons</h2><div class="filters"><input id="wq" placeholder="search…"></div><div id="wlist"></div></div>`);
   p.appendChild(wrap);
   const draw=(q='')=>{
     wrap.querySelector('#wlist').innerHTML=WEAP.weapons.filter(w=>!q||w.name.toLowerCase().includes(q.toLowerCase())||(w.tags||[]).join(' ').includes(q.toLowerCase())).map(w=>{
       const star=S.weaponStars[w.id];
-      return `<div class="wcard"><h3><button class="stockbtn ${star?'on':''}" data-star="${w.id}">${star?'★ owned':'☆'}</button> ${esc(w.name)} <span class="mut small">${esc(w.set)} · ${esc(w.damageType)}</span> ${hasPend(w.id)?'<span class="warnflag">pending decision</span>':''}</h3>
+      return `<div class="wcard"><h3><button class="stockbtn ${star?'on':''}" data-star="${w.id}">${star?'★ owned':'☆'}</button> ${esc(w.name)} <span class="mut small">${esc(w.set)} · ${esc(w.damageType)}</span> ${weaponPending(w)?'<span class="warnflag">pending decision</span>':''}</h3>
         <div class="idl">${esc(w.identity)}</div>
         <div class="cardgrid">${w.cards.map(cd=>weaponCardHTML(cd,w)).join('')}</div>
         <div class="small mut">${(w.tags||[]).length?'Tags: '+w.tags.join(', '):''} ${(w.trackers||[]).length?' · Trackers: '+w.trackers.join(', '):''}</div></div>`;
@@ -751,20 +744,20 @@ function delWeapon(id){ const s=WEAP.weapons.find(x=>x.id===id); if(prompt('Type
 function exportWeapons(){ const out=JSON.stringify({_meta:WEAP._meta,weapons:WEAP.weapons},null,2); const box=el(`<div><h3>seed_weapons.json</h3><p class="small mut">Copy into <code>seed_weapons.json</code> in the repo and commit.</p><textarea style="width:100%;height:55vh">${esc(out)}</textarea></div>`); modal(box); box.querySelector('textarea').select(); }
 
 /* ══ PRINT EMITTER (63×88mm poker cards, 3×3 A4; refuses empty-effect items) ══ */
-const PTCHEX={fast:'#8a5a2b',normal:'#2f4d7a',slow:'#9a2420',any:'#2f4d7a',react:'#1f8f5f',ondraw:'#5a4a6a',passive:'#4a4458',story:'#5a4a6a'};
-const ptc=(t)=>`<span class="ptc" style="background:${PTCHEX[t]||'#5a4a6a'}">${(t||'?')[0].toUpperCase()}</span>`;
 const pbadge=(b)=>{const c=b==='POISED'?'#3a6a8a':b==='EXHAUST'?'#8a1014':'#5a4a3a';return `<span class="pbadge" style="background:${c}">${esc(b)}</span>`;};
+/* keep long effect text inside the fixed 63×88mm card: shrink the font as text grows so nothing clips on print */
+const seffSize=(txt)=>{const n=String(txt||'').replace(/\*\*/g,'').length; return n>240?' xs':n>150?' sm':'';};
 const ptb=(t)=>`<span class="ptb ${t}">${TGLYPH[t]||'?'}</span>`;
 function pConsCard(it){ const tms=itemTimings(it); const ti=tgtInfo(it);
   return `<div class="pcard"><div class="chead">${tms.map(ptb).join('')}<span class="cname">${esc(it.name)}</span></div>
     <div class="wbar ${it.tier==='rare'?'rare':''}">${esc(wbarText(it))}</div>
     <div class="tgt ${ti.cls}">${esc(ti.txt)}</div>
-    <div class="single"><div class="seff">${bold(it.effect)}</div></div>
+    <div class="single"><div class="seff${seffSize(it.effect)}">${bold(it.effect)}</div></div>
     <div class="foot">${footText(it)}</div></div>`; }
 function pWeaponCards(w){ return w.cards.map(cd=>`<div class="pcard"><div class="chead">${(cd.timings||[]).map(ptb).join('')}<span class="cname">${esc(cd.name)}</span></div>
     <div class="wbar weap">${esc(w.name)}${weaponPending(w)?' · ⚠ PENDING':''}</div>
     ${cd.target?`<div class="tgt">${esc(cd.target)}</div>`:''}
-    <div class="single"><div class="seff">${bold(cd.effect)} ${(cd.badges||[]).map(pbadge).join('')}</div></div>
+    <div class="single"><div class="seff${seffSize(cd.effect)}">${bold(cd.effect)} ${(cd.badges||[]).map(pbadge).join('')}</div></div>
     <div class="foot">${esc((w.damageType||'').toUpperCase())} WEAPON</div></div>`).join(''); }
 function pRecipeCard(r){ const it=CONS.consumables.find(i=>i.id===r.producesItemId)||{}; return `<div class="pcard"><div class="chead"><span class="ptb story">✧</span><span class="cname">Recipe</span></div>
     <div class="wbar ${r.tier==='rare'?'rare':''}">${esc(r.tier==='rare'?'Rare recipe':'Common recipe')} · ${esc(r.discipline)}</div>
