@@ -85,21 +85,26 @@ a{color:var(--num);cursor:pointer;text-decoration:underline}
 table{border-collapse:collapse;width:100%;font-size:.9rem} th,td{border:1px solid var(--border2);padding:4px 7px;text-align:left;vertical-align:top}
 th{background:var(--card-hdr)}
 
-/* ── cards (consumables/weapons) ── */
+/* ── cards (consumables/weapons) - matches the print-sheet look ── */
 .cardgrid{display:flex;flex-wrap:wrap;gap:.6rem}
-.gcard{width:210px;background:#efe9da;color:#1c0e08;border:1px solid #b8a06a;border-radius:7px;overflow:hidden;display:flex;flex-direction:column}
-[data-theme="candlelit"] .gcard{background:#efe9da}
-.gcard .bar{color:#efe9da;font-family:'Aref Ruqaa Ink',serif;font-weight:700;padding:3px 8px;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
-.gcard .bar.steel{background:var(--steel)} .gcard .bar.gold{background:var(--gold)}
-.gcard .body{padding:6px 8px;flex:1}
-.gcard .tgt{font-size:.72rem;color:#6a4a08;text-transform:uppercase;letter-spacing:.03em}
-.gcard .eff{margin:3px 0;font-size:.9rem}
-.gcard .eff strong{color:#8a1014}
-.gcard .foot{font-size:.62rem;color:#5a4a2a;border-top:1px solid #cbbfa0;letter-spacing:.03em;padding:3px 8px;text-transform:uppercase}
-.tcirc{display:inline-flex;width:18px;height:18px;border-radius:50%;color:#fff;font-size:.6rem;align-items:center;justify-content:center;font-weight:700}
-.badge{font-size:.58rem;color:#fff;border-radius:3px;padding:0 4px;margin-left:3px;letter-spacing:.03em}
-.gcard.incomplete{opacity:.55}
-.inc-badge{background:var(--exhaust);color:#fff;font-size:.6rem;padding:0 4px;border-radius:3px}
+.gcard{width:224px;background:#efe9da;color:#1c0e08;border:1px solid #b0a074;border-radius:6px;overflow:hidden;display:flex;flex-direction:column;font-family:'Aref Ruqaa Ink',serif}
+[data-theme="candlelit"] .gcard{background:#efe9da;color:#1c0e08}
+.gcard .chead{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#c7bda6;min-height:34px;flex-wrap:wrap}
+.gcard .cname{font-size:15px;font-weight:700;color:#2a2622;flex:1;line-height:1.05;min-width:70px}
+.tb{width:23px;height:23px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-family:Helvetica,Arial,sans-serif}
+.tb.fast{background:#8a5a2b}.tb.normal{background:#2f4d7a}.tb.slow{background:#9a2420}.tb.react{background:#1f8f5f}.tb.passive{background:#4a4458}.tb.any{background:#5a6a2b}.tb.story{background:#5a4a6a}.tb.ondraw{background:#5a4a6a}
+.gcard .wbar{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 8px;background:#3a4a5e;color:#c8d8ec;font-family:Helvetica,Arial,sans-serif}
+.gcard .wbar.rare{background:#6a4a08;color:#f0d890}
+.gcard .wbar.weap{background:#4a3a28;color:#e8d0a8}
+.gcard .tgt{font-size:11px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;padding:4px 8px;color:#ffd9b0;background:#6b3a18;font-family:Helvetica,Arial,sans-serif}
+.gcard .tgt.ally{background:#2f5a3a;color:#bff0cf}.gcard .tgt.react{background:#1f6b4a;color:#bff0d8}.gcard .tgt.passive{background:#3a3448;color:#d0c8ec}.gcard .tgt.story{background:#4a3a48;color:#e0cce0}
+.gcard .single{flex:1;padding:9px;background:#efe9da;display:flex;align-items:flex-start}
+.gcard .seff{font-size:15px;font-weight:600;line-height:1.3;color:#2c2718}
+.gcard .seff strong{color:#8a1014;font-size:1.12em;font-weight:800}
+.gcard .foot{background:#e0b94a;text-align:center;font-size:10px;font-weight:800;color:#5a4a12;padding:4px;font-family:Helvetica,Arial,sans-serif;letter-spacing:.3px}
+.badge{font-size:10px;color:#fff;border-radius:3px;padding:0 4px;margin-left:3px;letter-spacing:.03em;font-family:Helvetica,Arial,sans-serif}
+.gcard.incomplete{opacity:.6}
+.inc-badge{background:var(--exhaust);color:#fff;font-size:11px;padding:1px 5px;border-radius:3px;font-family:Helvetica,Arial,sans-serif}
 .warnflag{background:var(--mark-amber);color:#1c0e08;font-size:.6rem;padding:0 4px;border-radius:3px}
 .owned-wrap{background:var(--bg2);border:1px dashed var(--border);border-radius:8px;padding:.5rem;margin-bottom:.8rem}
 .filters{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-bottom:.7rem}
@@ -124,19 +129,32 @@ strong,.num,.skgrid .plus,.skgrid .minus{font-weight:800}
 .skgrid{font-size:.98rem}
 table{font-size:1.02rem} th,td{padding:6px 9px}
 .tabstrip button{font-size:1.05rem}
-.gcard .bar{font-size:1.06rem}
-.gcard .tgt{font-size:.9rem;font-weight:700;color:#5a3a08}
-.gcard .eff{font-size:1.08rem;font-weight:600}
-.gcard .eff strong{font-weight:800}
-.gcard .foot{font-size:.78rem;font-weight:700;color:#4a3a1a}
-.tcirc{width:21px;height:21px;font-size:.74rem}
-.badge{font-size:.74rem;font-weight:700}
-.provtag,.inc-badge,.warnflag{font-size:.74rem;font-weight:700}
+.provtag,.warnflag{font-size:.74rem;font-weight:700}
 .numin{font-size:1.1rem}
 .chip-btn,.tools button,.stockbtn,.addbtn{font-size:.95rem}
 .newday{font-size:1.05rem}
 /* darker theme: brighter text, less-black ground, stronger edges */
 [data-theme="candlelit"]{--bg:#160c03;--bg2:#241505;--card:#2e1a09;--card-hdr:#412610;--border:#9a6528;--border2:#6a4415;--text:#fbeecb;--muted:#e8c088;--rule:#7a5018}
+
+/* ── print emitter: poker 63×88mm, 3×3 on A4 (dimensions mandatory) ── */
+#printview{display:none}
+.psheet{display:grid;grid-template-columns:repeat(3,63mm);grid-auto-rows:88mm;gap:0;justify-content:center;align-content:start}
+.pcard{width:63mm;height:88mm;box-sizing:border-box;border:.2mm solid #b0b0b0;background:#efe9da;color:#1c0e08;display:flex;flex-direction:column;overflow:hidden;break-inside:avoid;font-family:'Aref Ruqaa Ink',serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pcard .chead{display:flex;align-items:center;gap:1.6mm;padding:2mm;background:#c7bda6;min-height:9mm;flex-wrap:wrap}
+.pcard .cname{font-size:12pt;font-weight:700;color:#2a2622;flex:1;line-height:1.02;min-width:22mm}
+.pcard .ptb{width:6mm;height:6mm;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:8.5pt;color:#fff;font-family:Helvetica,Arial,sans-serif}
+.pcard .ptb.fast{background:#8a5a2b}.pcard .ptb.normal{background:#2f4d7a}.pcard .ptb.slow{background:#9a2420}.pcard .ptb.react{background:#1f8f5f}.pcard .ptb.passive{background:#4a4458}.pcard .ptb.any{background:#5a6a2b}.pcard .ptb.story{background:#5a4a6a}.pcard .ptb.ondraw{background:#5a4a6a}
+.pcard .wbar{font-size:6.5pt;font-weight:800;letter-spacing:.4pt;text-transform:uppercase;padding:1mm 2mm;background:#3a4a5e;color:#c8d8ec;font-family:Helvetica,Arial,sans-serif}
+.pcard .wbar.rare{background:#6a4a08;color:#f0d890}.pcard .wbar.weap{background:#4a3a28;color:#e8d0a8}
+.pcard .tgt{font-size:8pt;font-weight:800;letter-spacing:.3pt;text-transform:uppercase;padding:1.4mm 2mm;color:#ffd9b0;background:#6b3a18;font-family:Helvetica,Arial,sans-serif}
+.pcard .tgt.ally{background:#2f5a3a;color:#bff0cf}.pcard .tgt.react{background:#1f6b4a;color:#bff0d8}.pcard .tgt.passive{background:#3a3448;color:#d0c8ec}.pcard .tgt.story{background:#4a3a48;color:#e0cce0}
+.pcard .single{flex:1;padding:2.8mm;background:#efe9da;display:flex;align-items:flex-start}
+.pcard .seff{font-size:10.5pt;font-weight:600;line-height:1.3;color:#2c2718}
+.pcard .seff strong{color:#8a1014;font-size:1.16em;font-weight:800}
+.pcard .foot{background:#e0b94a;text-align:center;font-size:7pt;font-weight:800;color:#5a4a12;padding:1.5mm;font-family:Helvetica,Arial,sans-serif}
+.pbadge{font-size:6.5pt;color:#fff;border-radius:1mm;padding:.3mm 1.5mm;font-family:Helvetica,Arial,sans-serif}
+@media screen{#printview{display:block;position:fixed;inset:0;background:#888;overflow:auto;z-index:200;padding:8mm}#printview .pbtns button{font-size:1rem;padding:5px 12px}}
+@media print{@page{size:A4;margin:9mm}body>*:not(#printview){display:none!important}#printview{display:block!important;background:#fff;padding:0}#printview .pbtns{display:none!important}}
 </style>
 </head>
 <body>
@@ -220,6 +238,19 @@ const skillName=(id)=>{const s=REF.skills.find(k=>k.id===id);return s?s.name:'';
 const TCOLOR={fast:'--t-fast',normal:'--t-normal',slow:'--t-slow',any:'--t-normal',react:'--t-react',passive:'--t-passive',ondraw:'--t-story',story:'--t-story'};
 const tcirc=(t)=>`<span class="tcirc" style="background:var(${TCOLOR[t]||'--t-story'})" title="${t}">${(t||'?')[0].toUpperCase()}</span>`;
 const badgeSpan=(b)=>{const col=b==='POISED'?'--poised':b==='EXHAUST'?'--exhaust':'--badge';return `<span class="badge" style="background:var(${col})">${esc(b)}</span>`;};
+const itemTimings=(it)=>(it.timings&&it.timings.length)?it.timings:(it.timing?[it.timing]:[]);
+const TGLYPH={fast:'⚡',normal:'⬡',slow:'⏳',any:'✶',react:'↩',ondraw:'❈',passive:'✦',story:'✧'};
+const cap=(s)=>s?String(s)[0].toUpperCase()+String(s).slice(1):'';
+const tb=(t)=>`<span class="tb ${t}">${TGLYPH[t]||'?'}</span>`;
+const wbarText=(it)=>it.tier==='rare'?'Rare · Loot Only':('Common · '+(it.discipline==='none'?'Shop':cap(it.discipline)));
+function footText(it){ const tms=itemTimings(it); return tms.includes('passive')?'STOCKED ON A PLAYER · AUTO-FIRES':(tms.includes('react')?'CONSUMED · 1 COATING PER ATTACK':'CONSUMED ON USE'); }
+function tgtInfo(it){ const tms=itemTimings(it);
+  if(tms.includes('passive')) return {cls:'passive',txt:'Passive - Automatic'};
+  if(tms.includes('react')) return {cls:'react',txt:'React - '+(it.reactTrigger||String(it.target||'').replace(/^React\s*-\s*/i,'')||'Trigger')};
+  const t=it.target||'Enemy';
+  if(/story|camp/i.test(t)) return {cls:'story',txt:t};
+  if(/self|all(y|ies)/i.test(t)) return {cls:'ally',txt:'Target: '+t};
+  return {cls:'',txt:'Target: '+t}; }
 
 /* ══ RENDER ══════════════════════════════════════════════════════════════ */
 function render(){ renderPartyBar(); renderPlayers(); renderTabs(); renderPanel(); }
@@ -247,6 +278,7 @@ function renderPartyBar(){
       <button id="editbtn" style="${EDIT_MODE?'background:var(--good);color:#fff':''}">Edit: ${EDIT_MODE?'ON':'off'}</button>
       <button id="addplayer">+ Player</button>
       <button id="themebtn">Theme</button>
+      <button id="printbtn">Print</button>
       <button id="exportbtn">Export</button>
       <button id="resetbtn">Reset</button>
     </div>`;
@@ -268,6 +300,7 @@ function renderPartyBar(){
   document.getElementById('exportbtn').onclick=exportImport;
   document.getElementById('resetbtn').onclick=resetAll;
   document.getElementById('editbtn').onclick=toggleEdit;
+  document.getElementById('printbtn').onclick=openPrint;
 }
 
 function newDay(){
@@ -353,20 +386,20 @@ function consCard(it,opts={}){
   const stub=!it.effect;
   const bar=it.tier==='rare'?'gold':'steel';
   let badges=''; // consumables use standing footers not badges
-  const foot={ 'react':'CONSUMED - 1 COATING PER ATTACK', 'passive':'STOCKED ON A PLAYER - AUTO-FIRES' }[it.timing]||'CONSUMED ON USE';
+  const tms=itemTimings(it);
+  const foot=tms.includes('passive')?'STOCKED ON A PLAYER - AUTO-FIRES':(tms.includes('react')?'CONSUMED - 1 COATING PER ATTACK':'CONSUMED ON USE');
   const owned=S.pouch.owned[it.id]||0, stocked=S.pouch.stocked.includes(it.id);
   const ctl=opts.stateful?`<div class="ownctl">
       <button class="step" data-dec="${it.id}">-</button><b>${owned}</b><button class="step" data-inc="${it.id}">+</button>
       ${owned>0&&!stub?`<button class="stockbtn ${stocked?'on':''}" data-stock="${it.id}">${stocked?'stocked':'stock'}</button>`:''}
     </div>`:'';
+  const ti=tgtInfo(it);
   return `<div class="gcard ${stub?'incomplete':''}">
-    <div class="bar ${bar}"><span>${esc(it.name)}</span><span>${tcirc(it.timing)}</span></div>
-    <div class="body">
-      <div class="tgt">${esc(it.target||'')} ${it.discipline&&it.discipline!=='none'?'· '+esc(it.discipline):''} · ${it.price?it.price+'g':''}</div>
-      ${stub?`<div class="eff"><span class="inc-badge">INCOMPLETE - TEXT PENDING</span></div>`:`<div class="eff">${bold(it.effect)}</div>`}
-      ${it.reactTrigger?`<div class="small mut">React: ${esc(it.reactTrigger)}</div>`:''}
-    </div>
-    <div class="foot">${foot}${!it.craftable&&it.discipline==='none'?' · shop only':''}</div>
+    <div class="chead">${tms.map(tb).join('')}<span class="cname">${esc(it.name)}</span></div>
+    <div class="wbar ${it.tier==='rare'?'rare':''}">${esc(wbarText(it))}</div>
+    <div class="tgt ${ti.cls}">${esc(ti.txt)}</div>
+    <div class="single">${stub?`<span class="inc-badge">INCOMPLETE - TEXT PENDING</span>`:`<div class="seff">${bold(it.effect)}</div>`}</div>
+    <div class="foot">${footText(it)}</div>
     ${ctl}</div>`;
 }
 let POUCH_REDRAW=null;
@@ -386,7 +419,7 @@ function tabPouch(p){
     <p class="small mut">Goods sell at half price - Provisions at face. Rider-React coatings do not stack. Max 3 stocked across the party.</p></div>`);
   p.appendChild(wrap);
   wrap.querySelector('#ptier').value=POUCHFILTER.tier; wrap.querySelector('#pdisc').value=POUCHFILTER.disc; wrap.querySelector('#ptim').value=POUCHFILTER.timing; wrap.querySelector('#powned').checked=POUCHFILTER.owned;
-  const match=(it)=>(!POUCHFILTER.tier||it.tier===POUCHFILTER.tier)&&(!POUCHFILTER.disc||it.discipline===POUCHFILTER.disc)&&(!POUCHFILTER.timing||it.timing===POUCHFILTER.timing)&&(!POUCHFILTER.q||it.name.toLowerCase().includes(POUCHFILTER.q.toLowerCase()))&&(!POUCHFILTER.owned||(S.pouch.owned[it.id]||0)>0);
+  const match=(it)=>(!POUCHFILTER.tier||it.tier===POUCHFILTER.tier)&&(!POUCHFILTER.disc||it.discipline===POUCHFILTER.disc)&&(!POUCHFILTER.timing||itemTimings(it).includes(POUCHFILTER.timing))&&(!POUCHFILTER.q||it.name.toLowerCase().includes(POUCHFILTER.q.toLowerCase()))&&(!POUCHFILTER.owned||(S.pouch.owned[it.id]||0)>0);
   function attach(){
     wrap.querySelectorAll('[data-inc]').forEach(b=>b.onclick=()=>{const id=b.dataset.inc;S.pouch.owned[id]=(S.pouch.owned[id]||0)+1;commit();});
     wrap.querySelectorAll('[data-dec]').forEach(b=>b.onclick=()=>{const id=b.dataset.dec;S.pouch.owned[id]=Math.max(0,(S.pouch.owned[id]||0)-1);if(S.pouch.owned[id]===0)S.pouch.stocked=S.pouch.stocked.filter(x=>x!==id);commit();});
@@ -410,6 +443,7 @@ function tabPouch(p){
 
 /* ── Tab 3: Weapons ── */
 function tabWeapons(p){
+  if(EDIT_MODE) p.appendChild(weaponEditorPanel());
   const pend=(WEAP._meta.pendingDecisions||[]);
   const hasPend=(id)=>pend.some(t=>t.toLowerCase().includes((WEAP.weapons.find(w=>w.id===id)?.name||'').toLowerCase().split(':')[0].toLowerCase()));
   const wrap=el(`<div><h2>Weapons</h2><div class="filters"><input id="wq" placeholder="search…"></div><div id="wlist"></div></div>`);
@@ -419,8 +453,7 @@ function tabWeapons(p){
       const star=S.weaponStars[w.id];
       return `<div class="wcard"><h3><button class="stockbtn ${star?'on':''}" data-star="${w.id}">${star?'★ owned':'☆'}</button> ${esc(w.name)} <span class="mut small">${esc(w.set)} · ${esc(w.damageType)}</span> ${hasPend(w.id)?'<span class="warnflag">pending decision</span>':''}</h3>
         <div class="idl">${esc(w.identity)}</div>
-        <div class="cardgrid">${w.cards.map(cd=>`<div class="gcard"><div class="bar steel"><span>${esc(cd.name)}</span><span>${(cd.timings||[]).map(tcirc).join('')}</span></div>
-          <div class="body"><div class="tgt">${esc(cd.target||'')}</div><div class="eff">${bold(cd.effect)} ${(cd.badges||[]).map(badgeSpan).join('')}</div></div></div>`).join('')}</div>
+        <div class="cardgrid">${w.cards.map(cd=>weaponCardHTML(cd,w)).join('')}</div>
         <div class="small mut">${(w.tags||[]).length?'Tags: '+w.tags.join(', '):''} ${(w.trackers||[]).length?' · Trackers: '+w.trackers.join(', '):''}</div></div>`;
     }).join('');
     wrap.querySelectorAll('[data-star]').forEach(b=>b.onclick=()=>{const id=b.dataset.star;if(S.weaponStars[id])delete S.weaponStars[id];else S.weaponStars[id]=true;commit();});
@@ -525,7 +558,7 @@ function resetAll(){ const t=prompt('This wipes all party state (not the seed da
 /* ══ EDITOR (edit-mode; authors card DATA; export-to-commit is the save) ══ */
 function toggleEdit(){ EDIT_MODE=!EDIT_MODE; localStorage.setItem('anrpg_story_editmode',EDIT_MODE?'1':'0'); render(); }
 const DISCIPLINES=['herbcraft','tinkering','charmcraft','arcana','cooking','bandages','none'];
-const TIMINGS_C=['fast','normal','slow','react','passive','story'];
+const TIMINGS_C=['fast','normal','slow','any','react','passive','story'];
 const recipeFor=(itemId)=>CONS.recipes.find(r=>r.producesItemId===itemId);
 function modal(innerNode){
   const ov=document.createElement('div');
@@ -546,11 +579,11 @@ function consEditorPanel(){
       <span class="mut small">${cardDirty?'⚠ unsaved edits - export &amp; commit before you close':'edits are per-session; export &amp; commit to the repo to save'}</span>
     </div>
     <table><tr><th>Name</th><th>Tier</th><th>Price</th><th>Timing</th><th>Discipline</th><th></th></tr>
-    ${CONS.consumables.map(it=>{ const w=[]; if(!it.effect)w.push('no effect'); if(it.timing==='react'&&!it.reactTrigger)w.push('no react trigger'); if(it.tier==='rare'&&it.craftable&&!recipeFor(it.id))w.push('rare+craftable, no recipe');
+    ${CONS.consumables.map(it=>{ const w=[]; if(!it.effect)w.push('no effect'); if(itemTimings(it).includes('react')&&!it.reactTrigger)w.push('no react trigger'); if(it.tier==='rare'&&it.craftable&&!recipeFor(it.id))w.push('rare+craftable, no recipe');
       return `<tr><td>${esc(it.name)} ${w.length?`<span class="warnflag" title="${esc(w.join('; '))}">!</span>`:''}</td>
         <td><select data-btier="${it.id}"><option value="common"${it.tier==='common'?' selected':''}>common</option><option value="rare"${it.tier==='rare'?' selected':''}>rare</option></select></td>
         <td><input data-bprice="${it.id}" value="${it.price||0}" style="width:4em"></td>
-        <td>${esc(it.timing)}</td><td>${esc(it.discipline)}</td>
+        <td>${esc(itemTimings(it).join('/'))}</td><td>${esc(it.discipline)}</td>
         <td style="white-space:nowrap"><button class="addbtn" data-edit="${it.id}">edit</button> <button class="addbtn" data-dup="${it.id}">dup</button> <button class="addbtn" data-del="${it.id}">del</button></td></tr>`; }).join('')}</table></div>`);
   node.querySelector('#newcons').onclick=()=>openConsForm(null);
   node.querySelector('#expcons').onclick=exportCons;
@@ -563,13 +596,13 @@ function consEditorPanel(){
 }
 function openConsForm(item){
   const isNew=!item;
-  const it=item?JSON.parse(JSON.stringify(item)):{id:'',name:'',timing:'fast',reactTrigger:'',tier:'common',discipline:'herbcraft',target:'',effect:'',price:10,craftable:true,notes:''};
+  const it=item?JSON.parse(JSON.stringify(item)):{id:'',name:'',timings:['fast'],reactTrigger:'',tier:'common',discipline:'herbcraft',target:'',effect:'',price:10,craftable:true,notes:''};
   const form=el(`<div><h3>${isNew?'New':'Edit'} consumable</h3>
     <div style="display:grid;grid-template-columns:1fr 230px;gap:1rem">
       <div>
         <label>Name<br><input id="f-name" value="${esc(it.name)}" style="width:100%"></label><br>
         <label>id (slug, stable)<br><input id="f-id" value="${esc(it.id)}" style="width:100%" ${isNew?'':'disabled'}></label><br>
-        <label>Timing <select id="f-timing">${TIMINGS_C.map(t=>`<option${it.timing===t?' selected':''}>${t}</option>`).join('')}</select></label>
+        <div class="small" style="margin:.2rem 0">Timings (tick all that apply): ${TIMINGS_C.map(t=>`<label style="margin-right:8px"><input type="checkbox" class="f-tim" value="${t}" ${itemTimings(it).includes(t)?'checked':''}>${t}</label>`).join('')}</div>
         <span id="f-trigwrap"> React trigger <input id="f-trig" value="${esc(it.reactTrigger||'')}"></span><br>
         <label>Tier <select id="f-tier"><option${it.tier==='common'?' selected':''}>common</option><option${it.tier==='rare'?' selected':''}>rare</option></select></label>
         <label>Discipline <select id="f-disc">${DISCIPLINES.map(d=>`<option${it.discipline===d?' selected':''}>${d}</option>`).join('')}</select></label><br>
@@ -584,10 +617,10 @@ function openConsForm(item){
     </div>
     <div style="display:flex;gap:.5rem;margin-top:.7rem"><button id="f-save">Save</button><button id="f-cancel">Cancel</button></div></div>`);
   const ov=modal(form); const g=(id)=>form.querySelector('#'+id);
-  const collect=()=>({id:isNew?slug(g('f-id').value||g('f-name').value):it.id,name:g('f-name').value,timing:g('f-timing').value,reactTrigger:g('f-trig').value,tier:g('f-tier').value,discipline:g('f-disc').value,target:g('f-target').value,effect:g('f-effect').value,price:parseInt(g('f-price').value)||0,craftable:g('f-craft').checked,notes:g('f-notes').value});
-  function refresh(){ const c=collect(); g('f-trigwrap').style.display=(c.timing==='react')?'':'none';
+  const collect=()=>{ const tms=[...form.querySelectorAll('.f-tim:checked')].map(x=>x.value); return {id:isNew?slug(g('f-id').value||g('f-name').value):it.id,name:g('f-name').value,timings:tms,timing:tms[0]||'',reactTrigger:g('f-trig').value,tier:g('f-tier').value,discipline:g('f-disc').value,target:g('f-target').value,effect:g('f-effect').value,price:parseInt(g('f-price').value)||0,craftable:g('f-craft').checked,notes:g('f-notes').value}; };
+  function refresh(){ const c=collect(); g('f-trigwrap').style.display=c.timings.includes('react')?'':'none';
     g('f-prev').innerHTML=consCard(c,{});
-    const w=[]; if(!c.name)w.push('name required'); if(!c.effect)w.push('empty effect - renders as INCOMPLETE'); if(c.timing==='react'&&!c.reactTrigger)w.push('react card needs a trigger'); if(c.tier==='rare'&&c.craftable&&!recipeFor(c.id))w.push('rare + craftable but no recipe points at it'); if(isNew&&c.id&&CONS.consumables.some(x=>x.id===c.id))w.push('id already exists'); g('f-warn').innerHTML=w.map(esc).join('<br>'); }
+    const w=[]; if(!c.name)w.push('name required'); if(!c.timings.length)w.push('pick at least one timing'); if(!c.effect)w.push('empty effect - renders as INCOMPLETE'); if(c.timings.includes('react')&&!c.reactTrigger)w.push('react card needs a trigger'); if(c.tier==='rare'&&c.craftable&&!recipeFor(c.id))w.push('rare + craftable but no recipe points at it'); if(isNew&&c.id&&CONS.consumables.some(x=>x.id===c.id))w.push('id already exists'); g('f-warn').innerHTML=w.map(esc).join('<br>'); }
   form.querySelectorAll('input,select,textarea').forEach(e=>{ e.oninput=refresh; e.onchange=refresh; });
   g('f-cancel').onclick=()=>ov.remove();
   g('f-save').onclick=()=>{ const c=collect();
@@ -630,6 +663,143 @@ function openRecipeForm(rec){
   g('r-save').onclick=()=>{ const nr={id:isNew?(g('r-id').value||('r-'+slug((CONS.consumables.find(i=>i.id===g('r-prod').value)||{}).name))):r.id,discipline:g('r-disc').value,producesItemId:g('r-prod').value,tier:g('r-tier').value,starter:g('r-start').checked};
     if(!nr.id){alert('id required.');return;} if(isNew&&CONS.recipes.some(x=>x.id===nr.id)){alert('id already exists.');return;}
     if(isNew)CONS.recipes.push(nr); else Object.assign(rec,nr); markDirty(); ov.remove(); renderPanel(); };
+}
+
+const WTIMINGS=['fast','normal','slow','any','react','ondraw'];
+const WBADGES=['POISED','EXHAUST','2 ACT','ON DRAW'];
+function weaponCardHTML(cd,w){ const nm=(w&&w.name)||''; return `<div class="gcard">
+  <div class="chead">${(cd.timings||[]).map(tb).join('')}<span class="cname">${esc(cd.name||'')}</span></div>
+  <div class="wbar weap">${esc(nm)}${w&&weaponPending(w)?' · ⚠ PENDING':''}</div>
+  ${cd.target?`<div class="tgt">${esc(cd.target)}</div>`:''}
+  <div class="single"><div class="seff">${bold(cd.effect||'')} ${(cd.badges||[]).map(badgeSpan).join('')}</div></div></div>`; }
+function weaponPending(w){ return (WEAP._meta.pendingDecisions||[]).some(t=>t.toLowerCase().startsWith((w.name||'').toLowerCase())); }
+function blankCard(){ return {name:'',timings:['normal'],badges:[],target:'Enemy',effect:''}; }
+
+function weaponEditorPanel(){
+  const node=el(`<div style="border:2px solid var(--border);border-radius:8px;padding:.6rem .8rem;margin-bottom:1rem;background:var(--bg2)">
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.5rem"><b>Editor - Weapons</b>
+      <button class="addbtn" id="newweap">+ New weapon</button>
+      <button class="addbtn" id="expweap">Export seed_weapons.json</button>
+      <span class="mut small">${cardDirty?'⚠ unsaved edits - export &amp; commit before you close':'edits are per-session; export &amp; commit to save'}</span></div>
+    <table><tr><th>Name</th><th>Set</th><th>Type</th><th></th></tr>
+    ${WEAP.weapons.map(w=>`<tr><td>${esc(w.name)} ${weaponPending(w)?`<span class="warnflag" title="pending decision - do not print yet">pending</span>`:''}</td><td>${esc(w.set)}</td><td>${esc(w.damageType)}</td>
+      <td style="white-space:nowrap"><button class="addbtn" data-ew="${w.id}">edit</button> <button class="addbtn" data-dw="${w.id}">dup</button> <button class="addbtn" data-xw="${w.id}">del</button></td></tr>`).join('')}</table></div>`);
+  node.querySelector('#newweap').onclick=()=>openWeaponForm(null);
+  node.querySelector('#expweap').onclick=exportWeapons;
+  node.querySelectorAll('[data-ew]').forEach(b=>b.onclick=()=>openWeaponForm(WEAP.weapons.find(w=>w.id===b.dataset.ew)));
+  node.querySelectorAll('[data-dw]').forEach(b=>b.onclick=()=>dupWeapon(b.dataset.dw));
+  node.querySelectorAll('[data-xw]').forEach(b=>b.onclick=()=>delWeapon(b.dataset.xw));
+  return node;
+}
+function openWeaponForm(weap){
+  const isNew=!weap;
+  const w=weap?JSON.parse(JSON.stringify(weap)):{id:'',name:'',set:'wave2',identity:'',damageType:'Physical',tags:[],trackers:[],cards:[blankCard(),blankCard(),blankCard()]};
+  while(w.cards.length<3) w.cards.push(blankCard());
+  const cardBlock=(cd,ci)=>`<fieldset style="border:1px solid var(--border2);border-radius:6px;padding:.4rem .5rem;margin:.3rem 0">
+    <legend class="mini">Card ${ci+1}</legend>
+    <label>Name <input data-c="${ci}" data-k="name" value="${esc(cd.name)}" style="width:60%"></label>
+    <div class="small">Timings: ${WTIMINGS.map(t=>`<label style="margin-right:6px"><input type="checkbox" data-ct="${ci}" value="${t}" ${(cd.timings||[]).includes(t)?'checked':''}>${t}</label>`).join('')}</div>
+    <div class="small">Badges: ${WBADGES.map(b=>`<label style="margin-right:6px"><input type="checkbox" data-cb="${ci}" value="${b}" ${(cd.badges||[]).includes(b)?'checked':''}>${b}</label>`).join('')}</div>
+    <label>Target <input data-c="${ci}" data-k="target" value="${esc(cd.target||'')}" style="width:70%"></label>
+    <label style="display:block">Effect (**bold**) <textarea data-c="${ci}" data-k="effect" style="width:100%;height:3em">${esc(cd.effect||'')}</textarea></label>
+  </fieldset>`;
+  const form=el(`<div><h3>${isNew?'New':'Edit'} weapon</h3>
+    <div style="display:grid;grid-template-columns:1fr 240px;gap:1rem">
+      <div>
+        <label>Name <input id="w-name" value="${esc(w.name)}"></label>
+        <label>id <input id="w-id" value="${esc(w.id)}" ${isNew?'':'disabled'}></label><br>
+        <label>Set <input id="w-set" value="${esc(w.set)}" style="width:8em"></label>
+        <label>Damage type <input id="w-dtype" value="${esc(w.damageType)}" style="width:9em"></label><br>
+        <label style="display:block">Identity <input id="w-identity" value="${esc(w.identity)}" style="width:100%"></label>
+        <label style="display:block">Tags (comma) <input id="w-tags" value="${esc((w.tags||[]).join(', '))}" style="width:100%"></label>
+        <label style="display:block">Trackers (comma) <input id="w-trackers" value="${esc((w.trackers||[]).join(', '))}" style="width:100%"></label>
+        ${w.cards.map((cd,ci)=>cardBlock(cd,ci)).join('')}
+        <div id="w-warn" class="small" style="color:var(--mark-amber)"></div>
+      </div>
+      <div><div class="mini">Live preview</div><div id="w-prev"></div></div>
+    </div>
+    <div style="display:flex;gap:.5rem;margin-top:.7rem"><button id="w-save">Save</button><button id="w-cancel">Cancel</button></div></div>`);
+  const ov=modal(form); const g=id=>form.querySelector('#'+id);
+  function collect(){
+    const cards=w.cards.map((_,ci)=>({
+      name:form.querySelector(`[data-c="${ci}"][data-k="name"]`).value,
+      timings:[...form.querySelectorAll(`[data-ct="${ci}"]:checked`)].map(x=>x.value),
+      badges:[...form.querySelectorAll(`[data-cb="${ci}"]:checked`)].map(x=>x.value),
+      target:form.querySelector(`[data-c="${ci}"][data-k="target"]`).value,
+      effect:form.querySelector(`[data-c="${ci}"][data-k="effect"]`).value
+    }));
+    return {id:isNew?slug(g('w-id').value||g('w-name').value):w.id,name:g('w-name').value,set:g('w-set').value,identity:g('w-identity').value,damageType:g('w-dtype').value,tags:g('w-tags').value.split(',').map(s=>s.trim()).filter(Boolean),trackers:g('w-trackers').value.split(',').map(s=>s.trim()).filter(Boolean),cards};
+  }
+  function refresh(){ const c=collect();
+    g('w-prev').innerHTML=`<div class="idl">${esc(c.identity)}</div><div class="cardgrid">${c.cards.map(cd=>weaponCardHTML(cd,c)).join('')}</div>`;
+    const warn=[]; if(!c.name)warn.push('name required'); if(isNew&&c.id&&WEAP.weapons.some(x=>x.id===c.id))warn.push('id already exists');
+    c.cards.forEach((cd,i)=>{ if(!cd.name||!cd.effect)warn.push(`card ${i+1} missing name/effect`); if(!(cd.timings||[]).length)warn.push(`card ${i+1} has no timing`); });
+    if((WEAP._meta.pendingDecisions||[]).some(t=>t.toLowerCase().startsWith((c.name||'').toLowerCase())))warn.push('⚠ this weapon has a PENDING DECISION - do not print until settled');
+    g('w-warn').innerHTML=warn.map(esc).join('<br>'); }
+  form.querySelectorAll('input,select,textarea').forEach(e=>{e.oninput=refresh;e.onchange=refresh;});
+  g('w-cancel').onclick=()=>ov.remove();
+  g('w-save').onclick=()=>{ const c=collect();
+    if(!c.name){alert('Name is required.');return;}
+    if(!c.id){alert('An id is required.');return;}
+    if(isNew&&WEAP.weapons.some(x=>x.id===c.id)){alert('That id already exists.');return;}
+    if(isNew)WEAP.weapons.push(c); else Object.assign(weap,c);
+    markDirty(); ov.remove(); renderPanel(); };
+  refresh();
+}
+function dupWeapon(id){ const s=WEAP.weapons.find(x=>x.id===id); let base=slug(s.name)+'-copy',nid=base,i=2; while(WEAP.weapons.some(x=>x.id===nid))nid=base+'-'+(i++); const c=JSON.parse(JSON.stringify(s)); c.id=nid; c.name=s.name+' (copy)'; WEAP.weapons.push(c); markDirty(); renderPanel(); openWeaponForm(c); }
+function delWeapon(id){ const s=WEAP.weapons.find(x=>x.id===id); if(prompt('Type the weapon name to delete:\n'+s.name)===s.name){ WEAP.weapons=WEAP.weapons.filter(x=>x.id!==id); markDirty(); renderPanel(); } }
+function exportWeapons(){ const out=JSON.stringify({_meta:WEAP._meta,weapons:WEAP.weapons},null,2); const box=el(`<div><h3>seed_weapons.json</h3><p class="small mut">Copy into <code>seed_weapons.json</code> in the repo and commit.</p><textarea style="width:100%;height:55vh">${esc(out)}</textarea></div>`); modal(box); box.querySelector('textarea').select(); }
+
+/* ══ PRINT EMITTER (63×88mm poker cards, 3×3 A4; refuses empty-effect items) ══ */
+const PTCHEX={fast:'#8a5a2b',normal:'#2f4d7a',slow:'#9a2420',any:'#2f4d7a',react:'#1f8f5f',ondraw:'#5a4a6a',passive:'#4a4458',story:'#5a4a6a'};
+const ptc=(t)=>`<span class="ptc" style="background:${PTCHEX[t]||'#5a4a6a'}">${(t||'?')[0].toUpperCase()}</span>`;
+const pbadge=(b)=>{const c=b==='POISED'?'#3a6a8a':b==='EXHAUST'?'#8a1014':'#5a4a3a';return `<span class="pbadge" style="background:${c}">${esc(b)}</span>`;};
+const ptb=(t)=>`<span class="ptb ${t}">${TGLYPH[t]||'?'}</span>`;
+function pConsCard(it){ const tms=itemTimings(it); const ti=tgtInfo(it);
+  return `<div class="pcard"><div class="chead">${tms.map(ptb).join('')}<span class="cname">${esc(it.name)}</span></div>
+    <div class="wbar ${it.tier==='rare'?'rare':''}">${esc(wbarText(it))}</div>
+    <div class="tgt ${ti.cls}">${esc(ti.txt)}</div>
+    <div class="single"><div class="seff">${bold(it.effect)}</div></div>
+    <div class="foot">${footText(it)}</div></div>`; }
+function pWeaponCards(w){ return w.cards.map(cd=>`<div class="pcard"><div class="chead">${(cd.timings||[]).map(ptb).join('')}<span class="cname">${esc(cd.name)}</span></div>
+    <div class="wbar weap">${esc(w.name)}${weaponPending(w)?' · ⚠ PENDING':''}</div>
+    ${cd.target?`<div class="tgt">${esc(cd.target)}</div>`:''}
+    <div class="single"><div class="seff">${bold(cd.effect)} ${(cd.badges||[]).map(pbadge).join('')}</div></div>
+    <div class="foot">${esc((w.damageType||'').toUpperCase())} WEAPON</div></div>`).join(''); }
+function pRecipeCard(r){ const it=CONS.consumables.find(i=>i.id===r.producesItemId)||{}; return `<div class="pcard"><div class="chead"><span class="ptb story">✧</span><span class="cname">Recipe</span></div>
+    <div class="wbar ${r.tier==='rare'?'rare':''}">${esc(r.tier==='rare'?'Rare recipe':'Common recipe')} · ${esc(r.discipline)}</div>
+    <div class="single"><div class="seff">Crafts <strong>${esc(it.name||r.producesItemId)}</strong>.</div></div>
+    <div class="foot">CRAFT: 2d12 + ${esc((r.discipline||'').toUpperCase())} · 10+ MADE</div></div>`; }
+function printSheet(cardsHTML){
+  let pv=document.getElementById('printview'); if(pv) pv.remove();
+  pv=document.createElement('div'); pv.id='printview';
+  pv.innerHTML=`<div class="pbtns" style="display:flex;gap:.5rem;margin-bottom:6mm"><button onclick="window.print()">Print / Save PDF</button><button id="pv-close">Close preview</button></div><div class="psheet">${cardsHTML}</div>`;
+  document.body.appendChild(pv);
+  pv.querySelector('#pv-close').onclick=()=>pv.remove();
+  window.print();
+}
+function openPrint(){
+  const box=el(`<div><h3>Print cards</h3>
+    <p class="small mut">Poker 63×88mm, 3×3 to an A4 sheet (dimensions are fixed). Items with no effect text are skipped and listed.</p>
+    <div class="pbtns" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem">
+      <button id="pr-cons">Print all consumables</button>
+      <button id="pr-weap">Print all weapons</button>
+      <button id="pr-rec">Print all recipes</button>
+    </div>
+    <div class="mini">Or tick specific cards, then Print selection (reprint a single fixed card):</div>
+    <div style="max-height:42vh;overflow:auto;border:1px solid var(--border);padding:.4rem .6rem;border-radius:6px">
+      <div class="mini">Consumables</div>${CONS.consumables.map(it=>`<label class="small" style="display:block"><input type="checkbox" class="pr-sel" data-t="c" value="${it.id}" ${it.effect?'':'disabled'}> ${esc(it.name)}${it.effect?'':' <span class="mut">(no text - can\\'t print)</span>'}</label>`).join('')}
+      <div class="mini">Weapons</div>${WEAP.weapons.map(w=>`<label class="small" style="display:block"><input type="checkbox" class="pr-sel" data-t="w" value="${w.id}"> ${esc(w.name)} (3 cards)</label>`).join('')}
+    </div>
+    <button id="pr-selbtn" style="margin-top:.5rem">Print selection</button></div>`);
+  modal(box);
+  const skipNote=(names)=>{ if(names&&names.length) setTimeout(()=>alert('Skipped - no effect text:\n'+names.join('\n')),150); };
+  box.querySelector('#pr-cons').onclick=()=>{ const ok=CONS.consumables.filter(it=>it.effect); printSheet(ok.map(pConsCard).join('')); skipNote(CONS.consumables.filter(it=>!it.effect).map(it=>it.name)); };
+  box.querySelector('#pr-weap').onclick=()=>printSheet(WEAP.weapons.map(pWeaponCards).join(''));
+  box.querySelector('#pr-rec').onclick=()=>printSheet(CONS.recipes.map(pRecipeCard).join(''));
+  box.querySelector('#pr-selbtn').onclick=()=>{ const sel=[...box.querySelectorAll('.pr-sel:checked')]; let html='',skip=[];
+    sel.forEach(s=>{ if(s.dataset.t==='c'){ const it=CONS.consumables.find(i=>i.id===s.value); if(it.effect)html+=pConsCard(it); else skip.push(it.name); } else html+=pWeaponCards(WEAP.weapons.find(w=>w.id===s.value)); });
+    if(!html){ alert('Nothing selected (or only empty-effect items).'); return; } printSheet(html); skipNote(skip); };
 }
 
 /* ── boot ── */
