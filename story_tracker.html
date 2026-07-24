@@ -205,6 +205,11 @@ function migrate(st){ st=Object.assign(defaultState(),st);
   return st; }
 
 let TAB='camp';
+let EDIT_MODE=(localStorage.getItem('anrpg_story_editmode')==='1');
+let cardDirty=false;
+function markDirty(){ cardDirty=true; }
+window.addEventListener('beforeunload',e=>{ if(cardDirty){ e.preventDefault(); e.returnValue=''; } });
+function slug(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
 
 /* ── helpers ── */
 const el=(h)=>{const d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild;};
@@ -239,6 +244,7 @@ function renderPartyBar(){
     <button class="chip-btn" data-goto="pouch">Pouch: ${ownedN} owned - ${S.pouch.stocked.length}/3 stocked</button>
     <button class="newday" id="newday">New day</button>
     <div class="tools">
+      <button id="editbtn" style="${EDIT_MODE?'background:var(--good);color:#fff':''}">Edit: ${EDIT_MODE?'ON':'off'}</button>
       <button id="addplayer">+ Player</button>
       <button id="themebtn">Theme</button>
       <button id="exportbtn">Export</button>
@@ -261,6 +267,7 @@ function renderPartyBar(){
   document.getElementById('themebtn').onclick=()=>{const h=document.documentElement;h.dataset.theme=h.dataset.theme==='parchment'?'candlelit':'parchment';};
   document.getElementById('exportbtn').onclick=exportImport;
   document.getElementById('resetbtn').onclick=resetAll;
+  document.getElementById('editbtn').onclick=toggleEdit;
 }
 
 function newDay(){
@@ -341,7 +348,7 @@ function tabCamp(p){
 }
 
 /* ── Tab 2: Consumables & Pouch (stateful) ── */
-let POUCHFILTER={tier:'',disc:'',timing:'',q:''};
+let POUCHFILTER={tier:'',disc:'',timing:'',q:'',owned:false};
 function consCard(it,opts={}){
   const stub=!it.effect;
   const bar=it.tier==='rare'?'gold':'steel';
@@ -364,6 +371,7 @@ function consCard(it,opts={}){
 }
 let POUCH_REDRAW=null;
 function tabPouch(p){
+  if(EDIT_MODE) p.appendChild(consEditorPanel());
   const disc=[...new Set(CONS.consumables.map(c=>c.discipline))];
   const wrap=el(`<div><h2>Consumables &amp; Pouch</h2>
     <div class="filters">
@@ -371,13 +379,14 @@ function tabPouch(p){
       <select id="ptier"><option value="">all tiers</option><option value="common">common</option><option value="rare">rare</option></select>
       <select id="pdisc"><option value="">all disciplines</option>${disc.map(d=>`<option value="${d}">${d}</option>`).join('')}</select>
       <select id="ptim"><option value="">all timings</option>${['fast','normal','slow','react','passive','story'].map(t=>`<option value="${t}">${t}</option>`).join('')}</select>
+      <label class="small" style="display:flex;align-items:center;gap:4px"><input type="checkbox" id="powned"> owned only</label>
     </div>
     <div class="owned-wrap" id="ownedwrap" style="display:none"><b>Owned</b> <span class="mut small" id="stockcount"></span><div class="cardgrid" id="ownedgrid"></div></div>
     <div class="cardgrid" id="catgrid"></div>
     <p class="small mut">Goods sell at half price - Provisions at face. Rider-React coatings do not stack. Max 3 stocked across the party.</p></div>`);
   p.appendChild(wrap);
-  wrap.querySelector('#ptier').value=POUCHFILTER.tier; wrap.querySelector('#pdisc').value=POUCHFILTER.disc; wrap.querySelector('#ptim').value=POUCHFILTER.timing;
-  const match=(it)=>(!POUCHFILTER.tier||it.tier===POUCHFILTER.tier)&&(!POUCHFILTER.disc||it.discipline===POUCHFILTER.disc)&&(!POUCHFILTER.timing||it.timing===POUCHFILTER.timing)&&(!POUCHFILTER.q||it.name.toLowerCase().includes(POUCHFILTER.q.toLowerCase()));
+  wrap.querySelector('#ptier').value=POUCHFILTER.tier; wrap.querySelector('#pdisc').value=POUCHFILTER.disc; wrap.querySelector('#ptim').value=POUCHFILTER.timing; wrap.querySelector('#powned').checked=POUCHFILTER.owned;
+  const match=(it)=>(!POUCHFILTER.tier||it.tier===POUCHFILTER.tier)&&(!POUCHFILTER.disc||it.discipline===POUCHFILTER.disc)&&(!POUCHFILTER.timing||it.timing===POUCHFILTER.timing)&&(!POUCHFILTER.q||it.name.toLowerCase().includes(POUCHFILTER.q.toLowerCase()))&&(!POUCHFILTER.owned||(S.pouch.owned[it.id]||0)>0);
   function attach(){
     wrap.querySelectorAll('[data-inc]').forEach(b=>b.onclick=()=>{const id=b.dataset.inc;S.pouch.owned[id]=(S.pouch.owned[id]||0)+1;commit();});
     wrap.querySelectorAll('[data-dec]').forEach(b=>b.onclick=()=>{const id=b.dataset.dec;S.pouch.owned[id]=Math.max(0,(S.pouch.owned[id]||0)-1);if(S.pouch.owned[id]===0)S.pouch.stocked=S.pouch.stocked.filter(x=>x!==id);commit();});
@@ -395,6 +404,7 @@ function tabPouch(p){
   }
   POUCH_REDRAW=drawGrids;
   ['q:pq','tier:ptier','disc:pdisc','timing:ptim'].forEach(m=>{const[k,id]=m.split(':');const e=wrap.querySelector('#'+id);e.oninput=e.onchange=()=>{POUCHFILTER[k]=e.value;drawGrids();};});
+  wrap.querySelector('#powned').onchange=e=>{POUCHFILTER.owned=e.target.checked;drawGrids();};
   drawGrids();
 }
 
@@ -420,6 +430,7 @@ function tabWeapons(p){
 
 /* ── Tab 4: Recipes ── */
 function tabRecipes(p){
+  if(EDIT_MODE) p.appendChild(recipeEditorPanel());
   const discs=[...new Set(CONS.recipes.map(r=>r.discipline))];
   const wrap=el(`<div><h2>Recipes</h2>
     <p class="small"><b>Craft:</b> ${esc(CONS._meta.craftRule)}</p><div id="rlist"></div></div>`);
@@ -510,6 +521,116 @@ function exportImport(){
   box.querySelector('#imp').onclick=()=>{try{S=migrate(JSON.parse(box.querySelector('textarea').value));commit();box.remove();}catch(e){alert('Invalid JSON: '+e.message);}};
 }
 function resetAll(){ const t=prompt('This wipes all party state (not the seed data). Type RESET to confirm:'); if(t==='RESET'){S=defaultState();commit();} }
+
+/* ══ EDITOR (edit-mode; authors card DATA; export-to-commit is the save) ══ */
+function toggleEdit(){ EDIT_MODE=!EDIT_MODE; localStorage.setItem('anrpg_story_editmode',EDIT_MODE?'1':'0'); render(); }
+const DISCIPLINES=['herbcraft','tinkering','charmcraft','arcana','cooking','bandages','none'];
+const TIMINGS_C=['fast','normal','slow','react','passive','story'];
+const recipeFor=(itemId)=>CONS.recipes.find(r=>r.producesItemId===itemId);
+function modal(innerNode){
+  const ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99;display:flex;align-items:flex-start;justify-content:center;padding:2vh 1rem;overflow:auto';
+  const box=document.createElement('div');
+  box.style.cssText='background:var(--card);border:2px solid var(--border);border-radius:10px;padding:1rem 1.1rem;max-width:920px;width:100%';
+  box.appendChild(innerNode); ov.appendChild(box);
+  ov.addEventListener('click',e=>{ if(e.target===ov) ov.remove(); });
+  document.body.appendChild(ov); return ov;
+}
+
+function consEditorPanel(){
+  const node=el(`<div style="border:2px solid var(--border);border-radius:8px;padding:.6rem .8rem;margin-bottom:1rem;background:var(--bg2)">
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.5rem">
+      <b>Editor - Consumables</b>
+      <button class="addbtn" id="newcons">+ New consumable</button>
+      <button class="addbtn" id="expcons">Export seed_consumables.json</button>
+      <span class="mut small">${cardDirty?'⚠ unsaved edits - export &amp; commit before you close':'edits are per-session; export &amp; commit to the repo to save'}</span>
+    </div>
+    <table><tr><th>Name</th><th>Tier</th><th>Price</th><th>Timing</th><th>Discipline</th><th></th></tr>
+    ${CONS.consumables.map(it=>{ const w=[]; if(!it.effect)w.push('no effect'); if(it.timing==='react'&&!it.reactTrigger)w.push('no react trigger'); if(it.tier==='rare'&&it.craftable&&!recipeFor(it.id))w.push('rare+craftable, no recipe');
+      return `<tr><td>${esc(it.name)} ${w.length?`<span class="warnflag" title="${esc(w.join('; '))}">!</span>`:''}</td>
+        <td><select data-btier="${it.id}"><option value="common"${it.tier==='common'?' selected':''}>common</option><option value="rare"${it.tier==='rare'?' selected':''}>rare</option></select></td>
+        <td><input data-bprice="${it.id}" value="${it.price||0}" style="width:4em"></td>
+        <td>${esc(it.timing)}</td><td>${esc(it.discipline)}</td>
+        <td style="white-space:nowrap"><button class="addbtn" data-edit="${it.id}">edit</button> <button class="addbtn" data-dup="${it.id}">dup</button> <button class="addbtn" data-del="${it.id}">del</button></td></tr>`; }).join('')}</table></div>`);
+  node.querySelector('#newcons').onclick=()=>openConsForm(null);
+  node.querySelector('#expcons').onclick=exportCons;
+  node.querySelectorAll('[data-btier]').forEach(s=>s.onchange=()=>{ CONS.consumables.find(x=>x.id===s.dataset.btier).tier=s.value; markDirty(); renderPanel(); });
+  node.querySelectorAll('[data-bprice]').forEach(i=>i.onchange=()=>{ CONS.consumables.find(x=>x.id===i.dataset.bprice).price=parseInt(i.value)||0; markDirty(); });
+  node.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openConsForm(CONS.consumables.find(x=>x.id===b.dataset.edit)));
+  node.querySelectorAll('[data-dup]').forEach(b=>b.onclick=()=>dupCons(b.dataset.dup));
+  node.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>delCons(b.dataset.del));
+  return node;
+}
+function openConsForm(item){
+  const isNew=!item;
+  const it=item?JSON.parse(JSON.stringify(item)):{id:'',name:'',timing:'fast',reactTrigger:'',tier:'common',discipline:'herbcraft',target:'',effect:'',price:10,craftable:true,notes:''};
+  const form=el(`<div><h3>${isNew?'New':'Edit'} consumable</h3>
+    <div style="display:grid;grid-template-columns:1fr 230px;gap:1rem">
+      <div>
+        <label>Name<br><input id="f-name" value="${esc(it.name)}" style="width:100%"></label><br>
+        <label>id (slug, stable)<br><input id="f-id" value="${esc(it.id)}" style="width:100%" ${isNew?'':'disabled'}></label><br>
+        <label>Timing <select id="f-timing">${TIMINGS_C.map(t=>`<option${it.timing===t?' selected':''}>${t}</option>`).join('')}</select></label>
+        <span id="f-trigwrap"> React trigger <input id="f-trig" value="${esc(it.reactTrigger||'')}"></span><br>
+        <label>Tier <select id="f-tier"><option${it.tier==='common'?' selected':''}>common</option><option${it.tier==='rare'?' selected':''}>rare</option></select></label>
+        <label>Discipline <select id="f-disc">${DISCIPLINES.map(d=>`<option${it.discipline===d?' selected':''}>${d}</option>`).join('')}</select></label><br>
+        <label>Target<br><input id="f-target" value="${esc(it.target||'')}" style="width:100%"></label><br>
+        <label>Effect (**bold** for numbers)<br><textarea id="f-effect" style="width:100%;height:4em">${esc(it.effect||'')}</textarea></label><br>
+        <label>Price <input id="f-price" value="${it.price||0}" style="width:5em"></label>
+        <label><input type="checkbox" id="f-craft" ${it.craftable?'checked':''}> craftable</label><br>
+        <label>Notes (GM-only, never shown to players)<br><input id="f-notes" value="${esc(it.notes||'')}" style="width:100%"></label>
+        <div id="f-warn" class="small" style="color:var(--mark-amber);margin-top:.3rem"></div>
+      </div>
+      <div><div class="mini">Live preview</div><div id="f-prev"></div></div>
+    </div>
+    <div style="display:flex;gap:.5rem;margin-top:.7rem"><button id="f-save">Save</button><button id="f-cancel">Cancel</button></div></div>`);
+  const ov=modal(form); const g=(id)=>form.querySelector('#'+id);
+  const collect=()=>({id:isNew?slug(g('f-id').value||g('f-name').value):it.id,name:g('f-name').value,timing:g('f-timing').value,reactTrigger:g('f-trig').value,tier:g('f-tier').value,discipline:g('f-disc').value,target:g('f-target').value,effect:g('f-effect').value,price:parseInt(g('f-price').value)||0,craftable:g('f-craft').checked,notes:g('f-notes').value});
+  function refresh(){ const c=collect(); g('f-trigwrap').style.display=(c.timing==='react')?'':'none';
+    g('f-prev').innerHTML=consCard(c,{});
+    const w=[]; if(!c.name)w.push('name required'); if(!c.effect)w.push('empty effect - renders as INCOMPLETE'); if(c.timing==='react'&&!c.reactTrigger)w.push('react card needs a trigger'); if(c.tier==='rare'&&c.craftable&&!recipeFor(c.id))w.push('rare + craftable but no recipe points at it'); if(isNew&&c.id&&CONS.consumables.some(x=>x.id===c.id))w.push('id already exists'); g('f-warn').innerHTML=w.map(esc).join('<br>'); }
+  form.querySelectorAll('input,select,textarea').forEach(e=>{ e.oninput=refresh; e.onchange=refresh; });
+  g('f-cancel').onclick=()=>ov.remove();
+  g('f-save').onclick=()=>{ const c=collect();
+    if(!c.name){alert('Name is required.');return;}
+    if(!c.id){alert('An id is required.');return;}
+    if(isNew&&CONS.consumables.some(x=>x.id===c.id)){alert('That id already exists.');return;}
+    if(isNew) CONS.consumables.push(c); else Object.assign(item,c);
+    markDirty(); ov.remove(); renderPanel(); };
+  refresh();
+}
+function dupCons(id){ const s=CONS.consumables.find(x=>x.id===id); let base=slug(s.name)+'-copy',nid=base,i=2; while(CONS.consumables.some(x=>x.id===nid)) nid=base+'-'+(i++); const c=JSON.parse(JSON.stringify(s)); c.id=nid; c.name=s.name+' (copy)'; CONS.consumables.push(c); markDirty(); renderPanel(); openConsForm(c); }
+function delCons(id){ const s=CONS.consumables.find(x=>x.id===id); if(prompt('Type the item name to delete:\n'+s.name)===s.name){ CONS.consumables=CONS.consumables.filter(x=>x.id!==id); markDirty(); renderPanel(); } }
+function exportCons(){ const out=JSON.stringify({_meta:CONS._meta,consumables:CONS.consumables,recipes:CONS.recipes},null,2);
+  const box=el(`<div><h3>seed_consumables.json</h3><p class="small mut">Copy all of this into <code>seed_consumables.json</code> in the repo and commit it. Once committed and redeployed, a reload reads the file - the session edits become permanent.</p><textarea style="width:100%;height:55vh">${esc(out)}</textarea></div>`);
+  modal(box); box.querySelector('textarea').select(); }
+
+function recipeEditorPanel(){
+  const node=el(`<div style="border:2px solid var(--border);border-radius:8px;padding:.6rem .8rem;margin-bottom:1rem;background:var(--bg2)">
+    <div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.4rem"><b>Editor - Recipes</b><button class="addbtn" id="newrec">+ New recipe</button>
+      <span class="mut small">${cardDirty?'⚠ unsaved - export from the Consumables tab':'export from the Consumables tab to save'}</span></div>
+    <table><tr><th>id</th><th>Discipline</th><th>Produces</th><th>Tier</th><th>Starter</th><th></th></tr>
+    ${CONS.recipes.map(r=>`<tr><td>${esc(r.id)}</td><td>${esc(r.discipline)}</td><td>${esc((CONS.consumables.find(i=>i.id===r.producesItemId)||{}).name||r.producesItemId)}</td><td>${esc(r.tier)}</td><td>${r.starter?'yes':'no'}</td>
+      <td><button class="addbtn" data-erec="${r.id}">edit</button> <button class="addbtn" data-drec="${r.id}">del</button></td></tr>`).join('')}</table></div>`);
+  node.querySelector('#newrec').onclick=()=>openRecipeForm(null);
+  node.querySelectorAll('[data-erec]').forEach(b=>b.onclick=()=>openRecipeForm(CONS.recipes.find(r=>r.id===b.dataset.erec)));
+  node.querySelectorAll('[data-drec]').forEach(b=>b.onclick=()=>{ const r=CONS.recipes.find(x=>x.id===b.dataset.drec); if(prompt('Type the recipe id to delete:\n'+r.id)===r.id){ CONS.recipes=CONS.recipes.filter(x=>x.id!==r.id); markDirty(); renderPanel(); } });
+  return node;
+}
+function openRecipeForm(rec){
+  const isNew=!rec; const r=rec?JSON.parse(JSON.stringify(rec)):{id:'',discipline:'herbcraft',producesItemId:CONS.consumables[0].id,tier:'common',starter:false};
+  const form=el(`<div><h3>${isNew?'New':'Edit'} recipe</h3>
+    <label>id<br><input id="r-id" value="${esc(r.id)}" ${isNew?'':'disabled'} style="width:100%"></label><br>
+    <label>Discipline <select id="r-disc">${DISCIPLINES.filter(d=>d!=='none').map(d=>`<option${r.discipline===d?' selected':''}>${d}</option>`).join('')}</select></label><br>
+    <label>Produces <select id="r-prod">${CONS.consumables.map(i=>`<option value="${i.id}"${r.producesItemId===i.id?' selected':''}>${esc(i.name)}</option>`).join('')}</select></label><br>
+    <label>Tier <select id="r-tier"><option${r.tier==='common'?' selected':''}>common</option><option${r.tier==='rare'?' selected':''}>rare</option></select></label>
+    <label><input type="checkbox" id="r-start" ${r.starter?'checked':''}> starter</label><br>
+    <div style="display:flex;gap:.5rem;margin-top:.6rem"><button id="r-save">Save</button><button id="r-cancel">Cancel</button></div></div>`);
+  const ov=modal(form); const g=id=>form.querySelector('#'+id);
+  g('r-cancel').onclick=()=>ov.remove();
+  g('r-save').onclick=()=>{ const nr={id:isNew?(g('r-id').value||('r-'+slug((CONS.consumables.find(i=>i.id===g('r-prod').value)||{}).name))):r.id,discipline:g('r-disc').value,producesItemId:g('r-prod').value,tier:g('r-tier').value,starter:g('r-start').checked};
+    if(!nr.id){alert('id required.');return;} if(isNew&&CONS.recipes.some(x=>x.id===nr.id)){alert('id already exists.');return;}
+    if(isNew)CONS.recipes.push(nr); else Object.assign(rec,nr); markDirty(); ov.remove(); renderPanel(); };
+}
 
 /* ── boot ── */
 (async function(){
