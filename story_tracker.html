@@ -788,7 +788,7 @@ function openPrint(){
     </div>
     <div class="mini">Or tick specific cards, then Print selection (reprint a single fixed card):</div>
     <div style="max-height:42vh;overflow:auto;border:1px solid var(--border);padding:.4rem .6rem;border-radius:6px">
-      <div class="mini">Consumables</div>${CONS.consumables.map(it=>`<label class="small" style="display:block"><input type="checkbox" class="pr-sel" data-t="c" value="${it.id}" ${it.effect?'':'disabled'}> ${esc(it.name)}${it.effect?'':' <span class="mut">(no text - can\\'t print)</span>'}</label>`).join('')}
+      <div class="mini">Consumables</div>${CONS.consumables.map(it=>`<label class="small" style="display:block"><input type="checkbox" class="pr-sel" data-t="c" value="${it.id}" ${it.effect?'':'disabled'}> ${esc(it.name)}${it.effect?'':' <span class="mut">(no text - skipped)</span>'}</label>`).join('')}
       <div class="mini">Weapons</div>${WEAP.weapons.map(w=>`<label class="small" style="display:block"><input type="checkbox" class="pr-sel" data-t="w" value="${w.id}"> ${esc(w.name)} (3 cards)</label>`).join('')}
     </div>
     <button id="pr-selbtn" style="margin-top:.5rem">Print selection</button></div>`);
