@@ -139,8 +139,9 @@ table{font-size:1.02rem} th,td{padding:6px 9px}
 
 /* ── print emitter: poker 63×88mm, 3×3 on A4 (dimensions mandatory) ── */
 #printview{display:none}
-.psheet{display:grid;grid-template-columns:repeat(3,63mm);grid-auto-rows:88mm;gap:0;justify-content:center;align-content:start}
-.pcard{width:63mm;height:88mm;box-sizing:border-box;border:.2mm solid #b0b0b0;background:#efe9da;color:#1c0e08;display:flex;flex-direction:column;overflow:hidden;break-inside:avoid;font-family:'Aref Ruqaa Ink',serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:189mm;height:264mm;margin:0 auto;display:grid;grid-template-columns:repeat(3,63mm);grid-template-rows:repeat(3,88mm);gap:0;background:#fff;page-break-after:always}
+.page:last-child{page-break-after:auto}
+.page .pcard{width:63mm;height:88mm;box-sizing:border-box;border:.2mm solid #b0b0b0;background:#efe9da;color:#1c0e08;display:flex;flex-direction:column;overflow:hidden;break-inside:avoid;font-family:'Aref Ruqaa Ink',serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .pcard .chead{display:flex;align-items:center;gap:1.6mm;padding:2mm;background:#c7bda6;min-height:9mm;flex-wrap:wrap}
 .pcard .cname{font-size:12pt;font-weight:700;color:#2a2622;flex:1;line-height:1.02;min-width:22mm}
 .pcard .ptb{width:6mm;height:6mm;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:8.5pt;color:#fff;font-family:Helvetica,Arial,sans-serif}
@@ -155,7 +156,7 @@ table{font-size:1.02rem} th,td{padding:6px 9px}
 .pcard .seff strong{color:#8a1014;font-size:1.16em;font-weight:800}
 .pcard .foot{background:#e0b94a;text-align:center;font-size:7pt;font-weight:800;color:#5a4a12;padding:1.5mm;font-family:Helvetica,Arial,sans-serif}
 .pbadge{font-size:6.5pt;color:#fff;border-radius:1mm;padding:.3mm 1.5mm;font-family:Helvetica,Arial,sans-serif}
-@media screen{#printview{display:block;position:fixed;inset:0;background:#888;overflow:auto;z-index:200;padding:8mm}#printview .pbtns button{font-size:1rem;padding:5px 12px}}
+@media screen{#printview{display:block;position:fixed;inset:0;background:#888;overflow:auto;z-index:200;padding:8mm}#printview .pbtns button{font-size:1rem;padding:5px 12px}.page{margin:0 auto 6mm;box-shadow:0 2px 14px rgba(0,0,0,.45)}}
 @media print{@page{size:A4;margin:9mm}body>*:not(#printview){display:none!important}#printview{display:block!important;background:#fff;padding:0}#printview .pbtns{display:none!important}}
 </style>
 </head>
@@ -313,7 +314,7 @@ function renderPlayers(){
   S.players.forEach((p,pi)=>host.appendChild(playerCard(p,pi)));
 }
 function playerCard(p,pi){
-  const opts=(sel)=>`<option value=""${sel?'':' selected'}>- skill -</option>`+skillsList().map(k=>`<option value="${k.id}"${sel===k.id?' selected':''}>${esc(k.name)}</option>`).join('');
+  const opts=(sel)=>`<option value=""${sel?'':' selected'}>- proficiency -</option>`+skillsList().map(k=>`<option value="${k.id}"${sel===k.id?' selected':''}>${esc(k.name)}</option>`).join('');
   // trained skills + bios
   let trained=''; p.trained.forEach((sid,ti)=>{
     trained+=`<div><select data-tr="${ti}">${opts(sid)}</select>`;
@@ -335,11 +336,11 @@ function playerCard(p,pi){
 
   const c=el(`<div class="pcard">
     <h3><input value="${esc(p.name)}" data-name="1">${S.players.length>2?'<button class="x" data-rmplayer="1" title="remove">×</button>':''}</h3>
-    <div class="mini">Trained skills (+3 each) &amp; how they were learned</div>
+    <div class="mini">Trained proficiencies (+3 each) &amp; how they were learned</div>
     <div data-trained>${trained}</div>
     <div class="mini">Conditions</div>
     <div data-conds>${conds||'<span class="mut small">none</span>'} <button class="addbtn" data-addcond="1">+ condition</button></div>
-    <details><summary class="mini" style="margin-top:.5rem">Every modifier (all 14 skills)</summary><div class="skgrid">${grid}</div></details>
+    <details><summary class="mini" style="margin-top:.5rem">Every modifier (all 14 proficiencies)</summary><div class="skgrid">${grid}</div></details>
     <div class="mini">Known recipes</div><div>${recs}</div>
     <div class="mini">Notes</div><input class="notesin" value="${esc(p.notes)}" placeholder="owes the miller 4g; carrying the widow's letter…" data-notes="1">
   </div>`);
@@ -353,7 +354,7 @@ function playerCard(p,pi){
   c.querySelector('[data-addcond]').onclick=()=>{
     const name=prompt('Condition name (e.g. Fevered):'); if(!name)return;
     const list=skillsList().map((k,i)=>`${i+1}. ${k.name}`).join('\n');
-    const pick=prompt('Dims which skill to -3? Enter number:\n'+list); const idx=parseInt(pick)-1;
+    const pick=prompt('Dims which proficiency to -3? Enter number:\n'+list); const idx=parseInt(pick)-1;
     if(isNaN(idx)||!skillsList()[idx])return;
     p.conditions.push({id:uid(),name,skill:skillsList()[idx].id,active:true}); commit();
   };
@@ -361,7 +362,7 @@ function playerCard(p,pi){
 }
 
 function renderTabs(){
-  const tabs=[['camp','Camp Actions'],['pouch','Consumables & Pouch'],['weapons','Weapons'],['recipes','Recipes'],['skills','Skills'],['rules','Rules'],['negotiation','Negotiation & the Twelve']];
+  const tabs=[['camp','Camp Actions'],['pouch','Consumables & Pouch'],['weapons','Weapons'],['recipes','Recipes'],['skills','Proficiencies'],['rules','Rules'],['negotiation','Negotiation & the Twelve']];
   const host=document.getElementById('tabstrip'); host.innerHTML='';
   tabs.forEach(([id,lbl])=>{const b=el(`<button class="${TAB===id?'active':''}">${lbl}</button>`);b.onclick=()=>{TAB=id;renderTabs();renderPanel();};host.appendChild(b);});
 }
@@ -370,8 +371,8 @@ function renderPanel(){ const p=document.getElementById('panel'); p.innerHTML=''
 /* ── Tab 1: Camp Actions ── */
 function tabCamp(p){
   const band=(a)=>a.noRoll?`<em>${esc(a.outcome)}</em>`:(a.outcome?`<em>${esc(a.outcome)}</em>`:`17+ ${esc(a.high||'')} · 10-16 ${esc(a.mid||'')} · 9- ${esc(a.low||'')}`);
-  const col=(list)=>`<table><tr><th>Action</th><th>Skill</th><th>Outcome</th></tr>`+list.map(a=>{
-    if(a.id.startsWith('explore'))return `<tr><td>Explore</td><td>-</td><td><em>1d20 - no skill, no modifiers. The GM holds the table.</em></td></tr>`;
+  const col=(list)=>`<table><tr><th>Action</th><th>Proficiency</th><th>Outcome</th></tr>`+list.map(a=>{
+    if(a.id.startsWith('explore'))return `<tr><td>Explore</td><td>-</td><td><em>1d20 - no proficiency, no modifiers. The GM holds the table.</em></td></tr>`;
     return `<tr><td>${esc(a.name)}</td><td>${esc((a.skills||[]).map(s=>skillName(s)||s).join(', ')||'-')}</td><td>${band(a)}</td></tr>`;}).join('')+`</table>`;
   p.appendChild(el(`<div><h2>Camp Actions</h2>
     <ul class="rules-list small">${REF.campActions.rules.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
@@ -476,12 +477,12 @@ function tabRecipes(p){
   });
 }
 
-/* ── Tab 5: Skills ── */
+/* ── Tab 5: Proficiencies ── */
 function tabSkills(p){
-  const wrap=el(`<div><h2>Skills</h2><div id="sk"></div>
+  const wrap=el(`<div><h2>Proficiencies</h2><div id="sk"></div>
     <h3>Seam rulings</h3><ul class="rules-list small">${REF.seamRulings.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>`);
   p.appendChild(wrap);
-  wrap.querySelector('#sk').innerHTML=`<table><tr><th>Skill</th><th>Scope</th><th>Examples</th><th>Earns</th></tr>`+REF.skills.map(k=>
+  wrap.querySelector('#sk').innerHTML=`<table><tr><th>Proficiency</th><th>Scope</th><th>Examples</th><th>Earns</th></tr>`+REF.skills.map(k=>
     `<tr><td><b>${esc(k.name)}</b>${k.passive?' <span class="tag">PASSIVE</span>':''}${k.group?' <span class="tag">GROUP</span>':''}</td>
       <td class="small">${esc(k.scope)}</td><td class="small">${(k.examples||[]).map(esc).join('; ')}</td>
       <td class="small">${(k.earns||[]).map(esc).join(', ')||'-'}${k.craft?'<br><span class="mut">craft: '+esc(k.craft)+'</span>':''}</td></tr>`).join('')+`</table>`;
@@ -493,7 +494,7 @@ function tabRules(p){
   const bands=sc.bands.map(b=>`<tr><td><b>${esc(b.range)}</b></td><td>${esc(b.label)}</td><td class="small">${esc(b.detail)}</td>
     <td class="small">+3: miss ${sc.odds.trained.miss} / cost ${sc.odds.trained.cost} / clean ${sc.odds.trained.clean}<br>+0: miss ${sc.odds.untrained.miss} / cost ${sc.odds.untrained.cost} / clean ${sc.odds.untrained.clean}</td></tr>`).join('');
   p.appendChild(el(`<div><h2>Rules</h2>
-    <p class="small mut">Roll: <b>${esc(sc.roll)}</b> · Trained +${sc.trained} (${sc.trainedSkillCount} skills) · Untrained +${sc.untrained}</p>
+    <p class="small mut">Roll: <b>${esc(sc.roll)}</b> · Trained +${sc.trained} (${sc.trainedSkillCount} proficiencies) · Untrained +${sc.untrained}</p>
     <table><tr><th>Band</th><th>Result</th><th></th><th>Odds</th></tr>${bands}</table>
     <div class="two" style="margin-top:.8rem">
       <div><h3>State</h3><ul class="rules-list small">
@@ -758,15 +759,20 @@ function pWeaponCards(w){ return w.cards.map(cd=>`<div class="pcard"><div class=
     <div class="wbar weap">${esc(w.name)}${weaponPending(w)?' · ⚠ PENDING':''}</div>
     ${cd.target?`<div class="tgt">${esc(cd.target)}</div>`:''}
     <div class="single"><div class="seff${seffSize(cd.effect)}">${bold(cd.effect)} ${(cd.badges||[]).map(pbadge).join('')}</div></div>
-    <div class="foot">${esc((w.damageType||'').toUpperCase())} WEAPON</div></div>`).join(''); }
+    <div class="foot">${esc((w.damageType||'').toUpperCase())} WEAPON</div></div>`); }
 function pRecipeCard(r){ const it=CONS.consumables.find(i=>i.id===r.producesItemId)||{}; return `<div class="pcard"><div class="chead"><span class="ptb story">✧</span><span class="cname">Recipe</span></div>
     <div class="wbar ${r.tier==='rare'?'rare':''}">${esc(r.tier==='rare'?'Rare recipe':'Common recipe')} · ${esc(r.discipline)}</div>
     <div class="single"><div class="seff">Crafts <strong>${esc(it.name||r.producesItemId)}</strong>.</div></div>
     <div class="foot">CRAFT: 2d12 + ${esc((r.discipline||'').toUpperCase())} · 10+ MADE</div></div>`; }
-function printSheet(cardsHTML){
+function printSheet(cards){
+  // cards: array of single-card HTML strings. Chunk into fixed 3×3 A4 pages so nothing straddles a page break.
+  const arr=Array.isArray(cards)?cards:[cards];
+  let pages='';
+  for(let i=0;i<arr.length;i+=9) pages+=`<div class="page">${arr.slice(i,i+9).join('')}</div>`;
+  if(!pages) pages='<div class="page"></div>';
   let pv=document.getElementById('printview'); if(pv) pv.remove();
   pv=document.createElement('div'); pv.id='printview';
-  pv.innerHTML=`<div class="pbtns" style="display:flex;gap:.5rem;margin-bottom:6mm"><button onclick="window.print()">Print / Save PDF</button><button id="pv-close">Close preview</button></div><div class="psheet">${cardsHTML}</div>`;
+  pv.innerHTML=`<div class="pbtns" style="display:flex;gap:.5rem;margin-bottom:6mm"><button onclick="window.print()">Print / Save PDF</button><button id="pv-close">Close preview</button></div>${pages}`;
   document.body.appendChild(pv);
   pv.querySelector('#pv-close').onclick=()=>pv.remove();
   window.print();
@@ -787,12 +793,12 @@ function openPrint(){
     <button id="pr-selbtn" style="margin-top:.5rem">Print selection</button></div>`);
   modal(box);
   const skipNote=(names)=>{ if(names&&names.length) setTimeout(()=>alert('Skipped - no effect text:\n'+names.join('\n')),150); };
-  box.querySelector('#pr-cons').onclick=()=>{ const ok=CONS.consumables.filter(it=>it.effect); printSheet(ok.map(pConsCard).join('')); skipNote(CONS.consumables.filter(it=>!it.effect).map(it=>it.name)); };
-  box.querySelector('#pr-weap').onclick=()=>printSheet(WEAP.weapons.map(pWeaponCards).join(''));
-  box.querySelector('#pr-rec').onclick=()=>printSheet(CONS.recipes.map(pRecipeCard).join(''));
-  box.querySelector('#pr-selbtn').onclick=()=>{ const sel=[...box.querySelectorAll('.pr-sel:checked')]; let html='',skip=[];
-    sel.forEach(s=>{ if(s.dataset.t==='c'){ const it=CONS.consumables.find(i=>i.id===s.value); if(it.effect)html+=pConsCard(it); else skip.push(it.name); } else html+=pWeaponCards(WEAP.weapons.find(w=>w.id===s.value)); });
-    if(!html){ alert('Nothing selected (or only empty-effect items).'); return; } printSheet(html); skipNote(skip); };
+  box.querySelector('#pr-cons').onclick=()=>{ const ok=CONS.consumables.filter(it=>it.effect); printSheet(ok.map(pConsCard)); skipNote(CONS.consumables.filter(it=>!it.effect).map(it=>it.name)); };
+  box.querySelector('#pr-weap').onclick=()=>printSheet(WEAP.weapons.flatMap(pWeaponCards));
+  box.querySelector('#pr-rec').onclick=()=>printSheet(CONS.recipes.map(pRecipeCard));
+  box.querySelector('#pr-selbtn').onclick=()=>{ const sel=[...box.querySelectorAll('.pr-sel:checked')]; let cards=[],skip=[];
+    sel.forEach(s=>{ if(s.dataset.t==='c'){ const it=CONS.consumables.find(i=>i.id===s.value); if(it.effect)cards.push(pConsCard(it)); else skip.push(it.name); } else cards.push(...pWeaponCards(WEAP.weapons.find(w=>w.id===s.value))); });
+    if(!cards.length){ alert('Nothing selected (or only empty-effect items).'); return; } printSheet(cards); skipNote(skip); };
 }
 
 /* ── boot ── */
