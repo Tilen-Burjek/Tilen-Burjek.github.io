@@ -1,0 +1,381 @@
+{
+  "_meta": {
+    "file": "seed_skills.json",
+    "scope": "COMBAT-SIDE skill cards. These are cards - 3 of them sit in a 20-card loadout (14 class + 3 weapon + 3 skill). Not to be confused with story-side PROFICIENCIES (seed_reference.json).",
+    "authority": "CANONICAL for skill card text. Transcribed from skills_print_cards_63x88mm.html (Drive).",
+    "counts": {
+      "skillCards": 25
+    },
+    "categories": [
+      "Sustain",
+      "Defense",
+      "Reflexes",
+      "Offense",
+      "Direct & Control",
+      "Lingering & Wild",
+      "Tempo & Utility"
+    ],
+    "badgeValues": [
+      "EXHAUST",
+      "REPEAT",
+      "ON DRAW"
+    ],
+    "printNote": "Green category bar (#2e6e62 / text #cdeee4). ON DRAW uses a purple circle (#6a4a8a) with the glyph.",
+    "nameCollisionNote": "Several skill card names match proficiency names (Herbalism, Cooking, Survival, Animal Handling, Athletics, Hunting). Under the terminology firewall these are distinct objects in distinct systems - 'the Survival skill card' vs 'trained in Survival'. Cosmetic, accepted, flagged for table clarity.",
+    "REMOVED_DO_NOT_REINSTATE": {
+      "removed": [
+        "Potionmaking",
+        "Bombmaking",
+        "Trapmaking",
+        "Paralysis Poison",
+        "and all 8 brewed cards (Snare, Poisoner, Healing Draught x3, Improvised Bomb x3)"
+      ],
+      "reason": "Crafting is story-side only: a camp action, six disciplines gated by proficiencies, output going to the pouch. The old Crafting skill cards produced brewed cards into the DECK or STASH, which violates the pouch-isolation law (pouch cards are never in hand, deck, or discard) and duplicated four pouch consumables one-for-one.",
+      "decision": "Removed by design call. The skill pool is 25 cards. Four slots are free for future design.",
+      "guard": "Do not re-add crafting to the skill pool. If a combat-side crafting verb is ever wanted, it must not create cards in the deck or stash, and it must not duplicate a pouch consumable."
+    }
+  },
+  "skillCards": [
+    {
+      "id": "sk-first-aid",
+      "name": "First Aid",
+      "category": "Sustain",
+      "timings": [
+        "fast",
+        "normal"
+      ],
+      "badges": [],
+      "target": "Self or Ally",
+      "effect": "Heal **5**.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-field-surgeon",
+      "name": "Field Surgeon",
+      "category": "Sustain",
+      "timings": [
+        "normal",
+        "slow"
+      ],
+      "badges": [],
+      "target": "Self or Ally",
+      "effect": "Heal **3** and remove **1** debuff.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-herbalism",
+      "name": "Herbalism",
+      "category": "Sustain",
+      "timings": [
+        "normal",
+        "slow"
+      ],
+      "badges": [],
+      "target": "Self or Ally",
+      "effect": "Apply **Regen 3** (heals over several rounds).",
+      "status": "active",
+      "notes": "Name matches the Herbalism & Alchemy proficiency - different system, accepted collision."
+    },
+    {
+      "id": "sk-cooking",
+      "name": "Cooking",
+      "category": "Sustain",
+      "timings": [
+        "slow"
+      ],
+      "badges": [],
+      "target": "Self or Ally",
+      "effect": "Heal **3**; that ally gains **+1 Strength & Focus** next turn.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-guardsman",
+      "name": "Guardsman",
+      "category": "Defense",
+      "timings": [
+        "fast"
+      ],
+      "badges": [],
+      "target": "Self or Ally",
+      "effect": "Gain **5** Block.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-endurance",
+      "name": "Endurance",
+      "category": "Defense",
+      "timings": [
+        "fast",
+        "slow"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Gain **Bulwark 5** until your next turn (cap each hit you take at **5**).",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-blacksmithing",
+      "name": "Blacksmithing",
+      "category": "Defense",
+      "timings": [
+        "fast",
+        "normal"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Gain **1 Physical Armor** (Permanent).",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-survival",
+      "name": "Survival",
+      "category": "Reflexes",
+      "timings": [
+        "react"
+      ],
+      "badges": [],
+      "target": "React - when attacked - Self",
+      "effect": "Gain **5** Block.",
+      "status": "active",
+      "notes": "Name matches the Survival proficiency - different system, accepted collision."
+    },
+    {
+      "id": "sk-bodyguard",
+      "name": "Bodyguard",
+      "category": "Reflexes",
+      "timings": [
+        "react"
+      ],
+      "badges": [],
+      "target": "React - when an ally is attacked",
+      "effect": "Give that ally **4** Block.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-instinct",
+      "name": "Instinct",
+      "category": "Reflexes",
+      "timings": [
+        "ondraw"
+      ],
+      "badges": [
+        "ON DRAW"
+      ],
+      "target": "When Drawn - Self",
+      "effect": "Gain **3** Block and **+1 Strength & Focus** this turn.",
+      "status": "active",
+      "notes": "Mills never fire when-drawn effects - established scope rule."
+    },
+    {
+      "id": "sk-battle-hardened",
+      "name": "Battle Hardened",
+      "category": "Offense",
+      "timings": [
+        "fast"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Gain **+2 Strength & Focus** this turn.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-keen-eye",
+      "name": "Keen Eye",
+      "category": "Offense",
+      "timings": [
+        "fast"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Gain **Precise** this turn - your next attack rolls its max die.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-tactics",
+      "name": "Tactics",
+      "category": "Offense",
+      "timings": [
+        "fast",
+        "normal"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Gain **Empower 2** and draw **1** card.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-hunting",
+      "name": "Hunting",
+      "category": "Offense",
+      "timings": [
+        "fast",
+        "normal"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Your next attack deals **+2d4**.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-brawling",
+      "name": "Brawling",
+      "category": "Direct & Control",
+      "timings": [
+        "fast",
+        "normal"
+      ],
+      "badges": [],
+      "target": "Enemy",
+      "effect": "Deal **3** Physical and apply **1 Stagger**.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-intimidation",
+      "name": "Intimidation",
+      "category": "Direct & Control",
+      "timings": [
+        "fast",
+        "normal"
+      ],
+      "badges": [],
+      "target": "Enemy",
+      "effect": "Apply **Weaken 3** and **1 Stagger**.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-old-lore",
+      "name": "Old Lore",
+      "category": "Direct & Control",
+      "timings": [
+        "normal"
+      ],
+      "badges": [
+        "EXHAUST"
+      ],
+      "target": "Enemy",
+      "effect": "Deal **1d6** Magical and apply **Weaken 2**.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-demolitions",
+      "name": "Demolitions",
+      "category": "Direct & Control",
+      "timings": [
+        "slow"
+      ],
+      "badges": [
+        "EXHAUST"
+      ],
+      "target": "Enemy",
+      "effect": "Deal **2d4** Physical and apply **1 Stagger**.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-alchemy",
+      "name": "Alchemy",
+      "category": "Lingering & Wild",
+      "timings": [
+        "normal",
+        "slow"
+      ],
+      "badges": [],
+      "target": "Enemy",
+      "effect": "Apply **Burn**, OR apply **Poison 3** (choose).",
+      "status": "active",
+      "notes": "Burn refreshes duration, never stacks."
+    },
+    {
+      "id": "sk-saboteur",
+      "name": "Saboteur",
+      "category": "Lingering & Wild",
+      "timings": [
+        "fast"
+      ],
+      "badges": [],
+      "target": "Enemy",
+      "effect": "Deal **2** Physical and apply **Poison 2**.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-animal-handling",
+      "name": "Animal Handling",
+      "category": "Lingering & Wild",
+      "timings": [
+        "slow"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Place a Persistent critter (out of deck): deals **2** Physical to a random enemy each round.",
+      "status": "active",
+      "notes": "Name matches the Animal Handling proficiency - different system, accepted collision."
+    },
+    {
+      "id": "sk-athletics",
+      "name": "Athletics",
+      "category": "Tempo & Utility",
+      "timings": [
+        "fast"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Gain **+1 Normal or Slow** play this round.",
+      "status": "active",
+      "notes": "Not Fast - Fast is premium. Same law as the Nomad background."
+    },
+    {
+      "id": "sk-second-wind",
+      "name": "Second Wind",
+      "category": "Tempo & Utility",
+      "timings": [
+        "slow"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Draw **2** cards. You cannot draw more cards this turn.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-footwork",
+      "name": "Footwork",
+      "category": "Tempo & Utility",
+      "timings": [
+        "fast"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Change one of your timing slots to **ANY** this turn.",
+      "status": "active",
+      "notes": ""
+    },
+    {
+      "id": "sk-meditation",
+      "name": "Meditation",
+      "category": "Tempo & Utility",
+      "timings": [
+        "slow"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Remove all debuffs from yourself and heal **2**.",
+      "status": "active",
+      "notes": ""
+    }
+  ]
+}

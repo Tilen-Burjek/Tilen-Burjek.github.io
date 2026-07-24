@@ -93,7 +93,7 @@ th{background:var(--card-hdr)}
 .gcard .chead{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#c7bda6;min-height:34px;flex-wrap:wrap}
 .gcard .cname{font-size:15px;font-weight:700;color:#2a2622;flex:1;line-height:1.05;min-width:70px}
 .tb{width:23px;height:23px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-family:Helvetica,Arial,sans-serif}
-.tb.fast{background:#8a5a2b}.tb.normal{background:#2f4d7a}.tb.slow{background:#9a2420}.tb.react{background:#1f8f5f}.tb.passive{background:#4a4458}.tb.any{background:#5a6a2b}.tb.story{background:#5a4a6a}.tb.ondraw{background:#5a4a6a}
+.tb.fast{background:#8a5a2b}.tb.normal{background:#2f4d7a}.tb.slow{background:#9a2420}.tb.react{background:#1f8f5f}.tb.passive{background:#4a4458}.tb.any{background:#5a6a2b}.tb.story{background:#5a4a6a}.tb.ondraw{background:#6a4a8a}
 .gcard .wbar{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 8px;background:#3a4a5e;color:#c8d8ec;font-family:Helvetica,Arial,sans-serif}
 .gcard .wbar.rare{background:#6a4a08;color:#f0d890}
 .gcard .wbar.weap{background:#4a3a28;color:#e8d0a8}
@@ -104,6 +104,14 @@ th{background:var(--card-hdr)}
 .gcard .seff strong{color:#8a1014;font-size:1.12em;font-weight:800}
 .gcard .foot{background:#e0b94a;text-align:center;font-size:10px;font-weight:800;color:#5a4a12;padding:4px;font-family:Helvetica,Arial,sans-serif;letter-spacing:.3px}
 .badge{font-size:10px;color:#fff;border-radius:3px;padding:0 4px;margin-left:3px;letter-spacing:.03em;font-family:Helvetica,Arial,sans-serif}
+/* skill cards: green category bar; backgrounds: blue band + tag chip bar */
+.gcard .catbar{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 8px;background:#2e6e62;color:#cdeee4;font-family:Helvetica,Arial,sans-serif}
+.gcard .chead.bgc{background:#3a6ea5}.gcard .chead.bgc .cname{color:#fff}
+.gcard .wbar.bgbar{background:#2c537a;color:#cfe0f2}
+.gcard .tgt.tag-passive{background:#5a6470;color:#eef1f4}.gcard .tgt.tag-x1{background:#c7a13a;color:#241a04}.gcard .tgt.tag-x2{background:#2f8f5f;color:#e8fff2}.gcard .tgt.tag-trigger{background:#9a5bd0;color:#f3e9ff}.gcard .tgt.tag-cost{background:#b0413a;color:#ffe6e2}
+.seff .cnt{color:#2f8f5f;font-weight:800}
+.bgchip{display:inline-block;border-radius:10px;padding:1px 8px;font-size:.8rem;font-weight:800;color:#fff}
+.bgchip.tag-passive{background:#5a6470}.bgchip.tag-x1{background:#c7a13a;color:#241a04}.bgchip.tag-x2{background:#2f8f5f}.bgchip.tag-trigger{background:#9a5bd0}.bgchip.tag-cost{background:#b0413a}
 .gcard.incomplete{opacity:.6}
 .inc-badge{background:var(--exhaust);color:#fff;font-size:11px;padding:1px 5px;border-radius:3px;font-family:Helvetica,Arial,sans-serif}
 .warnflag{background:var(--mark-amber);color:#1c0e08;font-size:.6rem;padding:0 4px;border-radius:3px}
@@ -145,7 +153,7 @@ table{font-size:1.02rem} th,td{padding:6px 9px}
 .pcard .chead{display:flex;align-items:center;gap:1.6mm;padding:2mm;background:#c7bda6;min-height:9mm;flex-wrap:wrap}
 .pcard .cname{font-size:12pt;font-weight:700;color:#2a2622;flex:1;line-height:1.02;min-width:22mm}
 .pcard .ptb{width:6mm;height:6mm;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:8.5pt;color:#fff;font-family:Helvetica,Arial,sans-serif}
-.pcard .ptb.fast{background:#8a5a2b}.pcard .ptb.normal{background:#2f4d7a}.pcard .ptb.slow{background:#9a2420}.pcard .ptb.react{background:#1f8f5f}.pcard .ptb.passive{background:#4a4458}.pcard .ptb.any{background:#5a6a2b}.pcard .ptb.story{background:#5a4a6a}.pcard .ptb.ondraw{background:#5a4a6a}
+.pcard .ptb.fast{background:#8a5a2b}.pcard .ptb.normal{background:#2f4d7a}.pcard .ptb.slow{background:#9a2420}.pcard .ptb.react{background:#1f8f5f}.pcard .ptb.passive{background:#4a4458}.pcard .ptb.any{background:#5a6a2b}.pcard .ptb.story{background:#5a4a6a}.pcard .ptb.ondraw{background:#6a4a8a}
 .pcard .wbar{font-size:6.5pt;font-weight:800;letter-spacing:.4pt;text-transform:uppercase;padding:1mm 2mm;background:#3a4a5e;color:#c8d8ec;font-family:Helvetica,Arial,sans-serif}
 .pcard .wbar.rare{background:#6a4a08;color:#f0d890}.pcard .wbar.weap{background:#4a3a28;color:#e8d0a8}
 .pcard .tgt{font-size:8pt;font-weight:800;letter-spacing:.3pt;text-transform:uppercase;padding:1.4mm 2mm;color:#ffd9b0;background:#6b3a18;font-family:Helvetica,Arial,sans-serif}
@@ -156,6 +164,11 @@ table{font-size:1.02rem} th,td{padding:6px 9px}
 .pcard .seff strong{color:#8a1014;font-size:1.16em;font-weight:800}
 .pcard .foot{background:#e0b94a;text-align:center;font-size:7pt;font-weight:800;color:#5a4a12;padding:1.5mm;font-family:Helvetica,Arial,sans-serif}
 .pbadge{font-size:6.5pt;color:#fff;border-radius:1mm;padding:.3mm 1.5mm;font-family:Helvetica,Arial,sans-serif}
+/* skill card + background print bars */
+.pcard .catbar{font-size:6.5pt;font-weight:800;letter-spacing:.4pt;text-transform:uppercase;padding:1mm 2mm;background:#2e6e62;color:#cdeee4;font-family:Helvetica,Arial,sans-serif}
+.pcard .chead.bgc{background:#3a6ea5}.pcard .chead.bgc .cname{color:#fff}
+.pcard .wbar.bgbar{background:#2c537a;color:#cfe0f2}
+.pcard .tgt.tag-passive{background:#5a6470;color:#eef1f4}.pcard .tgt.tag-x1{background:#c7a13a;color:#241a04}.pcard .tgt.tag-x2{background:#2f8f5f;color:#e8fff2}.pcard .tgt.tag-trigger{background:#9a5bd0;color:#f3e9ff}.pcard .tgt.tag-cost{background:#b0413a;color:#ffe6e2}
 @media screen{#printview{display:block;position:fixed;inset:0;background:#888;overflow:auto;z-index:200;padding:8mm}#printview .pbtns button{font-size:1rem;padding:5px 12px}.page{margin:0 auto 6mm;box-shadow:0 2px 14px rgba(0,0,0,.45)}}
 @media print{@page{size:A4;margin:9mm}body>*:not(#printview){display:none!important}#printview{display:block!important;background:#fff;padding:0}#printview .pbtns{display:none!important}}
 </style>
@@ -198,26 +211,28 @@ let pendingRemote=null;
 document.addEventListener('focusout',()=>{ if(pendingRemote){ S=migrate(pendingRemote); pendingRemote=null; render(); }});
 
 /* ── Card DATA: read-only seeds, loaded separately (needs http - Pages or a local server) ── */
-let CONS, WEAP, REF;
+let CONS, WEAP, REF, SKILLS, BG;
 async function loadSeeds(){
-  const [c,w,r]=await Promise.all([
+  const [c,w,r,s,b]=await Promise.all([
     fetch('seed_consumables.json').then(x=>x.json()),
     fetch('seed_weapons.json').then(x=>x.json()),
-    fetch('seed_reference.json').then(x=>x.json())
+    fetch('seed_reference.json').then(x=>x.json()),
+    fetch('seed_skills.json').then(x=>x.json()),
+    fetch('seed_backgrounds.json').then(x=>x.json())
   ]);
-  CONS=c; WEAP=w; REF=r;
+  CONS=c; WEAP=w; REF=r; SKILLS=s; BG=b;
 }
 
 /* ── Party STATE model ── */
 const uid=()=>Math.random().toString(36).slice(2,9);
-function blankPlayer(n){ return {id:uid(),name:n||'New Player',trained:['','',''],bios:{},conditions:[],recipes:[],notes:''}; }
+function blankPlayer(n){ return {id:uid(),name:n||'New Player',trained:['','',''],bios:{},conditions:[],recipes:[],notes:'',backgroundId:''}; }
 let S = defaultState();
 function defaultState(){ return {
   day:1, dayLabel:'', gold:12, provisions:4, standing:1, mark:0,
   settings:{ standingCap:3 },
   players:[ blankPlayer('Player 1'), blankPlayer('Player 2') ],
   pouch:{ owned:{}, stocked:[] },
-  weaponStars:{}
+  weaponStars:{}, skillStars:{}, bgStars:{}
 }; }
 function migrate(st){ st=Object.assign(defaultState(),st);
   st.settings=Object.assign({standingCap:3},st.settings||{});
@@ -252,6 +267,31 @@ function tgtInfo(it){ const tms=itemTimings(it);
   if(/story|camp/i.test(t)) return {cls:'story',txt:t};
   if(/self|all(y|ies)/i.test(t)) return {cls:'ally',txt:'Target: '+t};
   return {cls:'',txt:'Target: '+t}; }
+
+/* ── skill card / background helpers (combat-side, browse-only) ── */
+const TAGCLS={'PASSIVE':'passive','1x':'x1','2x':'x2','TRIGGER':'trigger','COST':'cost'};
+const tagCls=(t)=>TAGCLS[t]||'passive';
+function cardTgt(target,timings){ const t=target||'';
+  if((timings||[]).includes('react')||/^react|when drawn|when attacked/i.test(t)) return {cls:'react',txt:t||'React'};
+  if(/self|all(y|ies)/i.test(t)) return {cls:'ally',txt:t};
+  return {cls:'',txt:t||'Enemy'}; }
+/* backgrounds: numbers bold-red, but per-combat COUNT words render green (#2f8f5f) */
+function bgEffect(txt){
+  let s=esc(txt).replace(/\*\*(.+?)\*\*/g,(m,g)=> /^(once|twice|three times|\d+ times)$/i.test(g.trim())?g:`<strong>${g}</strong>`);
+  return s.replace(/\b(once|twice|three times|\d+ times)(\s+per combat)/gi,'<span class="cnt">$1</span>$2');
+}
+function skillCardHTML(sc){ const ti=cardTgt(sc.target,sc.timings);
+  return `<div class="gcard">
+    <div class="chead">${(sc.timings||[]).map(tb).join('')}<span class="cname">${esc(sc.name)}</span></div>
+    <div class="catbar">${esc(sc.category||'')}</div>
+    ${sc.target?`<div class="tgt ${ti.cls}">${esc(ti.txt)}</div>`:''}
+    <div class="single"><div class="seff${seffSize(sc.effect)}">${bold(sc.effect)} ${(sc.badges||[]).map(badgeSpan).join('')}</div></div></div>`; }
+function bgCardHTML(bg){
+  return `<div class="gcard">
+    <div class="chead bgc"><span class="cname">${esc(bg.name)}</span></div>
+    <div class="wbar bgbar">Background</div>
+    <div class="tgt tag-${tagCls(bg.tag)}">${esc(bg.tag)}</div>
+    <div class="single"><div class="seff${seffSize(bg.effect)}">${bgEffect(bg.effect)}</div></div></div>`; }
 
 /* ══ RENDER ══════════════════════════════════════════════════════════════ */
 function render(){ renderPartyBar(); renderPlayers(); renderTabs(); renderPanel(); }
@@ -333,11 +373,17 @@ function playerCard(p,pi){
   }).join('');
   // known recipes
   const recs=(p.recipes||[]).map(rid=>{const r=CONS.recipes.find(x=>x.id===rid);const it=r&&CONS.consumables.find(i=>i.id===r.producesItemId);return it?`<span class="skchip">${esc(it.name)}</span>`:'';}).join('')||'<span class="mut small">none</span>';
+  // background (one per character, set-once identity)
+  const bgOpts=`<option value="">- background -</option>`+(BG?BG.backgrounds:[]).map(b=>`<option value="${b.id}"${p.backgroundId===b.id?' selected':''}>${esc(b.name)}</option>`).join('');
+  const bgSel=BG&&BG.backgrounds.find(b=>b.id===p.backgroundId);
+  const bgInfo=bgSel?`<span class="bgchip tag-${tagCls(bgSel.tag)}">${esc(bgSel.name)} · ${esc(bgSel.tag)}</span><div class="small mut" style="margin-top:3px">${bgEffect(bgSel.effect)}</div>`:'';
 
   const c=el(`<div class="pcard">
     <h3><input value="${esc(p.name)}" data-name="1">${S.players.length>2?'<button class="x" data-rmplayer="1" title="remove">×</button>':''}</h3>
     <div class="mini">Trained proficiencies (+3 each) &amp; how they were learned</div>
     <div data-trained>${trained}</div>
+    <div class="mini">Background (one, set once)</div>
+    <div data-bgwrap><select data-bg>${bgOpts}</select><div style="margin-top:4px">${bgInfo}</div></div>
     <div class="mini">Conditions</div>
     <div data-conds>${conds||'<span class="mut small">none</span>'} <button class="addbtn" data-addcond="1">+ condition</button></div>
     <details><summary class="mini" style="margin-top:.5rem">Every modifier (all 14 proficiencies)</summary><div class="skgrid">${grid}</div></details>
@@ -347,6 +393,7 @@ function playerCard(p,pi){
   c.querySelector('[data-name]').oninput=e=>{p.name=e.target.value;saveState();};
   const rm=c.querySelector('[data-rmplayer]'); if(rm) rm.onclick=()=>{if(confirm('Remove '+p.name+'?')){S.players.splice(pi,1);commit();}};
   c.querySelectorAll('[data-tr]').forEach(s=>s.onchange=()=>{p.trained[+s.dataset.tr]=s.value;commit();});
+  c.querySelector('[data-bg]').onchange=e=>{p.backgroundId=e.target.value;commit();};
   c.querySelectorAll('[data-bio]').forEach(b=>b.oninput=()=>{p.bios[b.dataset.bio]=b.value;saveState();});
   c.querySelector('[data-notes]').oninput=e=>{p.notes=e.target.value;saveState();};
   c.querySelectorAll('[data-del]').forEach(x=>x.onclick=()=>{p.conditions=p.conditions.filter(cc=>cc.id!==x.dataset.del);commit();});
@@ -362,11 +409,11 @@ function playerCard(p,pi){
 }
 
 function renderTabs(){
-  const tabs=[['camp','Camp Actions'],['pouch','Consumables & Pouch'],['weapons','Weapons'],['recipes','Recipes'],['skills','Proficiencies'],['rules','Rules'],['negotiation','Negotiation & the Twelve']];
+  const tabs=[['camp','Camp Actions'],['pouch','Consumables & Pouch'],['weapons','Weapons'],['skillcards','Skill Cards'],['backgrounds','Backgrounds'],['recipes','Recipes'],['skills','Proficiencies'],['rules','Rules'],['negotiation','Negotiation & the Twelve']];
   const host=document.getElementById('tabstrip'); host.innerHTML='';
   tabs.forEach(([id,lbl])=>{const b=el(`<button class="${TAB===id?'active':''}">${lbl}</button>`);b.onclick=()=>{TAB=id;renderTabs();renderPanel();};host.appendChild(b);});
 }
-function renderPanel(){ const p=document.getElementById('panel'); p.innerHTML=''; ({camp:tabCamp,pouch:tabPouch,weapons:tabWeapons,recipes:tabRecipes,skills:tabSkills,rules:tabRules,negotiation:tabNeg}[TAB])(p); }
+function renderPanel(){ const p=document.getElementById('panel'); p.innerHTML=''; ({camp:tabCamp,pouch:tabPouch,weapons:tabWeapons,skillcards:tabSkillCards,backgrounds:tabBackgrounds,recipes:tabRecipes,skills:tabSkills,rules:tabRules,negotiation:tabNeg}[TAB])(p); }
 
 /* ── Tab 1: Camp Actions ── */
 function tabCamp(p){
@@ -437,22 +484,52 @@ function tabPouch(p){
   drawGrids();
 }
 
-/* ── Tab 3: Weapons ── */
+/* ── Tab 3: Weapons (browse + owned-star) ── */
+let WFILTER='', SKFILTER='', BGFILTER='';
 function tabWeapons(p){
   if(EDIT_MODE) p.appendChild(weaponEditorPanel());
-  const wrap=el(`<div><h2>Weapons</h2><div class="filters"><input id="wq" placeholder="search…"></div><div id="wlist"></div></div>`);
+  const wrap=el(`<div><h2>Weapons</h2><div class="filters"><input id="wq" placeholder="search…" value="${esc(WFILTER)}"></div><div id="wlist"></div></div>`);
   p.appendChild(wrap);
-  const draw=(q='')=>{
-    wrap.querySelector('#wlist').innerHTML=WEAP.weapons.filter(w=>!q||w.name.toLowerCase().includes(q.toLowerCase())||(w.tags||[]).join(' ').includes(q.toLowerCase())).map(w=>{
+  const draw=(q)=>{ q=(q||'').toLowerCase();
+    wrap.querySelector('#wlist').innerHTML=WEAP.weapons.filter(w=>!q||w.name.toLowerCase().includes(q)||(w.tags||[]).join(' ').toLowerCase().includes(q)).map(w=>{
       const star=S.weaponStars[w.id];
       return `<div class="wcard"><h3><button class="stockbtn ${star?'on':''}" data-star="${w.id}">${star?'★ owned':'☆'}</button> ${esc(w.name)} <span class="mut small">${esc(w.set)} · ${esc(w.damageType)}</span> ${weaponPending(w)?'<span class="warnflag">pending decision</span>':''}</h3>
         <div class="idl">${esc(w.identity)}</div>
         <div class="cardgrid">${w.cards.map(cd=>weaponCardHTML(cd,w)).join('')}</div>
-        <div class="small mut">${(w.tags||[]).length?'Tags: '+w.tags.join(', '):''} ${(w.trackers||[]).length?' · Trackers: '+w.trackers.join(', '):''}</div></div>`;
-    }).join('');
+        <div class="small mut">${(w.tags||[]).length?'Tags: '+w.tags.join(', '):''} ${(w.trackers||[]).length?' · Trackers: '+w.trackers.join(', '):''}</div></div>`;}).join('');
     wrap.querySelectorAll('[data-star]').forEach(b=>b.onclick=()=>{const id=b.dataset.star;if(S.weaponStars[id])delete S.weaponStars[id];else S.weaponStars[id]=true;commit();});
   };
-  wrap.querySelector('#wq').oninput=e=>draw(e.target.value); draw();
+  wrap.querySelector('#wq').oninput=e=>{WFILTER=e.target.value;draw(WFILTER);}; draw(WFILTER);
+}
+
+/* ── Tab: Skill Cards (browse + owned-star; loadout is combat state, tracked elsewhere) ── */
+function tabSkillCards(p){
+  if(EDIT_MODE) p.appendChild(skillEditorPanel());
+  const wrap=el(`<div><h2>Skill Cards</h2>
+    <p class="small mut" style="margin:.1rem 0 .5rem">3 sit in a 20-card loadout (14 class + 3 weapon + 3 skill). Which 3 a character runs is combat state, tracked in the combat tool - browse + owned-star only here.</p>
+    <div class="filters"><input id="skq" placeholder="search name or category…" value="${esc(SKFILTER)}"></div><div id="sklist"></div></div>`);
+  p.appendChild(wrap);
+  const draw=(q)=>{ q=(q||'').toLowerCase();
+    const items=SKILLS.skillCards.filter(s=>!q||s.name.toLowerCase().includes(q)||(s.category||'').toLowerCase().includes(q));
+    wrap.querySelector('#sklist').innerHTML=`<div class="cardgrid">${items.map(s=>{const st=S.skillStars[s.id];return `<div class="gitem">${skillCardHTML(s)}<div class="ownctl"><button class="stockbtn ${st?'on':''}" data-sstar="${s.id}">${st?'★ owned':'☆ own'}</button></div></div>`;}).join('')}</div>`;
+    wrap.querySelectorAll('[data-sstar]').forEach(b=>b.onclick=()=>{const id=b.dataset.sstar;if(S.skillStars[id])delete S.skillStars[id];else S.skillStars[id]=true;commit();});
+  };
+  wrap.querySelector('#skq').oninput=e=>{SKFILTER=e.target.value;draw(SKFILTER);}; draw(SKFILTER);
+}
+
+/* ── Tab: Backgrounds (browse + owned-star; one per character, chosen on the player card) ── */
+function tabBackgrounds(p){
+  if(EDIT_MODE) p.appendChild(bgEditorPanel());
+  const wrap=el(`<div><h2>Backgrounds</h2>
+    <p class="small mut" style="margin:.1rem 0 .5rem">One per character, kept on the sheet - outside the 20-card loadout. Choose each character's background on their player card.</p>
+    <div class="filters"><input id="bgq" placeholder="search name or tag…" value="${esc(BGFILTER)}"></div><div id="bglist"></div></div>`);
+  p.appendChild(wrap);
+  const draw=(q)=>{ q=(q||'').toLowerCase();
+    const items=BG.backgrounds.filter(b=>!q||b.name.toLowerCase().includes(q)||(b.tag||'').toLowerCase().includes(q));
+    wrap.querySelector('#bglist').innerHTML=`<div class="cardgrid">${items.map(b=>{const st=S.bgStars[b.id];return `<div class="gitem">${bgCardHTML(b)}<div class="ownctl"><button class="stockbtn ${st?'on':''}" data-bstar="${b.id}">${st?'★ owned':'☆ own'}</button></div></div>`;}).join('')}</div>`;
+    wrap.querySelectorAll('[data-bstar]').forEach(b=>b.onclick=()=>{const id=b.dataset.bstar;if(S.bgStars[id])delete S.bgStars[id];else S.bgStars[id]=true;commit();});
+  };
+  wrap.querySelector('#bgq').oninput=e=>{BGFILTER=e.target.value;draw(BGFILTER);}; draw(BGFILTER);
 }
 
 /* ── Tab 4: Recipes ── */
@@ -744,6 +821,115 @@ function dupWeapon(id){ const s=WEAP.weapons.find(x=>x.id===id); let base=slug(s
 function delWeapon(id){ const s=WEAP.weapons.find(x=>x.id===id); if(prompt('Type the weapon name to delete:\n'+s.name)===s.name){ WEAP.weapons=WEAP.weapons.filter(x=>x.id!==id); markDirty(); renderPanel(); } }
 function exportWeapons(){ const out=JSON.stringify({_meta:WEAP._meta,weapons:WEAP.weapons},null,2); const box=el(`<div><h3>seed_weapons.json</h3><p class="small mut">Copy into <code>seed_weapons.json</code> in the repo and commit.</p><textarea style="width:100%;height:55vh">${esc(out)}</textarea></div>`); modal(box); box.querySelector('textarea').select(); }
 
+/* ── Skill card editor ── */
+const SKILL_CATS=['Sustain','Defense','Reflexes','Offense','Direct & Control','Lingering & Wild','Tempo & Utility'];
+const SKILL_TIMINGS=['fast','normal','slow','react','ondraw'];
+const SKILL_BADGES=['EXHAUST','ON DRAW','REPEAT'];
+function skillEditorPanel(){
+  const node=el(`<div style="border:2px solid var(--border);border-radius:8px;padding:.6rem .8rem;margin-bottom:1rem;background:var(--bg2)">
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.5rem"><b>Editor - Skill Cards</b>
+      <button class="addbtn" id="newsk">+ New skill card</button>
+      <button class="addbtn" id="expsk">Export seed_skills.json</button>
+      <span class="mut small">${cardDirty?'⚠ unsaved edits - export &amp; commit before you close':'edits are per-session; export &amp; commit to save'}</span></div>
+    <table><tr><th>Name</th><th>Category</th><th>Timing</th><th></th></tr>
+    ${SKILLS.skillCards.map(s=>`<tr><td>${esc(s.name)}</td><td class="small">${esc(s.category)}</td><td class="small">${esc((s.timings||[]).join('/'))}</td>
+      <td style="white-space:nowrap"><button class="addbtn" data-esk="${s.id}">edit</button> <button class="addbtn" data-dsk="${s.id}">dup</button> <button class="addbtn" data-xsk="${s.id}">del</button></td></tr>`).join('')}</table></div>`);
+  node.querySelector('#newsk').onclick=()=>openSkillForm(null);
+  node.querySelector('#expsk').onclick=exportSkills;
+  node.querySelectorAll('[data-esk]').forEach(b=>b.onclick=()=>openSkillForm(SKILLS.skillCards.find(s=>s.id===b.dataset.esk)));
+  node.querySelectorAll('[data-dsk]').forEach(b=>b.onclick=()=>dupSkill(b.dataset.dsk));
+  node.querySelectorAll('[data-xsk]').forEach(b=>b.onclick=()=>delSkill(b.dataset.xsk));
+  return node;
+}
+function openSkillForm(item){
+  const isNew=!item;
+  const it=item?JSON.parse(JSON.stringify(item)):{id:'',name:'',category:'Sustain',timings:['fast'],badges:[],target:'Self',effect:'',status:'active',notes:''};
+  const form=el(`<div><h3>${isNew?'New':'Edit'} skill card</h3>
+    <div style="display:grid;grid-template-columns:1fr 230px;gap:1rem">
+      <div>
+        <label>Name<br><input id="s-name" value="${esc(it.name)}" style="width:100%"></label><br>
+        <label>id (slug, stable)<br><input id="s-id" value="${esc(it.id)}" style="width:100%" ${isNew?'':'disabled'}></label><br>
+        <label>Category <select id="s-cat">${SKILL_CATS.map(c=>`<option${it.category===c?' selected':''}>${esc(c)}</option>`).join('')}</select></label>
+        <div class="small" style="margin:.3rem 0">Timings: ${SKILL_TIMINGS.map(t=>`<label style="margin-right:8px"><input type="checkbox" class="s-tim" value="${t}" ${(it.timings||[]).includes(t)?'checked':''}>${t}</label>`).join('')}</div>
+        <div class="small" style="margin:.3rem 0">Badges: ${SKILL_BADGES.map(b=>`<label style="margin-right:8px"><input type="checkbox" class="s-bdg" value="${b}" ${(it.badges||[]).includes(b)?'checked':''}>${b}</label>`).join('')}</div>
+        <label>Target<br><input id="s-target" value="${esc(it.target||'')}" style="width:100%"></label><br>
+        <label>Effect (**bold** for numbers)<br><textarea id="s-effect" style="width:100%;height:4em">${esc(it.effect||'')}</textarea></label><br>
+        <label>Notes (GM-only, never shown to players)<br><input id="s-notes" value="${esc(it.notes||'')}" style="width:100%"></label>
+        <div id="s-warn" class="small" style="color:var(--mark-amber);margin-top:.3rem"></div>
+      </div>
+      <div><div class="mini">Live preview</div><div id="s-prev"></div></div>
+    </div>
+    <div style="display:flex;gap:.5rem;margin-top:.7rem"><button id="s-save">Save</button><button id="s-cancel">Cancel</button></div></div>`);
+  const ov=modal(form); const g=id=>form.querySelector('#'+id);
+  const collect=()=>({id:isNew?slug(g('s-id').value||g('s-name').value):it.id,name:g('s-name').value,category:g('s-cat').value,timings:[...form.querySelectorAll('.s-tim:checked')].map(x=>x.value),badges:[...form.querySelectorAll('.s-bdg:checked')].map(x=>x.value),target:g('s-target').value,effect:g('s-effect').value,status:'active',notes:g('s-notes').value});
+  function refresh(){ const c=collect(); g('s-prev').innerHTML=skillCardHTML(c);
+    const w=[]; if(!c.name)w.push('name required'); if(!c.timings.length)w.push('pick at least one timing'); if(!c.effect)w.push('empty effect'); if(isNew&&c.id&&SKILLS.skillCards.some(x=>x.id===c.id))w.push('id already exists'); g('s-warn').innerHTML=w.map(esc).join('<br>'); }
+  form.querySelectorAll('input,select,textarea').forEach(e=>{e.oninput=refresh;e.onchange=refresh;});
+  g('s-cancel').onclick=()=>ov.remove();
+  g('s-save').onclick=()=>{ const c=collect();
+    if(!c.name){alert('Name is required.');return;}
+    if(!c.id){alert('An id is required.');return;}
+    if(isNew&&SKILLS.skillCards.some(x=>x.id===c.id)){alert('That id already exists.');return;}
+    if(isNew)SKILLS.skillCards.push(c); else Object.assign(item,c);
+    markDirty(); ov.remove(); renderPanel(); };
+  refresh();
+}
+function dupSkill(id){ const s=SKILLS.skillCards.find(x=>x.id===id); let base=slug(s.name)+'-copy',nid=base,i=2; while(SKILLS.skillCards.some(x=>x.id===nid))nid=base+'-'+(i++); const c=JSON.parse(JSON.stringify(s)); c.id=nid; c.name=s.name+' (copy)'; SKILLS.skillCards.push(c); markDirty(); renderPanel(); openSkillForm(c); }
+function delSkill(id){ const s=SKILLS.skillCards.find(x=>x.id===id); if(prompt('Type the skill card name to delete:\n'+s.name)===s.name){ SKILLS.skillCards=SKILLS.skillCards.filter(x=>x.id!==id); markDirty(); renderPanel(); } }
+function exportSkills(){ const out=JSON.stringify({_meta:SKILLS._meta,skillCards:SKILLS.skillCards},null,2); const box=el(`<div><h3>seed_skills.json</h3><p class="small mut">Copy into <code>seed_skills.json</code> in the repo and commit.</p><textarea style="width:100%;height:55vh">${esc(out)}</textarea></div>`); modal(box); box.querySelector('textarea').select(); }
+
+/* ── Background editor ── */
+const BG_TAGS=['PASSIVE','1x','2x','TRIGGER','COST'];
+function bgEditorPanel(){
+  const node=el(`<div style="border:2px solid var(--border);border-radius:8px;padding:.6rem .8rem;margin-bottom:1rem;background:var(--bg2)">
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.5rem"><b>Editor - Backgrounds</b>
+      <button class="addbtn" id="newbg">+ New background</button>
+      <button class="addbtn" id="expbg">Export seed_backgrounds.json</button>
+      <span class="mut small">${cardDirty?'⚠ unsaved edits - export &amp; commit before you close':'edits are per-session; export &amp; commit to save'}</span></div>
+    <table><tr><th>Name</th><th>Tag</th><th></th></tr>
+    ${BG.backgrounds.map(b=>`<tr><td>${esc(b.name)}</td><td class="small">${esc(b.tag)}</td>
+      <td style="white-space:nowrap"><button class="addbtn" data-ebg="${b.id}">edit</button> <button class="addbtn" data-dbg="${b.id}">dup</button> <button class="addbtn" data-xbg="${b.id}">del</button></td></tr>`).join('')}</table></div>`);
+  node.querySelector('#newbg').onclick=()=>openBgForm(null);
+  node.querySelector('#expbg').onclick=exportBackgrounds;
+  node.querySelectorAll('[data-ebg]').forEach(b=>b.onclick=()=>openBgForm(BG.backgrounds.find(x=>x.id===b.dataset.ebg)));
+  node.querySelectorAll('[data-dbg]').forEach(b=>b.onclick=()=>dupBg(b.dataset.dbg));
+  node.querySelectorAll('[data-xbg]').forEach(b=>b.onclick=()=>delBg(b.dataset.xbg));
+  return node;
+}
+function openBgForm(item){
+  const isNew=!item;
+  const it=item?JSON.parse(JSON.stringify(item)):{id:'',name:'',tag:'1x',effect:'',status:'active',notes:''};
+  const form=el(`<div><h3>${isNew?'New':'Edit'} background</h3>
+    <div style="display:grid;grid-template-columns:1fr 230px;gap:1rem">
+      <div>
+        <label>Name<br><input id="b-name" value="${esc(it.name)}" style="width:100%"></label><br>
+        <label>id (slug, stable)<br><input id="b-id" value="${esc(it.id)}" style="width:100%" ${isNew?'':'disabled'}></label><br>
+        <label>Tag <select id="b-tag">${BG_TAGS.map(t=>`<option${it.tag===t?' selected':''}>${t}</option>`).join('')}</select></label><br>
+        <label>Effect (**bold** for numbers; "once/twice/N times per combat" renders green)<br><textarea id="b-effect" style="width:100%;height:4em">${esc(it.effect||'')}</textarea></label><br>
+        <label>Notes (GM-only, never shown to players)<br><input id="b-notes" value="${esc(it.notes||'')}" style="width:100%"></label>
+        <div id="b-warn" class="small" style="color:var(--mark-amber);margin-top:.3rem"></div>
+      </div>
+      <div><div class="mini">Live preview</div><div id="b-prev"></div></div>
+    </div>
+    <div style="display:flex;gap:.5rem;margin-top:.7rem"><button id="b-save">Save</button><button id="b-cancel">Cancel</button></div></div>`);
+  const ov=modal(form); const g=id=>form.querySelector('#'+id);
+  const collect=()=>({id:isNew?slug(g('b-id').value||g('b-name').value):it.id,name:g('b-name').value,tag:g('b-tag').value,effect:g('b-effect').value,status:'active',notes:g('b-notes').value});
+  function refresh(){ const c=collect(); g('b-prev').innerHTML=bgCardHTML(c);
+    const w=[]; if(!c.name)w.push('name required'); if(!c.effect)w.push('empty effect'); if(isNew&&c.id&&BG.backgrounds.some(x=>x.id===c.id))w.push('id already exists'); g('b-warn').innerHTML=w.map(esc).join('<br>'); }
+  form.querySelectorAll('input,select,textarea').forEach(e=>{e.oninput=refresh;e.onchange=refresh;});
+  g('b-cancel').onclick=()=>ov.remove();
+  g('b-save').onclick=()=>{ const c=collect();
+    if(!c.name){alert('Name is required.');return;}
+    if(!c.id){alert('An id is required.');return;}
+    if(isNew&&BG.backgrounds.some(x=>x.id===c.id)){alert('That id already exists.');return;}
+    if(isNew)BG.backgrounds.push(c); else Object.assign(item,c);
+    markDirty(); ov.remove(); renderPanel(); };
+  refresh();
+}
+function dupBg(id){ const s=BG.backgrounds.find(x=>x.id===id); let base=slug(s.name)+'-copy',nid=base,i=2; while(BG.backgrounds.some(x=>x.id===nid))nid=base+'-'+(i++); const c=JSON.parse(JSON.stringify(s)); c.id=nid; c.name=s.name+' (copy)'; BG.backgrounds.push(c); markDirty(); renderPanel(); openBgForm(c); }
+function delBg(id){ const s=BG.backgrounds.find(x=>x.id===id); if(prompt('Type the background name to delete:\n'+s.name)===s.name){ BG.backgrounds=BG.backgrounds.filter(x=>x.id!==id); markDirty(); renderPanel(); } }
+function exportBackgrounds(){ const out=JSON.stringify({_meta:BG._meta,backgrounds:BG.backgrounds},null,2); const box=el(`<div><h3>seed_backgrounds.json</h3><p class="small mut">Copy into <code>seed_backgrounds.json</code> in the repo and commit.</p><textarea style="width:100%;height:55vh">${esc(out)}</textarea></div>`); modal(box); box.querySelector('textarea').select(); }
+
 /* ══ PRINT EMITTER (63×88mm poker cards, 3×3 A4; refuses empty-effect items) ══ */
 const pbadge=(b)=>{const c=b==='POISED'?'#3a6a8a':b==='EXHAUST'?'#8a1014':'#5a4a3a';return `<span class="pbadge" style="background:${c}">${esc(b)}</span>`;};
 /* keep long effect text inside the fixed 63×88mm card: shrink the font as text grows so nothing clips on print */
@@ -764,6 +950,17 @@ function pRecipeCard(r){ const it=CONS.consumables.find(i=>i.id===r.producesItem
     <div class="wbar ${r.tier==='rare'?'rare':''}">${esc(r.tier==='rare'?'Rare recipe':'Common recipe')} · ${esc(r.discipline)}</div>
     <div class="single"><div class="seff">Crafts <strong>${esc(it.name||r.producesItemId)}</strong>.</div></div>
     <div class="foot">CRAFT: 2d12 + ${esc((r.discipline||'').toUpperCase())} · 10+ MADE</div></div>`; }
+function pSkillCard(sc){ const ti=cardTgt(sc.target,sc.timings);
+  return `<div class="pcard"><div class="chead">${(sc.timings||[]).map(ptb).join('')}<span class="cname">${esc(sc.name)}</span></div>
+    <div class="catbar">${esc(sc.category||'')}</div>
+    ${sc.target?`<div class="tgt ${ti.cls}">${esc(ti.txt)}</div>`:''}
+    <div class="single"><div class="seff${seffSize(sc.effect)}">${bold(sc.effect)} ${(sc.badges||[]).map(pbadge).join('')}</div></div>
+    <div class="foot">SKILL CARD</div></div>`; }
+function pBgCard(bg){ return `<div class="pcard"><div class="chead bgc"><span class="cname">${esc(bg.name)}</span></div>
+    <div class="wbar bgbar">BACKGROUND</div>
+    <div class="tgt tag-${tagCls(bg.tag)}">${esc(bg.tag)}</div>
+    <div class="single"><div class="seff${seffSize(bg.effect)}">${bgEffect(bg.effect)}</div></div>
+    <div class="foot">ON THE SHEET · NOT IN DECK</div></div>`; }
 function printSheet(cards){
   // cards: array of single-card HTML strings. Chunk into fixed 3×3 A4 pages so nothing straddles a page break.
   const arr=Array.isArray(cards)?cards:[cards];
@@ -783,21 +980,31 @@ function openPrint(){
     <div class="pbtns" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem">
       <button id="pr-cons">Print all consumables</button>
       <button id="pr-weap">Print all weapons</button>
+      <button id="pr-skill">Print skill cards</button>
+      <button id="pr-bg">Print backgrounds</button>
       <button id="pr-rec">Print all recipes</button>
     </div>
     <div class="mini">Or tick specific cards, then Print selection (reprint a single fixed card):</div>
     <div style="max-height:42vh;overflow:auto;border:1px solid var(--border);padding:.4rem .6rem;border-radius:6px">
       <div class="mini">Consumables</div>${CONS.consumables.map(it=>`<label class="small" style="display:block"><input type="checkbox" class="pr-sel" data-t="c" value="${it.id}" ${it.effect?'':'disabled'}> ${esc(it.name)}${it.effect?'':' <span class="mut">(no text - skipped)</span>'}</label>`).join('')}
       <div class="mini">Weapons</div>${WEAP.weapons.map(w=>`<label class="small" style="display:block"><input type="checkbox" class="pr-sel" data-t="w" value="${w.id}"> ${esc(w.name)} (3 cards)</label>`).join('')}
+      <div class="mini">Skill cards</div>${SKILLS.skillCards.map(s=>`<label class="small" style="display:block"><input type="checkbox" class="pr-sel" data-t="s" value="${s.id}"> ${esc(s.name)} <span class="mut">${esc(s.category)}</span></label>`).join('')}
+      <div class="mini">Backgrounds</div>${BG.backgrounds.map(b=>`<label class="small" style="display:block"><input type="checkbox" class="pr-sel" data-t="b" value="${b.id}"> ${esc(b.name)} <span class="mut">${esc(b.tag)}</span></label>`).join('')}
     </div>
     <button id="pr-selbtn" style="margin-top:.5rem">Print selection</button></div>`);
   modal(box);
   const skipNote=(names)=>{ if(names&&names.length) setTimeout(()=>alert('Skipped - no effect text:\n'+names.join('\n')),150); };
   box.querySelector('#pr-cons').onclick=()=>{ const ok=CONS.consumables.filter(it=>it.effect); printSheet(ok.map(pConsCard)); skipNote(CONS.consumables.filter(it=>!it.effect).map(it=>it.name)); };
   box.querySelector('#pr-weap').onclick=()=>printSheet(WEAP.weapons.flatMap(pWeaponCards));
+  box.querySelector('#pr-skill').onclick=()=>printSheet(SKILLS.skillCards.map(pSkillCard));
+  box.querySelector('#pr-bg').onclick=()=>printSheet(BG.backgrounds.map(pBgCard));
   box.querySelector('#pr-rec').onclick=()=>printSheet(CONS.recipes.map(pRecipeCard));
   box.querySelector('#pr-selbtn').onclick=()=>{ const sel=[...box.querySelectorAll('.pr-sel:checked')]; let cards=[],skip=[];
-    sel.forEach(s=>{ if(s.dataset.t==='c'){ const it=CONS.consumables.find(i=>i.id===s.value); if(it.effect)cards.push(pConsCard(it)); else skip.push(it.name); } else cards.push(...pWeaponCards(WEAP.weapons.find(w=>w.id===s.value))); });
+    sel.forEach(s=>{ const t=s.dataset.t;
+      if(t==='c'){ const it=CONS.consumables.find(i=>i.id===s.value); if(it.effect)cards.push(pConsCard(it)); else skip.push(it.name); }
+      else if(t==='w'){ cards.push(...pWeaponCards(WEAP.weapons.find(w=>w.id===s.value))); }
+      else if(t==='s'){ cards.push(pSkillCard(SKILLS.skillCards.find(x=>x.id===s.value))); }
+      else if(t==='b'){ cards.push(pBgCard(BG.backgrounds.find(x=>x.id===s.value))); } });
     if(!cards.length){ alert('Nothing selected (or only empty-effect items).'); return; } printSheet(cards); skipNote(skip); };
 }
 

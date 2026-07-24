@@ -1,0 +1,46 @@
+{
+  "_meta": {
+    "file": "seed_backgrounds.json",
+    "scope": "COMBAT-SIDE background cards. One per character, kept on the SHEET - outside the 20-card loadout (14 class + 3 weapon + 3 skill). Not a played card: no timing circle.",
+    "authority": "CANONICAL for background card text. Transcribed from backgrounds_print_cards_63x88mm.html (Drive).",
+    "counts": { "backgrounds": 14 },
+    "coreRules": [
+      "One background per character. FREE - no deck-slot cost.",
+      "Cultural or racial identity. 1-2 low-maintenance effects.",
+      "Because backgrounds are free, pure-upside ones must be SMALL. A downside only balances an upside if it costs the SAME builds that want the upside.",
+      "NO MAX-HP AS A DOWNSIDE - HP moves in multiples of 10, so the smallest penalty is -50% on HP20 classes. Downsides cost Block, hand size, healing, or damage-taken instead.",
+      "No party-scaling amplifiers. Existing keywords only."
+    ],
+    "tagValues": ["PASSIVE", "1x", "2x", "TRIGGER", "COST"],
+    "printNote": "Blue band #3a6ea5, blue 'BACKGROUND' bar label #2c537a, no timing circle. Tag colors: PASSIVE #5a6470, 1x #c7a13a (dark text), 2x #2f8f5f, TRIGGER #9a5bd0, COST #b0413a. Per-combat counts render green #2f8f5f in body text.",
+    "OPEN_DECISION": {
+      "issue": "backgrounds.md called for a final cut to 10-12; the print sheet ships all 14. An older slide deck shows 15.",
+      "recommendation": "The print sheet (14) is the most recent artifact and is treated as authoritative here. If a cut happens, mark the losers 'cut' rather than deleting them.",
+      "status": "AWAITING USER DECISION - all 14 are status 'active'."
+    },
+    "watchList": [
+      "Wildkin / Quick-Handed / Long-Memoried are card advantage - they inverse-scale toward strong combo classes (Chronomancer, Assassin).",
+      "Grave-Touched inverse-scales toward squishies, whose glass-cannon risk it partly erases. Top candidate for per-day gating if it overperforms.",
+      "Forest-Dweller is party-only - dead in solo sims, must be measured in party.",
+      "Mountain-Born's reduce-by-4 is guaranteed, so slightly stronger than 4 Block. Flag if it overperforms.",
+      "Fortune-Touched is own-dice-only by ruling - no enemy rerolls, so no defensive no-sell and no party stacking."
+    ]
+  },
+
+  "backgrounds": [
+    { "id": "bg-mountain-born", "name": "Mountain-Born", "tag": "1x", "effect": "The first hit you take each combat is reduced by **4**.", "status": "active", "notes": "Guaranteed value, unlike turn-1 Block which often goes unused. Self-capping against small hits." },
+    { "id": "bg-wildkin", "name": "Wildkin", "tag": "1x", "effect": "On your first turn, draw **2** extra cards.", "status": "active", "notes": "Opening consistency; strongest on combo and burst classes." },
+    { "id": "bg-emberborn", "name": "Emberborn", "tag": "1x", "effect": "Your first attack each combat also applies **Burn**.", "status": "active", "notes": "One-time self-contained DoT. Burn refreshes, never stacks." },
+    { "id": "bg-nomad", "name": "Nomad", "tag": "1x", "effect": "Once per combat, gain **+1 Normal or Slow** play.", "status": "active", "notes": "One extra action. NOT Fast - Fast is premium." },
+    { "id": "bg-battle-fury", "name": "Battle-Fury", "tag": "TRIGGER", "effect": "The first time you take damage each combat, gain **+1 Strength** for the rest of it.", "status": "active", "notes": "Self-balancing: rewards classes that actually get hit, i.e. the frontline." },
+    { "id": "bg-forest-dweller", "name": "Forest-Dweller", "tag": "TRIGGER", "effect": "Once per combat, when an ally first drops below half HP, apply **Regen 3** to them.", "status": "active", "notes": "Six healing over time. PARTY-ONLY - does nothing solo; sim-flag like Chains' Set Up." },
+    { "id": "bg-old-blood-scholar", "name": "Old-Blood Scholar", "tag": "1x", "effect": "Look at the top card of your deck anytime. Once per combat, draw it.", "status": "active", "notes": "Foresight plus one tutor-draw. The scry is sneaky-strong but adds no raw damage." },
+    { "id": "bg-grave-touched", "name": "Grave-Touched", "tag": "1x", "effect": "Once per combat, the first hit that would drop you to **0** leaves you at **1** instead.", "status": "active", "notes": "Death-save; most valuable on squishies. Gate to per-day if it overperforms." },
+    { "id": "bg-stoic", "name": "Stoic", "tag": "1x", "effect": "You are immune to the first debuff applied to you each combat.", "status": "active", "notes": "Anti-control; matchup-dependent - dead against debuff-light enemies." },
+    { "id": "bg-fortune-touched", "name": "Fortune-Touched", "tag": "2x", "effect": "Twice per combat, reroll any number of dice in one of your **own** rolls.", "status": "active", "notes": "OWN DICE ONLY - no enemy rerolls. A variance-smoother, not a ceiling-raiser: rescues a botched payoff. Scales with how swingy the loadout is." },
+    { "id": "bg-ambusher", "name": "Ambusher", "tag": "1x", "effect": "Your first strike each combat deals an additional **1d4** and applies **1 Stagger**.", "status": "active", "notes": "Control plus damage opener. One strike only, so it cannot trivially trip a Stagger threshold." },
+    { "id": "bg-far-traveled", "name": "Far-Traveled", "tag": "2x", "effect": "Twice per combat, discard a card to draw a card.", "status": "active", "notes": "Filtering, not advantage - net-neutral on card count. Low power, high consistency." },
+    { "id": "bg-quick-handed", "name": "Quick-Handed", "tag": "COST", "effect": "Your hand size is reduced by **1**. **Three times** per combat, draw **2** cards.", "status": "active", "notes": "Net card-positive engine; the -1 hand is an honest cost in the same currency as the payoff. Heaviest tracking - a constant AND a counter." },
+    { "id": "bg-long-memoried", "name": "Long-Memoried", "tag": "PASSIVE", "effect": "From your 4th turn each combat, draw **1** extra card every turn.", "status": "active", "notes": "Attrition snowball; value equals fight length, the hardest axis to balance. Lives or dies in the Attrition column." }
+  ]
+}
