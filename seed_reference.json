@@ -6,7 +6,7 @@
   },
 
   "storyConstants": {
-    "roll": "2d12 + skill",
+    "roll": "2d12 + proficiency",
     "bands": [
       { "range": "17+", "key": "clean", "label": "Clean success", "detail": "You get it, fully and quietly." },
       { "range": "10-16", "key": "cost", "label": "Success, with a cost", "detail": "A complication, a price, a hard choice - the most common outcome." },
@@ -22,7 +22,7 @@
     "circumstances": "One die, in or out - never stacks. Favorable: 3d12 keep the highest two. Unfavorable: 3d12 keep the lowest two.",
     "natural13": "The result stands, usually still a success - but the old forces take their toll: a Condition or +1 Mark rides in as the cost.",
     "press": "On a miss, once, you may reroll both dice. The price: a Condition - or +1 Mark if the scene touched the uncanny.",
-    "conditions": "A Condition is a named affliction that dims one skill to -3 until tended. They accumulate; a second Condition dims a second skill. A relevant Condition can also make a roll unfavorable. Removed by Rest (2 per camp), Hearty Stew, or certain items.",
+    "conditions": "A Condition is a named affliction that dims one proficiency to -3 until tended. They accumulate; a second Condition dims a second proficiency. A relevant Condition can also make a roll unfavorable. Removed by Rest (2 per camp), Hearty Stew, or certain items.",
     "mark": { "scale": "0-5", "scope": "party", "gains": ["witnessing the impossible +1", "breaking folk-law +1", "pressing the uncanny +1", "bargaining with what should not be bargained with +2"], "thresholds": { "3": "it leaks - minor fallout", "5": "eruption, then settles to 2" }, "lowering": "Cleanse only - churches, shrines, festivals, places of power. Never by rest." },
     "standing": { "scale": "0-3 typical", "scope": "party", "gain": "deeds only - never bought, never sold", "spend": "Spend 1 to make a roll favorable, only where another person is the audience or the obstacle. Does not stack with other favorable circumstances." },
     "provisions": "1 per person per dawn. All rations are equal - no conversions. Invited to eat for free: none consumed. Can be bought, sold, and given away.",
@@ -111,20 +111,20 @@
     "rules": ["One action per player per camp.", "Rest is the only roll-less action.", "Standing may sweeten any person-facing roll.", "Cleanse works only at churches, shrines, festivals, and places of power - once per site, per person."],
     "settlement": [
       { "id": "rest", "name": "Rest", "skills": [], "noRoll": true, "outcome": "Remove 2 Conditions. A Medicine-trained character also removes 1 from another player." },
-      { "id": "work", "name": "Work", "skills": ["any honest fit"], "high": "5g", "mid": "3g", "low": "2g and gain a Condition" },
+      { "id": "work", "name": "Work", "skills": ["athletics", "animal-handling", "crafting", "medicine", "or any honest fit"], "high": "5g", "mid": "3g", "low": "2g and gain a Condition" },
       { "id": "trade", "name": "Trade", "skills": ["commerce"], "high": "10g", "mid": "5g", "low": "2g" },
       { "id": "scribe", "name": "Scribe", "skills": ["scholarship"], "high": "8g", "mid": "4g", "low": "2g" },
       { "id": "steal", "name": "Steal", "skills": ["stealth"], "high": "12g or an item of similar worth", "mid": "6g", "low": "Caught - flee with nothing and gain a Condition" },
       { "id": "ask-around", "name": "Ask Around", "skills": ["whatever fits the circle"], "outcome": "Rumors, leads, hearsay - contents and quality at GM discretion, informed by the roll." },
-      { "id": "craft-settlement", "name": "Craft", "skills": ["discipline skill"], "outcome": "2d12 + discipline skill. 10+ the item is made. 9- the batch fails. Rares need a found recipe and roll unfavorable." },
+      { "id": "craft-settlement", "name": "Craft", "skills": ["discipline proficiency"], "outcome": "2d12 + discipline proficiency. 10+ the item is made. 9- the batch fails. Rares need a found recipe and roll unfavorable." },
       { "id": "cleanse-settlement", "name": "Cleanse", "skills": ["folklore", "arcana"], "high": "Party Mark -2", "mid": "Party Mark -1", "low": "The place is silent to you" }
     ],
     "wilderness": [
       { "id": "rest-wild", "name": "Rest", "skills": [], "noRoll": true, "outcome": "Remove 2 Conditions. A Medicine-trained character also removes 1 from another player." },
       { "id": "forage", "name": "Forage", "skills": ["survival", "herbalism-alchemy"], "high": "3 Provisions, or herbs worth 6g", "mid": "2 Provisions, or herbs worth 3g", "low": "1 Provision" },
       { "id": "hunt", "name": "Hunt", "skills": ["animal-handling", "athletics"], "high": "4 Provisions and hides worth 3g", "mid": "2 Provisions", "low": "1 Provision" },
-      { "id": "explore", "name": "Explore", "skills": [], "outcome": "Roll 1d20 - no skill, no modifiers. The wildcard: anything can happen. The GM holds the table." },
-      { "id": "craft-wild", "name": "Craft", "skills": ["discipline skill"], "outcome": "As settlement." },
+      { "id": "explore", "name": "Explore", "skills": [], "outcome": "Roll 1d20 - no proficiency, no modifiers. The wildcard: anything can happen. The GM holds the table." },
+      { "id": "craft-wild", "name": "Craft", "skills": ["discipline proficiency"], "outcome": "As settlement." },
       { "id": "cleanse-wild", "name": "Cleanse", "skills": ["folklore", "arcana"], "outcome": "Only at a found site - shrine, place of power. As settlement." }
     ]
   },
@@ -135,7 +135,7 @@
       "interest": "Fill it to win them. Each threshold is a better concession - negotiations can partially succeed.",
       "patience": "Every exchange spends 1. Empty means the scene ends; you keep what you earned. Typical 2-4 by temperament."
     },
-    "arguments": "Appeals, and any skill can carry one: 'the horses are spent' is Animal Handling, the legal angle is Scholarship, the old custom is Folklore. Whoever knows the ground makes the case - there is no talking skill and no single face. Dice enter only when an appeal needs a demonstration.",
+    "arguments": "Appeals, and any proficiency can carry one: 'the horses are spent' is Animal Handling, the legal angle is Scholarship, the old custom is Folklore. Whoever knows the ground makes the case - there is no talking proficiency and no single face. Dice enter only when an appeal needs a demonstration.",
     "motivationRule": "Hitting a motivation raises Interest - no roll needed. Naming the pitfall tanks the scene.",
     "lies": "Appeals with false content - they work on motivations, and if caught, the claimed ground becomes a pitfall for the rest of the scene.",
     "discovery": "Judge of Character before the scene, legwork and Ask Around before that, listening during, trained Perception throughout."
@@ -144,15 +144,15 @@
   "theTwelve": [
     { "trait": "Benevolence", "appeal": "Help freely given, the common good", "drivenBy": "Samwise Gamgee - carries his friend when he cannot carry the burden", "pitfall": "Scrooge - asks if there are no workhouses; kindness is weakness" },
     { "trait": "Discovery", "appeal": "Secrets, knowledge, the new", "drivenBy": "Indiana Jones - it belongs in a museum", "pitfall": "Vernon Dursley - no questions, nothing unusual, ever" },
-    { "trait": "Freedom", "appeal": "No chains, no masters", "drivenBy": "William Wallace - dies with the word on his lips", "pitfall": "Javert - liberty is lawlessness wearing a ribbon" },
+    { "trait": "Freedom", "appeal": "No chains, no masters", "drivenBy": "William Wallace - dies with the word on his lips", "pitfall": "Tywin Lannister - hears 'no masters' and reaches for the Rains of Castamere" },
     { "trait": "Greed", "appeal": "Profit, gain, the price of things", "drivenBy": "Smaug - sleeps on it and knows every coin", "pitfall": "Ned Stark - offer him gold and watch the door close" },
     { "trait": "Higher Authority", "appeal": "The crown, the church, the order above", "drivenBy": "Brienne of Tarth - the oath outranks the woman", "pitfall": "Robin Hood - grant the Sheriff legitimacy and lose him" },
     { "trait": "Justice", "appeal": "Wrongs righted, fair dealing", "drivenBy": "Atticus Finch - defends the case no one else will touch", "pitfall": "Jaime Lannister - asks by what right the wolf judges the lion" },
     { "trait": "Legacy", "appeal": "The name that outlives the man", "drivenBy": "Achilles - a short life, remembered forever", "pitfall": "Kylo Ren - let the past die" },
     { "trait": "Peace", "appeal": "Quiet, order, the kettle on", "drivenBy": "Bilbo Baggins - adventures make one late for dinner", "pitfall": "Khal Drogo - walls and treaties are for the weak" },
     { "trait": "Power", "appeal": "Command, dominion, the upper hand", "drivenBy": "Palpatine - everything is proceeding as he has foreseen", "pitfall": "Faramir - would not take the Ring if it lay by the highway" },
-    { "trait": "Protection", "appeal": "Someone kept safe, whatever it costs", "drivenBy": "Ellen Ripley - goes back for the girl", "pitfall": "Eowyn - offer her a cage of safety and the scene dies" },
-    { "trait": "Revelry", "appeal": "The feast, the song, tonight", "drivenBy": "Falstaff - honor cannot set a leg, but sack fills a belly", "pitfall": "Stannis Baratheon - grinds his teeth through every toast" },
+    { "trait": "Protection", "appeal": "Someone kept safe, whatever it costs", "drivenBy": "Geralt of Rivia - swears he is neutral, then rides for Ciri every time", "pitfall": "Arya Stark - offer her the safety of a lady's life; that is not her" },
+    { "trait": "Revelry", "appeal": "The feast, the song, tonight", "drivenBy": "Dionysus - the god of the vine; every feast is holy and every jug an offering", "pitfall": "Stannis Baratheon - grinds his teeth through every toast" },
     { "trait": "Vengeance", "appeal": "The debt repaid in kind", "drivenBy": "Inigo Montoya - has waited his whole life to say the words", "pitfall": "Luke Skywalker - throws the blade away" }
   ],
 
@@ -170,7 +170,7 @@
     ],
     "marketLaws": ["Everything sells at half price - Provisions excepted.", "Standing is never for sale."],
     "incomeReference": [
-      { "source": "Unskilled Work (+0)", "value": "~2-3g" },
+      { "source": "Untrained Work (+0)", "value": "~2-3g" },
       { "source": "Trained Work", "value": "~4g" },
       { "source": "Scribe (Scholarship)", "value": "~5-6g" },
       { "source": "Trade (Commerce)", "value": "~6-7g" },
