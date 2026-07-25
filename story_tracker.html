@@ -355,11 +355,9 @@ function renderPlayers(){
 }
 function playerCard(p,pi){
   const opts=(sel)=>`<option value=""${sel?'':' selected'}>- proficiency -</option>`+skillsList().map(k=>`<option value="${k.id}"${sel===k.id?' selected':''}>${esc(k.name)}</option>`).join('');
-  // trained skills + bios
+  // trained skills (the how-it-was-learned bios were dropped from the card; p.bios stays in state, harmless)
   let trained=''; p.trained.forEach((sid,ti)=>{
-    trained+=`<div><select data-tr="${ti}">${opts(sid)}</select>`;
-    if(sid) trained+=`<input class="bioline" placeholder="how ${esc(p.name)} learned ${esc(skillName(sid))}…" value="${esc(p.bios[sid]||'')}" data-bio="${sid}">`;
-    trained+=`</div>`;
+    trained+=`<div><select data-tr="${ti}">${opts(sid)}</select></div>`;
   });
   // conditions
   let conds=p.conditions.map(c=>`<span class="cond ${c.active?'':'off'}" data-cid="${c.id}">${esc(c.name)} - ${esc(skillName(c.skill))} -3 <button class="x" data-del="${c.id}">×</button></span>`).join('');
@@ -371,30 +369,19 @@ function playerCard(p,pi){
     if(k.passive) mods+='<span class="tag">PASSIVE</span> '; if(k.group) mods+='<span class="tag">GROUP</span>';
     return `<div class="row"><span class="${tr?'tr':''}">${esc(k.name)}</span><span>${mods||'<span class="mut">+0</span>'}</span></div>`;
   }).join('');
-  // known recipes
-  const recs=(p.recipes||[]).map(rid=>{const r=CONS.recipes.find(x=>x.id===rid);const it=r&&CONS.consumables.find(i=>i.id===r.producesItemId);return it?`<span class="skchip">${esc(it.name)}</span>`:'';}).join('')||'<span class="mut small">none</span>';
-  // background (one per character, set-once identity)
-  const bgOpts=`<option value="">- background -</option>`+(BG?BG.backgrounds:[]).map(b=>`<option value="${b.id}"${p.backgroundId===b.id?' selected':''}>${esc(b.name)}</option>`).join('');
-  const bgSel=BG&&BG.backgrounds.find(b=>b.id===p.backgroundId);
-  const bgInfo=bgSel?`<span class="bgchip tag-${tagCls(bgSel.tag)}">${esc(bgSel.name)} · ${esc(bgSel.tag)}</span><div class="small mut" style="margin-top:3px">${bgEffect(bgSel.effect)}</div>`:'';
-
+  // recipes + background moved off the card: assign backgrounds on the Backgrounds tab, tick known recipes on the Recipes tab
   const c=el(`<div class="pcard">
     <h3><input value="${esc(p.name)}" data-name="1">${S.players.length>2?'<button class="x" data-rmplayer="1" title="remove">×</button>':''}</h3>
-    <div class="mini">Trained proficiencies (+3 each) &amp; how they were learned</div>
+    <div class="mini">Trained proficiencies (+3 each)</div>
     <div data-trained>${trained}</div>
-    <div class="mini">Background (one, set once)</div>
-    <div data-bgwrap><select data-bg>${bgOpts}</select><div style="margin-top:4px">${bgInfo}</div></div>
     <div class="mini">Conditions</div>
     <div data-conds>${conds||'<span class="mut small">none</span>'} <button class="addbtn" data-addcond="1">+ condition</button></div>
     <details><summary class="mini" style="margin-top:.5rem">Every modifier (all 14 proficiencies)</summary><div class="skgrid">${grid}</div></details>
-    <div class="mini">Known recipes</div><div>${recs}</div>
     <div class="mini">Notes</div><input class="notesin" value="${esc(p.notes)}" placeholder="owes the miller 4g; carrying the widow's letter…" data-notes="1">
   </div>`);
   c.querySelector('[data-name]').oninput=e=>{p.name=e.target.value;saveState();};
   const rm=c.querySelector('[data-rmplayer]'); if(rm) rm.onclick=()=>{if(confirm('Remove '+p.name+'?')){S.players.splice(pi,1);commit();}};
   c.querySelectorAll('[data-tr]').forEach(s=>s.onchange=()=>{p.trained[+s.dataset.tr]=s.value;commit();});
-  c.querySelector('[data-bg]').onchange=e=>{p.backgroundId=e.target.value;commit();};
-  c.querySelectorAll('[data-bio]').forEach(b=>b.oninput=()=>{p.bios[b.dataset.bio]=b.value;saveState();});
   c.querySelector('[data-notes]').oninput=e=>{p.notes=e.target.value;saveState();};
   c.querySelectorAll('[data-del]').forEach(x=>x.onclick=()=>{p.conditions=p.conditions.filter(cc=>cc.id!==x.dataset.del);commit();});
   c.querySelectorAll('[data-cid]').forEach(chip=>chip.onclick=(ev)=>{if(ev.target.dataset.del)return;const cc=p.conditions.find(x=>x.id===chip.dataset.cid);cc.active=!cc.active;commit();});
@@ -517,13 +504,17 @@ function tabSkillCards(p){
   wrap.querySelector('#skq').oninput=e=>{SKFILTER=e.target.value;draw(SKFILTER);}; draw(SKFILTER);
 }
 
-/* ── Tab: Backgrounds (browse + owned-star; one per character, chosen on the player card) ── */
+/* ── Tab: Backgrounds (browse + owned-star; one per character, assigned HERE) ── */
 function tabBackgrounds(p){
   if(EDIT_MODE) p.appendChild(bgEditorPanel());
+  const bgOpts=(sel)=>`<option value=""${sel?'':' selected'}>- background -</option>`+BG.backgrounds.map(b=>`<option value="${b.id}"${sel===b.id?' selected':''}>${esc(b.name)}</option>`).join('');
+  const assign=S.players.map((pl,i)=>`<label class="small" style="display:inline-flex;align-items:center;gap:5px;margin-right:10px"><b>${esc(pl.name)}</b><select data-pbg="${i}">${bgOpts(pl.backgroundId)}</select></label>`).join('');
   const wrap=el(`<div><h2>Backgrounds</h2>
-    <p class="small mut" style="margin:.1rem 0 .5rem">One per character, kept on the sheet - outside the 20-card loadout. Choose each character's background on their player card.</p>
+    <p class="small mut" style="margin:.1rem 0 .5rem">One per character, kept on the sheet - outside the 20-card loadout. Assign each character's background here (one, set once).</p>
+    <div class="owned-wrap"><b>Assigned</b><div style="margin-top:4px">${assign}</div></div>
     <div class="filters"><input id="bgq" placeholder="search name or tag…" value="${esc(BGFILTER)}"></div><div id="bglist"></div></div>`);
   p.appendChild(wrap);
+  wrap.querySelectorAll('[data-pbg]').forEach(s=>s.onchange=()=>{ S.players[+s.dataset.pbg].backgroundId=s.value; commit(); });
   const draw=(q)=>{ q=(q||'').toLowerCase();
     const items=BG.backgrounds.filter(b=>!q||b.name.toLowerCase().includes(q)||(b.tag||'').toLowerCase().includes(q));
     wrap.querySelector('#bglist').innerHTML=`<div class="cardgrid">${items.map(b=>{const st=S.bgStars[b.id];return `<div class="gitem">${bgCardHTML(b)}<div class="ownctl"><button class="stockbtn ${st?'on':''}" data-bstar="${b.id}">${st?'★ owned':'☆ own'}</button></div></div>`;}).join('')}</div>`;
@@ -532,26 +523,52 @@ function tabBackgrounds(p){
   wrap.querySelector('#bgq').oninput=e=>{BGFILTER=e.target.value;draw(BGFILTER);}; draw(BGFILTER);
 }
 
-/* ── Tab 4: Recipes ── */
+/* ── Tab 4: Recipes (card grid like Consumables; per-player known ticks + known-filter) ── */
+let RECFILTER={q:'',disc:'',known:''};
 function tabRecipes(p){
   if(EDIT_MODE) p.appendChild(recipeEditorPanel());
   const discs=[...new Set(CONS.recipes.map(r=>r.discipline))];
   const wrap=el(`<div><h2>Recipes</h2>
-    <p class="small"><b>Craft:</b> ${esc(CONS._meta.craftRule)}</p><div id="rlist"></div></div>`);
+    <p class="small"><b>Craft:</b> ${esc(CONS._meta.craftRule)}</p>
+    <div class="filters">
+      <input id="rq" placeholder="search…" value="${esc(RECFILTER.q)}">
+      <select id="rdisc"><option value="">all disciplines</option>${discs.map(d=>`<option value="${d}"${RECFILTER.disc===d?' selected':''}>${d}</option>`).join('')}</select>
+      <select id="rknown"><option value="">all recipes</option><option value="known"${RECFILTER.known==='known'?' selected':''}>known by anyone</option><option value="unknown"${RECFILTER.known==='unknown'?' selected':''}>not yet known</option>${S.players.map((pl,i)=>`<option value="p${i}"${RECFILTER.known==='p'+i?' selected':''}>known by ${esc(pl.name)}</option>`).join('')}</select>
+    </div>
+    <div id="rlist"></div></div>`);
   p.appendChild(wrap);
-  wrap.querySelector('#rlist').innerHTML=discs.map(d=>{
-    const rs=CONS.recipes.filter(r=>r.discipline===d);
-    return `<h3>${esc(d)}</h3><table><tr><th>Item</th><th>Tier</th><th>Source</th><th>Known by</th></tr>`+rs.map(r=>{
-      const it=CONS.consumables.find(i=>i.id===r.producesItemId);
-      const checks=S.players.map((pl,i)=>`<label class="small" style="margin-right:6px"><input type="checkbox" data-rec="${r.id}" data-pl="${i}" ${(pl.recipes||[]).includes(r.id)?'checked':''}> ${esc(pl.name)}</label>`).join('');
-      return `<tr><td>${esc(it?it.name:r.producesItemId)}</td><td>${esc(r.tier)}</td><td>${r.starter?'starter':'found'}</td><td>${checks}</td></tr>`;
-    }).join('')+`</table>`;
-  }).join('');
-  wrap.querySelectorAll('[data-rec]').forEach(cb=>cb.onchange=()=>{
-    const pl=S.players[+cb.dataset.pl], id=cb.dataset.rec; pl.recipes=pl.recipes||[];
-    if(cb.checked){if(!pl.recipes.includes(id))pl.recipes.push(id);} else pl.recipes=pl.recipes.filter(x=>x!==id);
-    commit();
-  });
+  const itemOf=(r)=>CONS.consumables.find(i=>i.id===r.producesItemId);
+  const knownBy=(r)=>S.players.filter(pl=>(pl.recipes||[]).includes(r.id));
+  const match=(r)=>{
+    const it=itemOf(r), nm=(it?it.name:r.producesItemId).toLowerCase();
+    if(RECFILTER.q&&!nm.includes(RECFILTER.q.toLowerCase())) return false;
+    if(RECFILTER.disc&&r.discipline!==RECFILTER.disc) return false;
+    if(RECFILTER.known==='known'&&!knownBy(r).length) return false;
+    if(RECFILTER.known==='unknown'&&knownBy(r).length) return false;
+    if(/^p\d+$/.test(RECFILTER.known)){const pl=S.players[+RECFILTER.known.slice(1)]; if(!pl||!(pl.recipes||[]).includes(r.id)) return false;}
+    return true;
+  };
+  function draw(){
+    wrap.querySelector('#rlist').innerHTML=discs.map(d=>{
+      const rs=CONS.recipes.filter(r=>r.discipline===d&&match(r));
+      if(!rs.length) return '';
+      return `<h3>${esc(d)}</h3><div class="cardgrid">`+rs.map(r=>{
+        const it=itemOf(r);
+        const face=it?consCard(it,{}):`<div class="gcard incomplete"><div class="chead"><span class="cname">${esc(r.producesItemId)}</span></div><div class="single"><span class="inc-badge">ITEM MISSING</span></div></div>`;
+        const checks=S.players.map((pl,i)=>`<label class="small" style="margin-right:6px;white-space:nowrap"><input type="checkbox" data-rec="${r.id}" data-pl="${i}" ${(pl.recipes||[]).includes(r.id)?'checked':''}> ${esc(pl.name)}</label>`).join('');
+        return `<div class="gitem">${face}
+          <div class="ownctl"><span class="tag">${esc(r.tier)} recipe · ${r.starter?'starter':'found'}</span></div>
+          <div class="ownctl" style="flex-wrap:wrap">${checks}</div></div>`;
+      }).join('')+`</div>`;
+    }).join('')||'<p class="mut small">No recipes match the filter.</p>';
+    wrap.querySelectorAll('[data-rec]').forEach(cb=>cb.onchange=()=>{
+      const pl=S.players[+cb.dataset.pl], id=cb.dataset.rec; pl.recipes=pl.recipes||[];
+      if(cb.checked){if(!pl.recipes.includes(id))pl.recipes.push(id);} else pl.recipes=pl.recipes.filter(x=>x!==id);
+      commit();
+    });
+  }
+  ['q:rq','disc:rdisc','known:rknown'].forEach(m=>{const[k,id]=m.split(':');const e=wrap.querySelector('#'+id);e.oninput=e.onchange=()=>{RECFILTER[k]=e.value;draw();};});
+  draw();
 }
 
 /* ── Tab 5: Proficiencies ── */
