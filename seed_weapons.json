@@ -1834,7 +1834,1950 @@
         {
           "name": "Punch Through",
           "timings": [
+            "normal",{
+  "_meta": {
+    "file": "seed_weapons.json",
+    "authority": "CANONICAL for weapon card text. Design .md docs hold rulings, sim results, and rationale only.",
+    "counts": {
+      "weapons": 33,
+      "cards": 99,
+      "sets": {
+        "confirmed8": 8,
+        "promoted8": 8,
+        "wave2": 17
+      }
+    },
+    "timingValues": [
+      "fast",
+      "normal",
+      "slow",
+      "any",
+      "react",
+      "ondraw"
+    ],
+    "badgeValues": [
+      "POISED",
+      "EXHAUST",
+      "2 ACT",
+      "ON DRAW"
+    ],
+    "schemaNote": "badges extends beyond POISED|EXHAUST - '2 ACT' (Flail) and 'ON DRAW' (Ritual Knife, Greatbow) are legacy badges in use. Renderer must handle all four.",
+    "laws": [
+      "Phases are never a power tier - a Fast card may carry the set's biggest number.",
+      "Budget lives at the SET level - one card of three may hog it.",
+      "No card reads enemy HP totals.",
+      "No kill-attribution mechanics.",
+      "Economy-warping effects (future-turn debt, deck growth) are class-tier, not weapon-tier.",
+      "Weapons have no sockets and no Encore - they are the die-free / keyword-free fallback."
+    ],
+    "pendingDecisions": [
+      "Twin Chakrams: APPROVED re-run with 'draw to 6 ignoring returned Chakrams'. Card text below is the pre-fix locked state - do not print until the re-run settles. Pre-declared trim: Chakram Arc 4 -> 3.",
+      "The Gorger: APPROVED re-run with a Gorging-Edge-priority prelude. If median stays under +3, Feed the Blade grants 3 Glut instead of 2.",
+      "The Unbound Codex: recommendation is POISED on Chapter III only (cleanup discards write the story for free; holding I and II fights it). Text below keeps POISED on all three pending the call."
+    ]
+  },
+  "weapons": [
+    {
+      "id": "greataxe",
+      "name": "Greataxe",
+      "set": "confirmed8",
+      "identity": "Brutal, swingy burst - big variable hits that spike or whiff, a steady guard to fall back on, and a heavy finisher.",
+      "damageType": "Physical",
+      "tags": [
+        "spiky",
+        "swingy",
+        "heavy burst"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Cleave",
+          "timings": [
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d12** Physical."
+        },
+        {
+          "name": "Heavy Guard",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Gain **5** Block."
+        },
+        {
+          "name": "Decapitate",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d12+5** Physical."
+        }
+      ]
+    },
+    {
+      "id": "maul",
+      "name": "Maul",
+      "set": "confirmed8",
+      "identity": "Break them, then cash the break - heavy blows that pile on Stagger and a finisher that doubles once a foe is broken.",
+      "damageType": "Physical",
+      "tags": [
+        "spiky",
+        "stagger payoff"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Crush",
+          "timings": [
             "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d10** Physical."
+        },
+        {
+          "name": "Stagger Blow",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **5** Physical and apply **1 Stagger**."
+        },
+        {
+          "name": "Skullcrack",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d12+1** Physical. If the target is at or over its Stagger threshold, deal **+1d12**."
+        }
+      ]
+    },
+    {
+      "id": "halberd",
+      "name": "Halberd",
+      "set": "confirmed8",
+      "identity": "Disciplined reach - three steady, reliable pokes with no wild dice.",
+      "damageType": "Physical",
+      "tags": [
+        "consistent",
+        "static",
+        "reach",
+        "control"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Skewer",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **6** Physical."
+        },
+        {
+          "name": "Keep Distance",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **3** Physical and apply **1 Stagger**."
+        },
+        {
+          "name": "Phalanx Set",
+          "timings": [
+            "slow",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Deal **4** Physical and gain **3** Block."
+        }
+      ]
+    },
+    {
+      "id": "sword-and-shield",
+      "name": "Sword & Shield",
+      "set": "confirmed8",
+      "identity": "The protector - modest reliable damage paired with real block, and a slam that shields an ally.",
+      "damageType": "Physical",
+      "tags": [
+        "consistent",
+        "defensive support"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Sword Blow",
+          "timings": [
+            "normal",
+            "fast"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d8+2** Physical."
+        },
+        {
+          "name": "Shield Wall",
+          "timings": [
+            "fast",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Gain **6** Block."
+        },
+        {
+          "name": "Shield Slam",
+          "timings": [
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy + Ally",
+          "effect": "Deal **1d8** Physical and give an ally **4** Block."
+        }
+      ]
+    },
+    {
+      "id": "daggers",
+      "name": "Daggers",
+      "set": "confirmed8",
+      "identity": "Quick and relentless - load Empower, then dump it across a flurry of small hits. Weak against armor.",
+      "damageType": "Physical",
+      "tags": [
+        "multi-hit",
+        "empower combo"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Setup Slice",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d4** Physical and gain **Empower 2**."
+        },
+        {
+          "name": "Twin Fangs",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d6** Physical, **twice**."
+        },
+        {
+          "name": "Coup",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d4** Physical, **three times**. (Empower boosts each hit.)"
+        }
+      ]
+    },
+    {
+      "id": "crossbow",
+      "name": "Crossbow",
+      "set": "confirmed8",
+      "identity": "Heavy, deliberate shots - a solid bolt, a reload that sharpens aim, and an armor-piercing finisher. Pure offense, no block.",
+      "damageType": "Physical",
+      "tags": [
+        "spiky",
+        "ranged",
+        "piercing"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Bolt",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d10** Physical."
+        },
+        {
+          "name": "Reload",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Gain **1 Strength** and **1 Focus** this turn."
+        },
+        {
+          "name": "Piercing Bolt",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **2d8** Physical, **Piercing** - ignores Armor."
+        }
+      ]
+    },
+    {
+      "id": "staff-focus",
+      "name": "Staff / Focus",
+      "set": "confirmed8",
+      "identity": "The arcane all-rounder - reliable magic damage, a lasting ward, and an overcharged blast that weakens.",
+      "damageType": "Magical",
+      "tags": [
+        "consistent",
+        "caster gear"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Arcane Bolt",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d10** Magical."
+        },
+        {
+          "name": "Ward",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Gain **5** Block and **1 Magic Armor** (Permanent)."
+        },
+        {
+          "name": "Overchannel",
+          "timings": [
+            "slow",
+            "normal"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **2d8** Magical and apply **Weaken 2**."
+        }
+      ]
+    },
+    {
+      "id": "wand-catalyst",
+      "name": "Wand / Catalyst",
+      "set": "confirmed8",
+      "identity": "A fire caster's tool - a reliable spark, a kindling flame, and a pyre that flares against a burning foe.",
+      "damageType": "Magical",
+      "tags": [
+        "spiky",
+        "burn"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Tinder",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **5** Magical."
+        },
+        {
+          "name": "Kindle",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Apply **Burn** and deal **2** Magical."
+        },
+        {
+          "name": "Pyre",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d6** Magical and apply **Burn**. If the target is already Burning, deal **+1d6**."
+        }
+      ]
+    },
+    {
+      "id": "flail",
+      "name": "Flail",
+      "set": "promoted8",
+      "identity": "A gambler's weapon - one all-in swing of pure variance, a sweeping crowd hit, and a self-empowering smash.",
+      "damageType": "Physical",
+      "tags": [
+        "spiky",
+        "high variance",
+        "gambler"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Mountain's Weight",
+          "timings": [
+            "any"
+          ],
+          "badges": [
+            "2 ACT",
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d20** Physical. Costs **2 actions** (any). Resolves at Slow."
+        },
+        {
+          "name": "Flail Around",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "All Enemies",
+          "effect": "Deal **1d6** Physical to **ALL** enemies."
+        },
+        {
+          "name": "Crunch & Shatter",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **3** Physical. You gain **+1 Strength/Focus** this turn."
+        }
+      ]
+    },
+    {
+      "id": "censer",
+      "name": "Censer",
+      "set": "promoted8",
+      "identity": "A caster's support tool - build focus, shield an ally, choke a foe with toxic smoke.",
+      "damageType": "Magical",
+      "tags": [
+        "consistent",
+        "support",
+        "dot"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Invigorating Miasma",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Gain **2 Focus** this turn."
+        },
+        {
+          "name": "Create Cover",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Ally or Self",
+          "effect": "Gain **1d10+1** Block."
+        },
+        {
+          "name": "Toxins Abound",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d4** Magical and apply **2 Poison**."
+        }
+      ]
+    },
+    {
+      "id": "cursed-mask",
+      "name": "Cursed Mask",
+      "set": "promoted8",
+      "identity": "A weapon of perception and dread - see the perfect strike, unnerve a foe, read an ally's intent.",
+      "damageType": "Magical",
+      "tags": [
+        "precision",
+        "mind"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Unnatural Vision",
+          "timings": [
+            "fast"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Self",
+          "effect": "Gain **Precise** for one attack this turn (rolls its **max** die)."
+        },
+        {
+          "name": "Unnerving Gaze",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d8+1** Magical."
+        },
+        {
+          "name": "Read Thoughts",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Ally",
+          "effect": "That ally gains **Empower 2**."
+        }
+      ]
+    },
+    {
+      "id": "ritual-knife",
+      "name": "Ritual Knife",
+      "set": "promoted8",
+      "identity": "Blood magic that bypasses armor - pierce the soul, spend your own blood for power, feed the blade to bend your timing.",
+      "damageType": "Magical",
+      "tags": [
+        "risk/reward",
+        "piercing",
+        "blood"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Pierce Soul",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d4+1** Magical **Piercing**, **twice**."
+        },
+        {
+          "name": "Blood Sacrifice",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Take **1d4+2** Magical **Piercing**. Gain **+2 Strength and Focus** next turn."
+        },
+        {
+          "name": "The Blade Yearns for Blood",
+          "timings": [
+            "ondraw"
+          ],
+          "badges": [
+            "ON DRAW",
+            "EXHAUST"
+          ],
+          "target": "Self - auto when drawn",
+          "effect": "Take **1d4** Magical **Piercing**. Change one timing slot to **ANY** this turn."
+        }
+      ]
+    },
+    {
+      "id": "channeling-brush",
+      "name": "Channeling Brush",
+      "set": "promoted8",
+      "identity": "Paint life or shadow - a lingering heal, a staggering spiral of void, a withering sight.",
+      "damageType": "Magical",
+      "tags": [
+        "versatile",
+        "heal",
+        "control"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Lush Landscape",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Ally or Self",
+          "effect": "Heal **2** and apply **Regen 2**."
+        },
+        {
+          "name": "Darkening Spiral",
+          "timings": [
+            "fast",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **3** Magical and apply **1 Stagger**."
+        },
+        {
+          "name": "Vile Sight",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **2d6** Magical and apply **Weaken 1**."
+        }
+      ]
+    },
+    {
+      "id": "frost-wand",
+      "name": "Frost Wand",
+      "set": "promoted8",
+      "identity": "A chilling control weapon - stagger with frost, cash the freeze when the threshold breaks, shell up behind crystal.",
+      "damageType": "Magical",
+      "tags": [
+        "consistent",
+        "control",
+        "stagger",
+        "defense"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Frostbite",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d10** Magical and apply **1 Stagger**."
+        },
+        {
+          "name": "Freezing Shatter",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Apply **1 Stagger** and deal **2d6** Magical. If the Stagger threshold is met this turn, deal **+2d6**."
+        },
+        {
+          "name": "Crystal Shell",
+          "timings": [
+            "fast",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Gain **1 Armor**, then gain **2d4** Block."
+        }
+      ]
+    },
+    {
+      "id": "greatbow",
+      "name": "Greatbow",
+      "set": "promoted8",
+      "identity": "Charge and release - bank arrows as Persistent tokens outside your deck, then loose them all at once.",
+      "damageType": "Physical",
+      "tags": [
+        "charge & release",
+        "ranged",
+        "persistent"
+      ],
+      "trackers": [
+        "Persistent arrow tokens"
+      ],
+      "cards": [
+        {
+          "name": "Unleash Arrow",
+          "timings": [
+            "any"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d10**, **+4** for each Persistent arrow. Then sacrifice all arrows."
+        },
+        {
+          "name": "Prepare Arrow",
+          "timings": [
+            "ondraw"
+          ],
+          "badges": [
+            "ON DRAW"
+          ],
+          "target": "Self - auto when drawn",
+          "effect": "Becomes a **Persistent arrow token** (out of deck). Does nothing until Unleash fires."
+        },
+        {
+          "name": "Prepare Arrow",
+          "timings": [
+            "ondraw"
+          ],
+          "badges": [
+            "ON DRAW"
+          ],
+          "target": "Self - auto when drawn",
+          "effect": "Becomes a **Persistent arrow token** (out of deck). Does nothing until Unleash fires."
+        }
+      ]
+    },
+    {
+      "id": "chains",
+      "name": "Chains",
+      "set": "promoted8",
+      "identity": "A reactive weapon that cheats extra plays - Reacts cost no timing slot, paid for with lower numbers and hand pressure.",
+      "damageType": "Magical",
+      "tags": [
+        "react economy",
+        "sap",
+        "sustain"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Draining Grasp",
+          "timings": [
+            "react"
+          ],
+          "badges": [],
+          "target": "When targeted - Enemy",
+          "effect": "Deal **1d4+1** Magical. Heal yourself for the same amount."
+        },
+        {
+          "name": "Set Up",
+          "timings": [
+            "react"
+          ],
+          "badges": [],
+          "target": "When an ally attacks - Enemy",
+          "effect": "Deal **1d6**."
+        },
+        {
+          "name": "Drain Strength",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d4** Magical. The enemy loses **1 Strength and Focus** (1 turn); you gain **1 Strength and Focus** (1 turn)."
+        }
+      ]
+    },
+    {
+      "id": "arquebus",
+      "name": "Arquebus",
+      "set": "wave2",
+      "identity": "One thunderclap, then housekeeping - hold the shot POISED, hunt the reload, let the bayonet keep you honest.",
+      "damageType": "Physical",
+      "tags": [
+        "spiky",
+        "ranged",
+        "load & fire"
+      ],
+      "trackers": [
+        "Loaded token (combat starts Loaded)"
+      ],
+      "cards": [
+        {
+          "name": "Thunder Barrel",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [
+            "POISED"
+          ],
+          "target": "Enemy",
+          "effect": "Playable only while the Arquebus is **Loaded**: deal **2d10** Physical. It becomes **Unloaded**."
+        },
+        {
+          "name": "Ramrod & Powder",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "**Load** the Arquebus. Gain **2** Block."
+        },
+        {
+          "name": "Bayonet Brace",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d6+2** Physical."
+        }
+      ]
+    },
+    {
+      "id": "war-banner",
+      "name": "War Banner",
+      "set": "wave2",
+      "identity": "A weapon you plant, not swing - the standard turns every order into an echo.",
+      "damageType": "None",
+      "tags": [
+        "support",
+        "plantable persistent",
+        "party aura"
+      ],
+      "trackers": [
+        "Planted / not planted"
+      ],
+      "cards": [
+        {
+          "name": "Plant the Standard",
+          "timings": [
+            "any"
+          ],
+          "badges": [],
+          "target": "Persistent - Party",
+          "effect": "Place in your Persistent zone: each maintenance (beneficial step), every ally including you heals **1**. Unique; cannot be attacked; out of your deck while planted."
+        },
+        {
+          "name": "Rally Behind Me",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Self or Ally",
+          "effect": "Give **4** Block. While the Standard is planted: **repeat this**, same or different target."
+        },
+        {
+          "name": "Hold the Line!",
+          "timings": [
+            "fast"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Ally",
+          "effect": "Give one ally **Empower 3** this turn. While the Standard is planted: **repeat this**, same or different ally."
+        }
+      ]
+    },
+    {
+      "id": "flensing-blades",
+      "name": "Flensing Blades",
+      "set": "wave2",
+      "identity": "Open the vein and let the whole party drink - the Bleed carrier.",
+      "damageType": "Physical",
+      "tags": [
+        "multi-hit",
+        "bleed carrier"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Flensing Cut",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d4+1** Physical and apply **Bleed**."
+        },
+        {
+          "name": "Peel",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d8** Physical; **+3** if the target is **Bleeding**."
+        },
+        {
+          "name": "Open Every Vein",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d4** Physical, **4 times**."
+        }
+      ]
+    },
+    {
+      "id": "unbound-codex",
+      "name": "The Unbound Codex",
+      "set": "wave2",
+      "identity": "A story told in order - write the chapters into the discard one by one, then end the book.",
+      "damageType": "Magical",
+      "tags": [
+        "sequence ramp",
+        "discard as memory"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Chapter I - Kindling",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [
+            "POISED"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **4** Magical."
+        },
+        {
+          "name": "Chapter II - Rising Storm",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [
+            "POISED"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d8** Magical; **+4** if Chapter I is in your discard pile."
+        },
+        {
+          "name": "Chapter III - The Unmaking",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "POISED",
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d8** Magical; if Chapters I **and** II are both in your discard pile: deal **3d8** instead."
+        }
+      ]
+    },
+    {
+      "id": "retiarius",
+      "name": "Retiarius",
+      "set": "wave2",
+      "identity": "Net first, trident second - reads committed intents and punishes the foe who wound up a heavy blow.",
+      "damageType": "Physical",
+      "tags": [
+        "control",
+        "intent punisher"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Cast the Net",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Apply **1 Stagger**; **2 Stagger** instead if the target has a committed **Slow** action this round."
+        },
+        {
+          "name": "Trident Thrust",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d8+1** Physical."
+        },
+        {
+          "name": "No Escape",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **2d6** Physical, **+1d6 per Stagger** currently on the target (max +3d6)."
+        }
+      ]
+    },
+    {
+      "id": "twin-chakrams",
+      "name": "Twin Chakrams",
+      "set": "wave2",
+      "identity": "They always come back - three blades that never touch your discard, taxing your hand instead.",
+      "damageType": "Physical",
+      "tags": [
+        "consistent",
+        "ranged",
+        "returns to hand"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Chakram Arc",
+          "timings": [
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **4** Physical. **Returns to your hand** instead of discarding."
+        },
+        {
+          "name": "Split Throw",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Two Enemies",
+          "effect": "Deal **2** Physical to each of **two** different enemies. **Returns to your hand**."
+        },
+        {
+          "name": "The Long Curve",
+          "timings": [
+            "slow"
+          ],
+          "badges": [],
+          "target": "Two Enemies",
+          "effect": "Deal **1d6** Physical to one enemy and **2** to another. **Returns to your hand**."
+        }
+      ]
+    },
+    {
+      "id": "siegebreaker-pick",
+      "name": "Siegebreaker Pick",
+      "set": "wave2",
+      "identity": "Armor is a suggestion - chip it away for good, punish anyone who wears it, schedule the round the wall comes down.",
+      "damageType": "Physical",
+      "tags": [
+        "tech",
+        "anti-armor",
+        "sunder"
+      ],
+      "trackers": [
+        "Armor reduction per enemy"
+      ],
+      "cards": [
+        {
+          "name": "Sunder Plate",
+          "timings": [
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d4** Physical; reduce the target's **Armor by 1** for the rest of combat (min 0)."
+        },
+        {
+          "name": "Crack the Shell",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d8+1** Physical; **1d12+2** instead if the target has any Armor or Bulwark."
+        },
+        {
+          "name": "Bring Down the Wall",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d12** Physical, **Piercing**. The target's Armor is reduced by **2** for the whole of **next round**."
+        }
+      ]
+    },
+    {
+      "id": "the-gorger",
+      "name": "The Gorger",
+      "set": "wave2",
+      "identity": "Feed it your dead draws - every exhausted card becomes permanent Glut.",
+      "damageType": "Physical",
+      "tags": [
+        "ramp",
+        "feed & grow"
+      ],
+      "trackers": [
+        "Glut die (0-6)"
+      ],
+      "cards": [
+        {
+          "name": "Feed the Blade",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "**Exhaust** a card from your hand (removed for this combat): the Gorger gains **2 Glut** (max 6)."
+        },
+        {
+          "name": "Gorging Edge",
+          "timings": [
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d4 + Glut** Physical."
+        },
+        {
+          "name": "Disgorge",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d6 + 2 per Glut** Physical."
+        }
+      ]
+    },
+    {
+      "id": "navigators-sextant",
+      "name": "Navigator's Sextant",
+      "set": "wave2",
+      "identity": "Knowledge instead of luck - fish the bottom of your deck, rig the top, cash the reveal.",
+      "damageType": "Magical",
+      "tags": [
+        "utility",
+        "deck-order control"
+      ],
+      "trackers": [
+        "Ordered deck required"
+      ],
+      "cards": [
+        {
+          "name": "Chart the Stars",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Look at the **bottom 3** cards of your deck. **Play one of them** in this card's place (any printed timing); return the rest to the bottom in any order."
+        },
+        {
+          "name": "Guiding Star",
+          "timings": [
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d8** Magical. You may first look at your deck's **top card** and put it on the **bottom**."
+        },
+        {
+          "name": "Read the Heavens",
+          "timings": [
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "**Reveal** the top card of your deck: deal **5** Magical; **9** if it is a **Slow** card."
+        }
+      ]
+    },
+    {
+      "id": "sunblade-moonblade",
+      "name": "Sunblade & Moonblade",
+      "set": "wave2",
+      "identity": "Two blades, one turn - hold both POISED, sacrifice the draws, wait for the eclipse.",
+      "damageType": "Physical",
+      "tags": [
+        "burst",
+        "paired",
+        "same-turn combo"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Sunblade",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [
+            "POISED"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d6** Physical. **Eclipse:** if you play Moonblade this turn, **+3**."
+        },
+        {
+          "name": "Moonblade",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [
+            "POISED"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d6** Physical and heal yourself **2**. **Eclipse:** if you play Sunblade this turn, **+3**."
+        },
+        {
+          "name": "Total Eclipse",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **2d6+2** Physical; **3d6+3** instead if you played **both blades** this turn."
+        }
+      ]
+    },
+    {
+      "id": "puppeteers-strings",
+      "name": "Puppeteer's Strings",
+      "set": "wave2",
+      "identity": "Every read at the top of the round - redirect the blow, fray the string, weaken the arm.",
+      "damageType": "Magical",
+      "tags": [
+        "control",
+        "intent manipulation"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Tug the Line",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d4+1** Magical and apply **Weaken 1**."
+        },
+        {
+          "name": "Marionette",
+          "timings": [
+            "fast"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d6** Magical; one enemy's committed attack this round targets **you** instead."
+        },
+        {
+          "name": "Fray the Strings",
+          "timings": [
+            "fast"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Choose one enemy's committed, unresolved action this round: it deals **half damage** (rounded down) when it resolves."
+        }
+      ]
+    },
+    {
+      "id": "poisoners-toolkit",
+      "name": "Poisoner's Toolkit",
+      "set": "wave2",
+      "identity": "Doesn't apply the plague - conducts it. Copy conditions across the field, pull ticks forward, harvest the soup.",
+      "damageType": "Magical",
+      "tags": [
+        "condition tech",
+        "copy",
+        "accelerate",
+        "harvest"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Vector",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **2** Magical. **Copy** one Bleed, Burn, or Poison from the target onto **another enemy** (at its current value)."
+        },
+        {
+          "name": "Aggravate",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d6** Magical. The target's Poison and Burn **tick immediately** (advancing them). If it has neither, apply **Poison 2**."
+        },
+        {
+          "name": "Symptom's End",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d4** Magical, **+3 for each different condition** on the target (Bleed, Burn, Poison, Weaken, Stagger; max +9)."
+        }
+      ]
+    },
+    {
+      "id": "duelists-rapier",
+      "name": "Duelist's Rapier",
+      "set": "wave2",
+      "identity": "Reads your own blood - sharpest when pristine, deadliest when cornered, ordinary in between.",
+      "damageType": "Physical",
+      "tags": [
+        "hp-state",
+        "strong at the extremes"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Pristine Form",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d6+1** Physical; **+3** if you are at **full HP**."
+        },
+        {
+          "name": "High Guard, Low Cut",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Self / Enemy",
+          "effect": "**Above half HP:** gain **4** Block and apply **Weaken 1** to one enemy. **At or below half:** deal **1d6+3** Physical."
+        },
+        {
+          "name": "Desperate Lunge",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d8** Physical; **+4** if you are **below half HP**."
+        }
+      ]
+    },
+    {
+      "id": "grudgekeeper",
+      "name": "Grudgekeeper",
+      "set": "wave2",
+      "identity": "The mirror remembers - catch the worst blow you took and hand it back, in kind and in type.",
+      "damageType": "Mirrored",
+      "tags": [
+        "reactive",
+        "damage memory"
+      ],
+      "trackers": [
+        "Grudge value (one stored)"
+      ],
+      "cards": [
+        {
+          "name": "Catch the Blow",
+          "timings": [
+            "react"
+          ],
+          "badges": [],
+          "target": "React - an enemy's hit damages you",
+          "effect": "Gain **2** Block. Record the **post-mitigation** HP damage taken as your **Grudge** (one stored; a new one replaces the old)."
+        },
+        {
+          "name": "Return to Sender",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal damage equal to your **Grudge**, in its original type (max **12**). Clear it."
+        },
+        {
+          "name": "Spiteful Edge",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **3** Physical; **+3** if a Grudge is stored."
+        }
+      ]
+    },
+    {
+      "id": "lifespring-gauntlets",
+      "name": "Lifespring Gauntlets",
+      "set": "wave2",
+      "identity": "Every heal is a downpayment on violence - being mended charges the gauntlets.",
+      "damageType": "Physical",
+      "tags": [
+        "support glue",
+        "charged by healing"
+      ],
+      "trackers": [
+        "Vitality die (0-3)"
+      ],
+      "cards": [
+        {
+          "name": "Drink Deep",
+          "timings": [
+            "react"
+          ],
+          "badges": [],
+          "target": "React - when you are healed (1x / round)",
+          "effect": "Gain **1 Vitality** (max 3). Regen ticks and item heals both count."
+        },
+        {
+          "name": "Surging Fist",
+          "timings": [
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d6+1** Physical. You may spend all Vitality: **+2 per Vitality** spent."
+        },
+        {
+          "name": "Font of Strength",
+          "timings": [
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d6** Physical and heal yourself **2**."
+        }
+      ]
+    },
+    {
+      "id": "ricochet-sling",
+      "name": "Ricochet Sling",
+      "set": "wave2",
+      "identity": "Cheap damage, wild trajectories - the dice pick the victims.",
+      "damageType": "Physical",
+      "tags": [
+        "chaos spray",
+        "ranged",
+        "random targets"
+      ],
+      "trackers": [],
+      "cards": [
+        {
+          "name": "Skipping Stone",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d6** Physical; then **3** Physical to a **random other** enemy."
+        },
+        {
+          "name": "Chaos Bounce",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **1d8** Physical; then **1d4** to a **random other** enemy, **twice**."
+        },
+        {
+          "name": "Bank Shot",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Random Enemy",
+          "effect": "Deal **3d6** Physical to a **random** enemy."
+        }
+      ]
+    },
+    {
+      "id": "grindstone-falx",
+      "name": "Grindstone Falx",
+      "set": "wave2",
+      "identity": "Patience is the edge - every reshuffle sharpens it, every mill hurries the clock.",
+      "damageType": "Physical",
+      "tags": [
+        "attrition ramp",
+        "reshuffle clock"
+      ],
+      "trackers": [
+        "Reshuffle count die"
+      ],
+      "cards": [
+        {
+          "name": "Whetted Strike",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal **4** Physical, **+2 per time your deck has reshuffled** this combat."
+        },
+        {
+          "name": "Grind On",
+          "timings": [
+            "any"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Heal yourself **3**. **Mill 5:** put the top 5 cards of your deck into your discard pile. (Mills never fire when-drawn or Encore effects.)"
+        },
+        {
+          "name": "The Patient Edge",
+          "timings": [
+            "slow"
+          ],
+          "badges": [
+            "EXHAUST"
+          ],
+          "target": "Enemy",
+          "effect": "Deal **1d6** Physical, **+3 per reshuffle** this combat."
+        }
+      ]
+    },
+    {
+      "id": "hatchets",
+      "name": "Hatchets",
+      "set": "Rabenberg",
+      "identity": "flexibility & spread",
+      "damageType": "Physical",
+      "tags": [
+        "flexibility & spread",
+        "Rabenberg"
+      ],
+      "trackers": [
+        "flexibility & spread",
+        "Rabenberg"
+      ],
+      "cards": [
+        {
+          "name": "Hack",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d4 Physical damage, twice."
+        },
+        {
+          "name": "Thrown Hatchet",
+          "timings": [
+            "fast",
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 4 Physical Damage"
+        },
+        {
+          "name": "Both Blades",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 3 Physical damage to each of two different enemies. If there is only one enemy instead deal 1d12+1 Physical."
+        }
+      ]
+    },
+    {
+      "id": "militia-spear",
+      "name": "Militia Spear",
+      "set": "Rabenberg",
+      "identity": "safe damage",
+      "damageType": "Physical",
+      "tags": [
+        "Rabenberg"
+      ],
+      "trackers": [
+        "Rabenberg"
+      ],
+      "cards": [
+        {
+          "name": "Spear Thrust",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d6+2 Physical damage."
+        },
+        {
+          "name": "Brace",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Gain 5 block"
+        },
+        {
+          "name": "Set Against the Charge",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 4 damage to an enemy and gain 2 block."
+        }
+      ]
+    },
+    {
+      "id": "bill-hook",
+      "name": "Bill Hook",
+      "set": "Rabenberg",
+      "identity": "Hook, pull & finish",
+      "damageType": "Physical",
+      "tags": [
+        "Rabenberg"
+      ],
+      "trackers": [
+        "Rabenberg"
+      ],
+      "cards": [
+        {
+          "name": "Hook & pull",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 3 damage and apply 1 stagger"
+        },
+        {
+          "name": "Bill Chop",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d8+1 Physical"
+        },
+        {
+          "name": "Drag Them Down",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d6 Physical; +3 if enemy has any stagger."
+        }
+      ]
+    },
+    {
+      "id": "arming-sword",
+      "name": "Arming Sword",
+      "set": "Rabenberg",
+      "identity": "asks nothing of you",
+      "damageType": "Physical",
+      "tags": [
+        "Rabenberg"
+      ],
+      "trackers": [
+        "Rabenberg"
+      ],
+      "cards": [
+        {
+          "name": "Cut",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d8+1 Physical damage."
+        },
+        {
+          "name": "Thrust",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d10 Physical damage."
+        },
+        {
+          "name": "Guard",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 2 Physical damage and gain 4 Block."
+        }
+      ]
+    },
+    {
+      "id": "long-knife",
+      "name": "Long-Knife",
+      "set": "Rabenberg",
+      "identity": "multi-hit",
+      "damageType": "Physical",
+      "tags": [
+        "Rabenberg"
+      ],
+      "trackers": [
+        "Rabenberg"
+      ],
+      "cards": [
+        {
+          "name": "Quick Cut",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d4 Physical Damage, twice."
+        },
+        {
+          "name": "Long Reach",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d6+1 damage"
+        },
+        {
+          "name": "Flurry",
+          "timings": [
+            "fast",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 2 damage, three times."
+        }
+      ]
+    },
+    {
+      "id": "buckler-blade",
+      "name": "Buckler & Blade",
+      "set": "Rabenberg",
+      "identity": "stand in front",
+      "damageType": "Physical",
+      "tags": [
+        "Rabenberg"
+      ],
+      "trackers": [
+        "Rabenberg"
+      ],
+      "cards": [
+        {
+          "name": "Buckler Punch",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 3 Physical and gain 3 Block."
+        },
+        {
+          "name": "Cover Him",
+          "timings": [
+            "normal"
+          ],
+          "badges": [],
+          "target": "Another Ally",
+          "effect": "Give them 5 Block."
+        },
+        {
+          "name": "Riposte",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d8+1 Physical."
+        }
+      ]
+    },
+    {
+      "id": "light-crossbow",
+      "name": "Light Crossbow",
+      "set": "Rabenberg",
+      "identity": "through the plate",
+      "damageType": "Physical",
+      "tags": [
+        "Rabenberg"
+      ],
+      "trackers": [
+        "Rabenberg"
+      ],
+      "cards": [
+        {
+          "name": "Bolt",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d8+1 Physical."
+        },
+        {
+          "name": "Punch Through",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 5 [Piercing] Physical damage. "
+        },
+        {
+          "name": "Steady Aim",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Self",
+          "effect": "Gain 2 Block. Your next attack this turn gets Empower +2."
+        }
+      ]
+    },
+    {
+      "id": "hunting-bow",
+      "name": "Hunting Bow",
+      "set": "Rabenberg",
+      "identity": "and the one behind him.",
+      "damageType": "Physical",
+      "tags": [
+        "Rabenberg"
+      ],
+      "trackers": [
+        "Rabenberg"
+      ],
+      "cards": [
+        {
+          "name": "Snap Shot",
+          "timings": [
+            "fast"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d6+2 Physical."
+        },
+        {
+          "name": "Loose",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d8+1 Physical"
+        },
+        {
+          "name": "Rain of Arrows",
+          "timings": [
+            "slow"
+          ],
+          "badges": [],
+          "target": "All enemies",
+          "effect": "Deal 1d4 Physical. "
+        }
+      ]
+    },
+    {
+      "id": "the-drunkard-s-stick",
+      "name": "The Drunkard's Stick",
+      "set": "wave2",
+      "identity": "Light & Heavy",
+      "damageType": "Physical",
+      "tags": [
+        "Brauer"
+      ],
+      "trackers": [
+        "Brauer"
+      ],
+      "cards": [
+        {
+          "name": "Drunkard's Swing",
+          "timings": [
+            "fast",
+            "normal"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d4 Magical, twice OR Deal 1d8+1 Magical"
+        },
+        {
+          "name": "Leon on it",
+          "timings": [
+            "fast",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Self/Enemy",
+          "effect": "Gain 5 Block OR Deal 3 Magical and gain 2 Block"
+        },
+        {
+          "name": "Full Weight",
+          "timings": [
+            "normal",
+            "slow"
+          ],
+          "badges": [],
+          "target": "Enemy",
+          "effect": "Deal 1d10 Magical and apply 1 Stagger OR Deal 1d6 damage to two different enemies."
+        }
+      ]
+    }
+  ]
+}
             "slow"
           ],
           "badges": [],
