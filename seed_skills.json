@@ -2,9 +2,9 @@
   "_meta": {
     "file": "seed_skills.json",
     "scope": "COMBAT-SIDE skill cards. These are cards - 3 of them sit in a 20-card loadout (14 class + 3 weapon + 3 skill). Not to be confused with story-side PROFICIENCIES (seed_reference.json).",
-    "authority": "CANONICAL for skill card text. Transcribed from skills_print_cards_63x88mm.html (Drive).",
+    "authority": "CANONICAL for skill card text. Revision 2026-08-01: user-confirmed expansion and errata pass.",
     "counts": {
-      "skillCards": 25
+      "skillCards": 44
     },
     "categories": [
       "Sustain",
@@ -21,7 +21,16 @@
       "ON DRAW"
     ],
     "printNote": "Green category bar (#2e6e62 / text #cdeee4). ON DRAW uses a purple circle (#6a4a8a) with the glyph.",
-    "nameCollisionNote": "Several skill card names match proficiency names (Herbalism, Cooking, Survival, Animal Handling, Athletics, Hunting). Under the terminology firewall these are distinct objects in distinct systems - 'the Survival skill card' vs 'trained in Survival'. Cosmetic, accepted, flagged for table clarity.",
+    "revision_2026_08_01": {
+      "errata": [
+        "Endurance: caps only the FIRST hit this turn (was every hit until your next turn).",
+        "Keen Eye: works on non-stash attacks only."
+      ],
+      "split": "Alchemy removed; replaced by Cinderbrand (Burn) and Venomcraft (Poison 3), one rider each.",
+      "renames": "Herbalism>Poultice, Cooking>Hearty Meal, Blacksmithing>Whetstone, Survival>Sidestep, Hunting>Take Aim, Animal Handling>Wild Companion, Athletics>Sprint.",
+      "added": "18 new cards, user-selected from a 30-candidate slate. All conditionals read persistent board state (a condition on the enemy, your Block) - never a second card in the same hand.",
+      "ruleNote": "Regen decays: heals N at end of round, then N drops by 1 (mirror of Poison)."
+    },
     "REMOVED_DO_NOT_REINSTATE": {
       "removed": [
         "Potionmaking",
@@ -31,9 +40,10 @@
         "and all 8 brewed cards (Snare, Poisoner, Healing Draught x3, Improvised Bomb x3)"
       ],
       "reason": "Crafting is story-side only: a camp action, six disciplines gated by proficiencies, output going to the pouch. The old Crafting skill cards produced brewed cards into the DECK or STASH, which violates the pouch-isolation law (pouch cards are never in hand, deck, or discard) and duplicated four pouch consumables one-for-one.",
-      "decision": "Removed by design call. The skill pool is 25 cards. Four slots are free for future design.",
+      "decision": "Removed by design call, confirmed 2026-08-01. The skill pool is 44 cards after the expansion.",
       "guard": "Do not re-add crafting to the skill pool. If a combat-side crafting verb is ever wanted, it must not create cards in the deck or stash, and it must not duplicate a pouch consumable."
-    }
+    },
+    "nameCollisionNote": "RESOLVED 2026-08-01: every skill card that shared a name with a proficiency has been renamed (see revision_2026_08_01.renames). No skill card now collides with a proficiency or a crafting discipline."
   },
   "skillCards": [
     {
@@ -65,8 +75,8 @@
       "notes": ""
     },
     {
-      "id": "sk-herbalism",
-      "name": "Herbalism",
+      "id": "sk-poultice",
+      "name": "Poultice",
       "category": "Sustain",
       "timings": [
         "normal",
@@ -76,11 +86,11 @@
       "target": "Self or Ally",
       "effect": "Apply **Regen 3** (heals over several rounds).",
       "status": "active",
-      "notes": "Name matches the Herbalism & Alchemy proficiency - different system, accepted collision."
+      "notes": "Renamed from Herbalism 2026-08-01 - proficiency collision resolved. Regen decays: heals N, then N drops by 1."
     },
     {
-      "id": "sk-cooking",
-      "name": "Cooking",
+      "id": "sk-hearty-meal",
+      "name": "Hearty Meal",
       "category": "Sustain",
       "timings": [
         "slow"
@@ -89,7 +99,34 @@
       "target": "Self or Ally",
       "effect": "Heal **3**; that ally gains **+1 Strength & Focus** next turn.",
       "status": "active",
-      "notes": ""
+      "notes": "Renamed from Cooking 2026-08-01 - collision with the Cooking crafting discipline resolved."
+    },
+    {
+      "id": "sk-rally",
+      "name": "Rally",
+      "category": "Sustain",
+      "timings": [
+        "fast",
+        "normal"
+      ],
+      "badges": [],
+      "target": "Self or Ally",
+      "effect": "That ally gains **3** Block and clears **1 Stagger**.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. The only ally Stagger-cleanse in the pool."
+    },
+    {
+      "id": "sk-evensong",
+      "name": "Evensong",
+      "category": "Sustain",
+      "timings": [
+        "slow"
+      ],
+      "badges": [],
+      "target": "All Allies",
+      "effect": "Heal all allies **1**.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. First AoE heal. Scales with party size; overheal is wasted."
     },
     {
       "id": "sk-guardsman",
@@ -114,13 +151,13 @@
       ],
       "badges": [],
       "target": "Self",
-      "effect": "Gain **Bulwark 5** until your next turn (cap each hit you take at **5**).",
+      "effect": "Gain **Bulwark 5** for the first hit you take this turn.",
       "status": "active",
-      "notes": ""
+      "notes": "ERRATA 2026-08-01: caps only the FIRST hit this turn (was: every hit until your next turn)."
     },
     {
-      "id": "sk-blacksmithing",
-      "name": "Blacksmithing",
+      "id": "sk-whetstone",
+      "name": "Whetstone",
       "category": "Defense",
       "timings": [
         "fast",
@@ -130,11 +167,51 @@
       "target": "Self",
       "effect": "Gain **1 Physical Armor** (Permanent).",
       "status": "active",
-      "notes": ""
+      "notes": "Renamed from Blacksmithing 2026-08-01 - crafting-flavoured name retired with the crafting cut."
     },
     {
-      "id": "sk-survival",
-      "name": "Survival",
+      "id": "sk-shield-wall",
+      "name": "Shield Wall",
+      "category": "Defense",
+      "timings": [
+        "normal"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Gain **4** Block. If you already have Block, gain **6** instead.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Gate reads persistent state (your Block), never a sibling card."
+    },
+    {
+      "id": "sk-brace",
+      "name": "Brace",
+      "category": "Defense",
+      "timings": [
+        "fast"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Gain **4** Block and **+1 Physical Armor** until your next turn.",
+      "status": "active",
+      "notes": "NEW 2026-08-01."
+    },
+    {
+      "id": "sk-muscle-memory",
+      "name": "Muscle Memory",
+      "category": "Defense",
+      "timings": [
+        "fast",
+        "normal"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Gain **+1 Dexterity** (Permanent).",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Whetstone's shape for the Dexterity keyword (block generation)."
+    },
+    {
+      "id": "sk-sidestep",
+      "name": "Sidestep",
       "category": "Reflexes",
       "timings": [
         "react"
@@ -143,7 +220,7 @@
       "target": "React - when attacked - Self",
       "effect": "Gain **5** Block.",
       "status": "active",
-      "notes": "Name matches the Survival proficiency - different system, accepted collision."
+      "notes": "Renamed from Survival 2026-08-01 - proficiency collision resolved."
     },
     {
       "id": "sk-bodyguard",
@@ -174,6 +251,32 @@
       "notes": "Mills never fire when-drawn effects - established scope rule."
     },
     {
+      "id": "sk-parry",
+      "name": "Parry",
+      "category": "Reflexes",
+      "timings": [
+        "react"
+      ],
+      "badges": [],
+      "target": "React - when attacked - Self",
+      "effect": "Gain **3** Block and apply **1 Stagger** to the attacker.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Trades 2 Block against Sidestep for tempo on the attacker."
+    },
+    {
+      "id": "sk-counterstroke",
+      "name": "Counterstroke",
+      "category": "Reflexes",
+      "timings": [
+        "react"
+      ],
+      "badges": [],
+      "target": "React - when attacked - Self",
+      "effect": "Gain **2** Block. If the attacker is Staggered, deal **3** Physical back.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. The only damaging React. Gate reads persistent state."
+    },
+    {
       "id": "sk-battle-hardened",
       "name": "Battle Hardened",
       "category": "Offense",
@@ -195,9 +298,9 @@
       ],
       "badges": [],
       "target": "Self",
-      "effect": "Gain **Precise** this turn - your next attack rolls its max die.",
+      "effect": "Gain **Precise** this turn - your next non-stash attack rolls its max die.",
       "status": "active",
-      "notes": ""
+      "notes": "NERF 2026-08-01: 'non-stash' added. Stash cards can no longer be max-rolled."
     },
     {
       "id": "sk-tactics",
@@ -214,8 +317,8 @@
       "notes": ""
     },
     {
-      "id": "sk-hunting",
-      "name": "Hunting",
+      "id": "sk-take-aim",
+      "name": "Take Aim",
       "category": "Offense",
       "timings": [
         "fast",
@@ -225,7 +328,36 @@
       "target": "Self",
       "effect": "Your next attack deals **+2d4**.",
       "status": "active",
-      "notes": ""
+      "notes": "Renamed from Hunting 2026-08-01 - proficiency-adjacent name retired (Hunt is a camp action)."
+    },
+    {
+      "id": "sk-feint",
+      "name": "Feint",
+      "category": "Offense",
+      "timings": [
+        "fast"
+      ],
+      "badges": [],
+      "target": "Enemy",
+      "effect": "Apply **1 Stagger** and gain **Empower 2**.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Prep card - sets up Stagger payoffs across turns, the legal combo shape."
+    },
+    {
+      "id": "sk-iron-regimen",
+      "name": "Iron Regimen",
+      "category": "Offense",
+      "timings": [
+        "normal",
+        "slow"
+      ],
+      "badges": [
+        "EXHAUST"
+      ],
+      "target": "Self",
+      "effect": "Gain **+1 Strength** (Permanent).",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Whetstone's offensive twin. EXHAUST because permanent damage snowballs where permanent armor caps."
     },
     {
       "id": "sk-brawling",
@@ -286,8 +418,48 @@
       "notes": ""
     },
     {
-      "id": "sk-alchemy",
-      "name": "Alchemy",
+      "id": "sk-hex",
+      "name": "Hex",
+      "category": "Direct & Control",
+      "timings": [
+        "normal"
+      ],
+      "badges": [],
+      "target": "Enemy",
+      "effect": "Deal **1d6** Magical. If the enemy is Weakened, apply **Weaken 2** more.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Repeatable Old Lore variant - the rider is gated on persistent state instead of EXHAUST."
+    },
+    {
+      "id": "sk-hamstring",
+      "name": "Hamstring",
+      "category": "Direct & Control",
+      "timings": [
+        "fast",
+        "normal"
+      ],
+      "badges": [],
+      "target": "Enemy",
+      "effect": "Deal **2** Physical and apply **1 Stagger**; **2 Stagger** instead if the enemy is Bleeding.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Bleed payoff. Watch item: Bleed sources are weapon-side only, so the rider is weapon-synergy tech."
+    },
+    {
+      "id": "sk-find-the-gap",
+      "name": "Find the Gap",
+      "category": "Direct & Control",
+      "timings": [
+        "fast"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Your attacks are **Piercing** this turn (ignore matching Armor).",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Fast so it resolves before the attacks it modifies. Tech card - dead vs soft targets."
+    },
+    {
+      "id": "sk-cinderbrand",
+      "name": "Cinderbrand",
       "category": "Lingering & Wild",
       "timings": [
         "normal",
@@ -295,9 +467,23 @@
       ],
       "badges": [],
       "target": "Enemy",
-      "effect": "Apply **Burn**, OR apply **Poison 3** (choose).",
+      "effect": "Apply **Burn**.",
       "status": "active",
-      "notes": "Burn refreshes duration, never stacks."
+      "notes": "Split from Alchemy 2026-08-01 (Burn half). Burn refreshes duration, never stacks."
+    },
+    {
+      "id": "sk-venomcraft",
+      "name": "Venomcraft",
+      "category": "Lingering & Wild",
+      "timings": [
+        "normal",
+        "slow"
+      ],
+      "badges": [],
+      "target": "Enemy",
+      "effect": "Apply **Poison 3**.",
+      "status": "active",
+      "notes": "Split from Alchemy 2026-08-01 (Poison half)."
     },
     {
       "id": "sk-saboteur",
@@ -313,8 +499,8 @@
       "notes": ""
     },
     {
-      "id": "sk-animal-handling",
-      "name": "Animal Handling",
+      "id": "sk-wild-companion",
+      "name": "Wild Companion",
       "category": "Lingering & Wild",
       "timings": [
         "slow"
@@ -323,11 +509,51 @@
       "target": "Self",
       "effect": "Place a Persistent critter (out of deck): deals **2** Physical to a random enemy each round.",
       "status": "active",
-      "notes": "Name matches the Animal Handling proficiency - different system, accepted collision."
+      "notes": "Renamed from Animal Handling 2026-08-01 - proficiency collision resolved."
     },
     {
-      "id": "sk-athletics",
-      "name": "Athletics",
+      "id": "sk-plague-touch",
+      "name": "Plague Touch",
+      "category": "Lingering & Wild",
+      "timings": [
+        "normal",
+        "slow"
+      ],
+      "badges": [],
+      "target": "Enemy",
+      "effect": "Apply **Poison 2**. If the enemy is already Poisoned, deal **3** Magical now.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Instant payoff instead of stacking - checks before applying."
+    },
+    {
+      "id": "sk-bramble-ward",
+      "name": "Bramble Ward",
+      "category": "Lingering & Wild",
+      "timings": [
+        "slow"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Place a Persistent bramble (out of deck): the first enemy to attack each round takes **2** Physical.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Wild Companion's cost-shape, reactive instead of random-target."
+    },
+    {
+      "id": "sk-leechcraft",
+      "name": "Leechcraft",
+      "category": "Lingering & Wild",
+      "timings": [
+        "normal"
+      ],
+      "badges": [],
+      "target": "Self or Ally",
+      "effect": "Move **1** debuff from the target onto an enemy.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Cleanse and apply in one - transfers, never copies."
+    },
+    {
+      "id": "sk-sprint",
+      "name": "Sprint",
       "category": "Tempo & Utility",
       "timings": [
         "fast"
@@ -336,7 +562,7 @@
       "target": "Self",
       "effect": "Gain **+1 Normal or Slow** play this round.",
       "status": "active",
-      "notes": "Not Fast - Fast is premium. Same law as the Nomad background."
+      "notes": "Renamed from Athletics 2026-08-01 - proficiency collision resolved. Not Fast - Fast is premium. Same law as the Nomad background."
     },
     {
       "id": "sk-second-wind",
@@ -376,6 +602,48 @@
       "effect": "Remove all debuffs from yourself and heal **2**.",
       "status": "active",
       "notes": ""
+    },
+    {
+      "id": "sk-quick-hands",
+      "name": "Quick Hands",
+      "category": "Tempo & Utility",
+      "timings": [
+        "fast"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Draw **1** card and gain **2** Block.",
+      "status": "active",
+      "notes": "NEW 2026-08-01."
+    },
+    {
+      "id": "sk-inner-flame",
+      "name": "Inner Flame",
+      "category": "Tempo & Utility",
+      "timings": [
+        "normal",
+        "slow"
+      ],
+      "badges": [
+        "EXHAUST"
+      ],
+      "target": "Self",
+      "effect": "Gain **+1 Focus** (Permanent).",
+      "status": "active",
+      "notes": "NEW 2026-08-01. Iron Regimen's caster twin. Named to avoid the Focus stat."
+    },
+    {
+      "id": "sk-shake-it-off",
+      "name": "Shake It Off",
+      "category": "Tempo & Utility",
+      "timings": [
+        "fast"
+      ],
+      "badges": [],
+      "target": "Self",
+      "effect": "Clear **2 Stagger** from yourself.",
+      "status": "active",
+      "notes": "NEW 2026-08-01. The fast Stagger-specific answer; Meditation covers debuffs at Slow."
     }
   ]
 }
